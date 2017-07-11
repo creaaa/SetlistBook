@@ -7,7 +7,7 @@ struct Song {
 
 final class SetlistViewController: UIViewController {
 
-    var numOfSongs = 1
+    var numOfSongs = 20
     lazy var songNames: [String] = Array(repeating: "", count: self.numOfSongs)
     
     @IBOutlet weak var tableView: UITableView!
@@ -30,7 +30,7 @@ final class SetlistViewController: UIViewController {
 extension SetlistViewController: UITableViewDelegate {
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
+        return 2
     }
     
 }
