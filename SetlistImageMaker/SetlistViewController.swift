@@ -7,7 +7,7 @@ struct Song {
 
 final class SetlistViewController: UIViewController {
 
-    var numOfSongs = 3
+    var numOfSongs = 1
     lazy var songNames: [String] = Array(repeating: "", count: self.numOfSongs)
     
     @IBOutlet weak var tableView: UITableView!
@@ -23,14 +23,13 @@ final class SetlistViewController: UIViewController {
         self.tableView.delegate   = self
         self.tableView.dataSource = self
         
+        self.tableView.isEditing = false
+        
         self.tableView.rowHeight = UITableViewAutomaticDimension
         self.tableView.estimatedRowHeight = 44
         
     }
     
-
-    
-
 }
 
 extension SetlistViewController: UITableViewDelegate {
@@ -59,35 +58,12 @@ extension SetlistViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 
         if indexPath.section == 1, indexPath.row == numOfSongs { // = 最後のセル
-            
             let cell = tableView.dequeueReusableCell(withIdentifier: "AddSongCell")!
-            
-            /*
-            let button = UIButton(frame: .zero)
-            button.translatesAutoresizingMaskIntoConstraints = false
-            button.backgroundColor = .blue
-            button.titleLabel?.text = "add song"
-            
-            cell.contentView.addSubview(button)
- 
-            
-            button.centerXAnchor.constraint(equalTo: cell.contentView.centerXAnchor).isActive = true
-            button.widthAnchor.constraint(equalTo: cell.contentView.widthAnchor, multiplier: 0.8).isActive = true
-            button.topAnchor.constraint(equalTo: cell.contentView.topAnchor).isActive = true
-            button.bottomAnchor.constraint(equalTo: cell.contentView.bottomAnchor).isActive = true
-            */
-            
             return cell
-            
         }
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
             as! TableViewCell
-        
-        
-        
-        //let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
-        //    as! TableViewCell
         
         cell.textField.text = self.songNames[indexPath.row]
         cell.tag = indexPath.row + 1
@@ -111,30 +87,55 @@ extension SetlistViewController: UITableViewDataSource {
         
     }
     
+    
+    
     // セルが削除が可能なことを伝えるメソッド
     func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) ->UITableViewCellEditingStyle {
-        return tableView.isEditing ? .delete : .none
+        return tableView.isEditing ? .insert : .none
     }
+
     
-    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        return true
-    }
+    // <移動系>
     
     // 並び替え可能なセルの指定(今回は"すべて")
     func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
+        if indexPath.section == 0 { return false }
+        if indexPath.section == 1, indexPath.row == self.numOfSongs  { return false }
+        
         return true
     }
     
+    
     // セルの並び替えが発動した時の処理
+    
     func tableView(_ tableView: UITableView, moveRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
-        
+        print("un")
     }
     
-    // セルをdeleteするときの処理
+    ////
+    
+    // <delete / insert 系>
+    
+    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        if indexPath.section == 0 { return false }
+        if indexPath.section == 1, indexPath.row == self.numOfSongs  { return false }
+
+        return true
+    }
+    
+    // delete / insert 発動時
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
-        
+        switch editingStyle {
+            case .delete:
+                print("きえた")
+            case .insert:
+                print("ふえた")
+                tableView.insertRows(at: [indexPath], with: .automatic)
+            
+            case .none:
+                print("なんもねえ")
+        }
     }
-    
     
 }
 
