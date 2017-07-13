@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12121" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="Tnc-oE-v1O">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12121" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="hjJ-a4-m9S">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -22,18 +22,18 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" allowsSelection="NO" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="DnV-nf-YON">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" allowsSelection="NO" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" translatesAutoresizingMaskIntoConstraints="NO" id="DnV-nf-YON">
                                 <rect key="frame" x="0.0" y="64" width="375" height="554"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="Cell" id="tge-dH-x5i" customClass="TableViewCell" customModule="SetlistImageMaker" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="28" width="375" height="44"/>
+                                        <rect key="frame" x="0.0" y="56" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="tge-dH-x5i" id="Jfe-P4-3dr" userLabel="こんてんと">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="0" borderStyle="roundedRect" placeholder="0" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="J6N-ai-MtD">
+                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="0" placeholder="0" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="J6N-ai-MtD">
                                                     <rect key="frame" x="8" y="8" width="359" height="27.5"/>
                                                     <nil key="textColor"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -52,10 +52,10 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="AddSongCell" id="f76-sE-HN3" userLabel="AddSongCell">
-                                        <rect key="frame" x="0.0" y="72" width="375" height="44"/>
+                                        <rect key="frame" x="0.0" y="100" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="f76-sE-HN3" id="YQI-fH-Kvg">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oaI-kC-k79">
@@ -109,6 +109,72 @@
             </objects>
             <point key="canvasLocation" x="-1396" y="1219"/>
         </scene>
+        <!--Launch Image Collection View Controller-->
+        <scene sceneID="W3b-vd-WR9">
+            <objects>
+                <viewController automaticallyAdjustsScrollViewInsets="NO" id="Nv3-py-OEK" customClass="LaunchImageCollectionViewController" customModule="SetlistImageMaker" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="W8p-H9-e0p"/>
+                        <viewControllerLayoutGuide type="bottom" id="5yl-Ct-Zka"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="pdI-4f-4uj">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="otohasu" translatesAutoresizingMaskIntoConstraints="NO" id="dwZ-vM-k6u">
+                                <rect key="frame" x="67" y="213.5" width="240" height="240"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="240" id="9X3-qd-y7z"/>
+                                    <constraint firstAttribute="width" constant="240" id="vNV-DK-PEG"/>
+                                </constraints>
+                            </imageView>
+                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5qh-Zf-ngF">
+                                <rect key="frame" x="0.0" y="623" width="375" height="44"/>
+                                <items>
+                                    <barButtonItem title="filter" id="CDs-Fp-q5c"/>
+                                    <barButtonItem title="setlist" id="aNd-1U-1Uh"/>
+                                </items>
+                            </toolbar>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1se-fK-SeR">
+                                <rect key="frame" x="0.0" y="533" width="375" height="80"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="80" id="yY6-cM-Vch"/>
+                                </constraints>
+                            </scrollView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="1se-fK-SeR" firstAttribute="leading" secondItem="pdI-4f-4uj" secondAttribute="leading" id="1YW-0w-kc0"/>
+                            <constraint firstItem="dwZ-vM-k6u" firstAttribute="centerY" secondItem="pdI-4f-4uj" secondAttribute="centerY" id="3ks-S0-LON"/>
+                            <constraint firstAttribute="trailing" secondItem="5qh-Zf-ngF" secondAttribute="trailing" id="7zA-jE-8qc"/>
+                            <constraint firstItem="5qh-Zf-ngF" firstAttribute="top" secondItem="1se-fK-SeR" secondAttribute="bottom" constant="10" id="D3V-ZE-EGR"/>
+                            <constraint firstItem="dwZ-vM-k6u" firstAttribute="centerX" secondItem="pdI-4f-4uj" secondAttribute="centerX" id="XvP-pW-zOB"/>
+                            <constraint firstItem="5qh-Zf-ngF" firstAttribute="leading" secondItem="pdI-4f-4uj" secondAttribute="leading" id="rYu-22-b8h"/>
+                            <constraint firstAttribute="trailing" secondItem="1se-fK-SeR" secondAttribute="trailing" id="xI2-lP-NKo"/>
+                            <constraint firstItem="5yl-Ct-Zka" firstAttribute="top" secondItem="5qh-Zf-ngF" secondAttribute="bottom" id="zwu-0L-9TE"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="36o-9S-n4p">
+                        <barButtonItem key="rightBarButtonItem" style="plain" id="BBZ-s6-Zjy">
+                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="7eB-hy-p9j">
+                                <rect key="frame" x="329" y="7" width="30" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="+"/>
+                                <connections>
+                                    <action selector="launch:" destination="Nv3-py-OEK" eventType="touchUpInside" id="ZAq-BN-WUm"/>
+                                </connections>
+                            </button>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="imageView" destination="dwZ-vM-k6u" id="1LU-Ph-RHz"/>
+                        <outlet property="scrollView" destination="1se-fK-SeR" id="WP7-J5-HMO"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="OaE-Za-hLj" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-456.80000000000001" y="2095.5022488755626"/>
+        </scene>
         <!--Item-->
         <scene sceneID="Te2-hf-BcC">
             <objects>
@@ -128,5 +194,26 @@
             </objects>
             <point key="canvasLocation" x="-226.40000000000001" y="691.304347826087"/>
         </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="FtX-Ok-Agx">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="hjJ-a4-m9S" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="GgU-2E-1uu">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="Nv3-py-OEK" kind="relationship" relationship="rootViewController" id="8Xf-r7-B31"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="7lI-Iy-yMd" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1396" y="2095.5022488755626"/>
+        </scene>
     </scenes>
+    <resources>
+        <image name="otohasu" width="400" height="600"/>
+    </resources>
 </document>

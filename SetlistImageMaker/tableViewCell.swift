@@ -2,7 +2,12 @@
 import UIKit
 
 protocol TableViewCellDelegate: class {
-     func textFieldDidEndEditing(cell: TableViewCell)
+    func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool
+    func textFieldDidEndEditing(cell: TableViewCell)
+    
+    func textFieldNextButtonTapped(cell: TableViewCell)
+    
+    
 }
 
 final class TableViewCell: UITableViewCell {
@@ -19,13 +24,10 @@ final class TableViewCell: UITableViewCell {
         textField.delegate = self
         
         makeKeyboard()
+        
     }
 
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-    }
-    
-  
+
     private func makeKeyboard() {
         
         // 仮のサイズでツールバー生成
@@ -38,11 +40,9 @@ final class TableViewCell: UITableViewCell {
         let spacer = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: self, action: nil)
         
         // 閉じるボタン
-        
         let doneButton = UIBarButtonItem(barButtonSystemItem: .done,
                                            target: self,
                                            action: #selector(doneButtonTapped))
-        
         
         let nextButton = UIBarButtonItem(title:  "next",
                                            style:  .done,
@@ -61,11 +61,18 @@ final class TableViewCell: UITableViewCell {
 
     func nextButtonTapped() {
         print("next")
+        self.delegate.textFieldNextButtonTapped(cell: self)
     }
 
 }
 
 extension TableViewCell: UITextFieldDelegate {
+    
+    // 開始時
+    func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
+        _ = self.delegate.textFieldShouldBeginEditing(textField)
+        return true
+    }
     
     // ただのキーボードキャンセル処理
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
@@ -80,18 +87,8 @@ extension TableViewCell: UITextFieldDelegate {
     // 1文字入力完了するごとに呼ばれる
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         
-        print("うんうん")
-        
-        
-        
-        return false
+        return true // ここfalseにすると、キー押しても文字入力されなくなるな..?
     }
     
-    
 }
-
-
-
-
-
 
