@@ -39,8 +39,6 @@ class LaunchImageCollectionViewController: UIViewController, UIImagePickerContro
         "CISepiaTone"
     ]
     
-    
-    
     @IBOutlet weak var imageView:  UIImageView!
     @IBOutlet weak var scrollView: UIScrollView!
     
@@ -48,6 +46,11 @@ class LaunchImageCollectionViewController: UIViewController, UIImagePickerContro
     override func viewDidLoad() {
         super.viewDidLoad()
         scrollViewSetup()
+    }
+    
+    override func viewDidLayoutSubviews() {
+        // ここでもだめ。
+        self.imageView.image = drawText(image: self.imageView.image!)
     }
 
     
@@ -61,9 +64,15 @@ class LaunchImageCollectionViewController: UIViewController, UIImagePickerContro
         }
     }
     
+    @IBAction func addSetlist(_ sender: UIBarButtonItem) {
+        guard let image = self.imageView.image else { return }
+        self.imageView.image = drawText(image: image)
+    }
+    
     
     func filterButtonTapped(_ sender: UIButton) {
         self.imageView.image = sender.backgroundImage(for: UIControlState())
+        self.imageView.image = drawText(image: self.imageView.image!)
     }
     
     
@@ -133,18 +142,23 @@ class LaunchImageCollectionViewController: UIViewController, UIImagePickerContro
         
         let text =
             "Some text1..\n" +
-                "Some text2..\n" +
-                "Some text3..\n" +
-                "Some text4..\n" +
-                "Some text5..\n" +
-                "Some text6..\n" +
-                "Some text7..\n" +
-                "Some text8..\n" +
-                "Some text9..\n" +
-                "Some text10.."
+            "Some text2..\n" +
+            "Some text3..\n" +
+            "Some text4..\n" +
+            "Some text5..\n" +
+            "Some text6..\n" +
+            "Some text7..\n" +
+            "Some text8..\n" +
+            "Some text9..\n" +
+            "Some text10.."
         
-        let font      = UIFont.boldSystemFont(ofSize: 256)
-        let imageRect = CGRect(x: 0, y: 0, width: image.size.width, height: image.size.height)
+        // let font      = UIFont.boldSystemFont(ofSize: 32)
+        
+        let font      = UIFont(name: "Verdana", size: 28)
+        
+        let imageRect = CGRect(x: 0, y: 0,
+                               width:  image.size.width,
+                               height: image.size.height)
         
         // UIGraphicsBeginImageContext(image.size)
         // 画像が非retinaの場合、こっち使わんと画像が荒くなる場合あり??
@@ -152,7 +166,7 @@ class LaunchImageCollectionViewController: UIViewController, UIImagePickerContro
         
         image.draw(in: imageRect)
         
-        let textRect  = CGRect(x: 5, y: 5, width: image.size.width - 5, height: image.size.height - 5)
+        let textRect  = CGRect(x: 5, y: 55, width: image.size.width - 5, height: image.size.height - 5)
         
         let textStyle = NSMutableParagraphStyle.default.mutableCopy() as! NSMutableParagraphStyle
         
@@ -222,7 +236,7 @@ class LaunchImageCollectionViewController: UIViewController, UIImagePickerContro
         
         // Resize Scroll View
         self.scrollView.contentSize =
-            CGSize(width: buttonWidth * CGFloat(itemCount + 2), height: yCoord)
+            CGSize(width: buttonWidth * CGFloat(Double(itemCount) + 1.7), height: yCoord)
         
     }
     
