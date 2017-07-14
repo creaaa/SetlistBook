@@ -4,10 +4,13 @@ import UIKit
 final class EditSetListViewController: UIViewController {
 
     @IBOutlet weak var tableView: UITableView!
+    
+    @IBOutlet weak var prevButton: UIBarButtonItem!
+    
     weak var suggestTableView:    UITableView!
     
     // 遷移前画面から渡されてきた「曲名リスト」のコピー。モーダル終了時受け戻される。
-    var songList: [String]!
+    var songNames: [String]!
     
     var songNo: Int!
     
@@ -15,12 +18,23 @@ final class EditSetListViewController: UIViewController {
     var suggestSongList: [String] =
         ["想いきり", "見せかけのラブソング", "猫にも愛を", "プレイバック", "エーテル"]
     
+//    var prevButtonIsEnabled: Bool {
+//        get { return self.prevButton.isEnabled }
+//        set { self.prevButton.isEnabled =
+//                  self.songNo != 0 ? true : false}
+//    }
+    
+    
     override func viewDidLoad() {
         
         super.viewDidLoad()
         
         tableView.delegate   = self
         tableView.dataSource = self
+        
+        if self.songNo == 0 {
+            self.prevButton.isEnabled = false
+        }
 
     }
     
@@ -29,7 +43,7 @@ final class EditSetListViewController: UIViewController {
         
         if let navVC = self.presentingViewController as? UINavigationController,
            let parentVC = navVC.topViewController as? SetListViewController {
-                parentVC.songNames.append("unk")
+                // parentVC.songNames.append("unk")
         }
         
         self.dismiss(animated: true, completion: nil)
@@ -44,17 +58,72 @@ final class EditSetListViewController: UIViewController {
             let parentVC = navVC.topViewController as? SetListViewController {
                 let indexPath = IndexPath(row: 0, section: 0)
                     if let cell = self.tableView.cellForRow(at: indexPath) as? SongNameTableViewCell {
-                        var ary = parentVC.songNames
-                        if self.songNo >= ary.count {
-                            ary.append("")
+                        
+                        if self.songNo >= self.songNames.count {
+                            self.songNames.append("")
                         }
-                        ary[self.songNo]   = cell.textField.text!
-                        parentVC.songNames = ary
+                        
+                        self.songNames[self.songNo] = cell.textField.text!
+                        parentVC.songNames = self.songNames
+                        
                     }
         }
         
         self.dismiss(animated: true, completion: nil)
         print("done!")
+        
+    }
+    
+    @IBAction func prevSongButtonTapped(_ sender: UIBarButtonItem) {
+        
+        // 配列に1個追加
+        if self.songNo >= self.songNames.count {
+            self.songNames.append("")
+            print("足した")
+        }
+        
+        // モデル更新
+        let cell = self.tableView.cellForRow(at: IndexPath(row: 0, section: 0)) as! SongNameTableViewCell
+        self.songNames[songNo] = cell.textField.text!
+        print("現在の配列: \(self.songNames)")
+        
+        self.songNo! -= 1
+        
+        // ビュー
+        self.tableView.reloadRows(at: [IndexPath(row: 0, section: 0)], with: .none)
+        
+        if self.songNo == 0 {
+            self.prevButton.isEnabled = false
+        } else {
+            self.prevButton.isEnabled = true
+        }
+        
+    }
+    
+    
+    @IBAction func nextSongButtonTapped(_ sender: UIBarButtonItem) {
+        
+        self.songNo! += 1
+        
+        // 配列に1個追加
+        if self.songNo >= self.songNames.count {
+            self.songNames.append("")
+            print("足した")
+        }
+        
+        // モデル更新
+        let cell = self.tableView.cellForRow(at: IndexPath(row: 0, section: 0)) as! SongNameTableViewCell
+        self.songNames[songNo-1] = cell.textField.text!
+        print("現在の配列: \(self.songNames)")
+        
+        // ビュー
+        self.tableView.reloadRows(at: [IndexPath(row: 0, section: 0)], with: .none)
+        
+        if self.songNo == 0 {
+            self.prevButton.isEnabled = false
+        } else {
+            self.prevButton.isEnabled = true
+        }
         
     }
     
@@ -86,8 +155,18 @@ extension EditSetListViewController: UITableViewDataSource {
             return cell
         }
         
+        
         let cell = tableView.dequeueReusableCell(withIdentifier: "TextFieldCell") as! SongNameTableViewCell
+        
         cell.textField.placeholder = "#\(self.songNo! + 1): 曲名を入力"
+        if !self.songNames.isEmpty {
+            if self.songNo < self.songNames.count {
+                cell.textField.text = self.songNames[self.songNo]
+            } else {
+                cell.textField.text = nil
+            }
+        }
+        
         cell.delegate = self
         
         return cell
@@ -173,6 +252,9 @@ extension EditSetListViewController: TableViewCellDelegate {
     
     func textFieldNextButtonTapped(cell: SongNameTableViewCell) {
         
+        nextSongButtonTapped(UIBarButtonItem())
+        
+        /*
         if let _ = self.suggestTableView {
             self.suggestTableView.removeFromSuperview()
         }
@@ -183,6 +265,7 @@ extension EditSetListViewController: TableViewCellDelegate {
         if let cell = self.tableView.cellForRow(at: indexPath) as? SongNameTableViewCell {
             cell.textField.becomeFirstResponder()
         }
+        */
         
     }
     
