@@ -1,7 +1,7 @@
 
 import UIKit
 
-class EditSetListViewController: UIViewController {
+final class EditSetListViewController: UIViewController {
 
     @IBOutlet weak var tableView: UITableView!
     weak var suggestTableView: UITableView!

@@ -1,16 +1,14 @@
 
 import UIKit
 
-struct Song {
-    let name: String
-}
-
-final class SetlistViewController: UIViewController {
+final class SetListViewController: UIViewController {
+    
+    weak var suggestTableView: UITableView!
     
     // 本編の曲数
-    var numOfSong = 0
+    var numOfSong = 1
     // アンコールの曲数(アンコール1, アンコール2...)
-    var numOfEncoreSongs: [Int] = [0]
+    var numOfEncoreSongs: [Int] = [1]
     
     lazy var songNames: [String]         = Array(repeating: "", count: self.numOfSong)
     lazy var encoreSongNames: [[String]] = Array(repeating: Array<String>(),
@@ -35,30 +33,30 @@ final class SetlistViewController: UIViewController {
         self.tableView.estimatedRowHeight = 44
         
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        if let selectedRow = self.tableView.indexPathForSelectedRow {
+            self.tableView.deselectRow(at: selectedRow, animated: true)
+        }
+        print(self.songNames)
+    }
 
 }
 
-extension SetlistViewController: UITableViewDelegate {
+
+extension SetListViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        guard let vc = self.storyboard?.instantiateViewController(withIdentifier: "EditSetList")
+            as? UINavigationController else { return }
+        self.present(vc, animated: true, completion: nil)
     }
-    
-    /*
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        if indexPath.section == 2, indexPath.row == self.numOfEncoreSongs[0] + 1 {
-            return 70
-        }
-        return 44
-    }
-    */
-    
     
 }
 
 
-
-extension SetlistViewController: UITableViewDataSource {
-    
+extension SetListViewController: UITableViewDataSource {
     
     func numberOfSections(in tableView: UITableView) -> Int {
         return 3
@@ -142,9 +140,6 @@ extension SetlistViewController: UITableViewDataSource {
     // セルの並び替えが発動した時の処理
     func tableView(_ tableView: UITableView, moveRowAt sourceIndexPath: IndexPath,
                    to destinationIndexPath: IndexPath) {
-        
-        
-        
     }
     
    
@@ -191,74 +186,7 @@ extension SetlistViewController: UITableViewDataSource {
         }
     }
     
-    
-    
 }
-
-
-
-/*
-extension SetlistViewController: TableViewCellDelegate {
-    
-    // nextボタンでここが発動するとき、
-    // tableViewが表示されない
-    
-    func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
-        
-        let statusBarHeight = UIApplication.shared.statusBarFrame.height
-        let textFieldHeight: CGFloat = 40
-        
-        let y = textField.superview?.superview?.frame.origin.y
-        
-        let topMargin = statusBarHeight + textFieldHeight
-        
-        suggestTableView =
-            UITableView(frame: CGRect(x: 0, y: 100 + y!,
-                                      width: self.view.frame.width,
-                                      height: self.view.frame.height - topMargin))
-        suggestTableView.delegate   = self
-        suggestTableView.dataSource = self
-        suggestTableView.backgroundColor = UIColor(white: 0, alpha: 0.5)
-        suggestTableView.allowsSelection = false
-        suggestTableView.tag = 100
-        
-        self.selectedCellNo = (textField.superview?.superview as! TableViewCell).tag
-        
-        self.view.addSubview(suggestTableView)
-        
-        loadViewIfNeeded()
-        
-        return true
-        
-    }
-    
-    func textFieldDidEndEditing(cell: TableViewCell) {
-        
-        if let _ = self.suggestTableView {
-            self.suggestTableView.removeFromSuperview()
-        }
-        
-        self.songNames[cell.tag - 1] = cell.textField.text!
-        print(cell.textField.text!)
-    }
-    
-    func textFieldNextButtonTapped(cell: TableViewCell) {
-        
-        if let _ = self.suggestTableView {
-            self.suggestTableView.removeFromSuperview()
-        }
-        
-        let nextCellTag = cell.tag + 1
-        let indexPath   = IndexPath(row: nextCellTag - 1, section: 1)
-        
-        if let cell = self.tableView.cellForRow(at: indexPath) as? TableViewCell {
-            cell.textField.becomeFirstResponder()
-        }
-        
-    }
-    
-}
-*/
 
 
 
