@@ -6,10 +6,13 @@ final class EditSetListViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
     weak var suggestTableView:    UITableView!
     
+    // 遷移前画面から渡されてきた「曲名リスト」のコピー。モーダル終了時受け戻される。
+    var songList: [String]!
+    
     var songNo: Int!
     
     // 曲名候補が入る
-    var songList: [String] =
+    var suggestSongList: [String] =
         ["想いきり", "見せかけのラブソング", "猫にも愛を", "プレイバック", "エーテル"]
     
     override func viewDidLoad() {
@@ -67,7 +70,7 @@ extension EditSetListViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
         if tableView.tag == 100 {
-            return self.songList.count
+            return self.suggestSongList.count
         }
         return 1
     }
@@ -76,7 +79,7 @@ extension EditSetListViewController: UITableViewDataSource {
         
         if tableView.tag == 100 {
             let cell = UITableViewCell(style: .default, reuseIdentifier: "SuggestCell")
-            cell.textLabel?.text = self.songList[indexPath.row]
+            cell.textLabel?.text = self.suggestSongList[indexPath.row]
             cell.addGestureRecognizer(
                 UITapGestureRecognizer(target: self,
                                        action: #selector(inputFromHistory(sender:))))
