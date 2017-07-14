@@ -3,25 +3,22 @@ import UIKit
 
 protocol TableViewCellDelegate: class {
     func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool
-    func textFieldDidEndEditing(cell: TableViewCell)
-    
-    func textFieldNextButtonTapped(cell: TableViewCell)
-    
-    
+    func textFieldDidEndEditing(cell: SongNameTableViewCell)
+    func textFieldNextButtonTapped(cell: SongNameTableViewCell)
 }
 
-final class TableViewCell: UITableViewCell {
+final class SongNameTableViewCell: UITableViewCell {
 
-//    @IBOutlet weak var textField: UITextField!
+    @IBOutlet weak var textField: UITextField!
 
     weak var delegate: TableViewCellDelegate!
 
     override func awakeFromNib() {
         
         super.awakeFromNib()
-//        
-//        textField.returnKeyType = .done
-//        textField.delegate = self
+        
+        self.textField.returnKeyType = .done
+        self.textField.delegate = self
         
         makeKeyboard()
         
@@ -41,22 +38,22 @@ final class TableViewCell: UITableViewCell {
         
         // 閉じるボタン
         let doneButton = UIBarButtonItem(barButtonSystemItem: .done,
-                                           target: self,
-                                           action: #selector(doneButtonTapped))
+                                         target: self,
+                                         action: #selector(doneButtonTapped))
         
         let nextButton = UIBarButtonItem(title:  "next",
-                                           style:  .done,
-                                           target: self,
-                                           action: #selector(nextButtonTapped))
+                                         style:  .done,
+                                         target: self,
+                                         action: #selector(nextButtonTapped))
         
         kbToolBar.items = [doneButton, spacer, nextButton]
         
-        // self.textField.inputAccessoryView = kbToolBar
+         self.textField.inputAccessoryView = kbToolBar
         
     }
     
     func doneButtonTapped() {
-        // textField.resignFirstResponder()
+        textField.resignFirstResponder()
     }
 
     func nextButtonTapped() {
@@ -66,7 +63,8 @@ final class TableViewCell: UITableViewCell {
 
 }
 
-extension TableViewCell: UITextFieldDelegate {
+
+extension SongNameTableViewCell: UITextFieldDelegate {
     
     // 開始時
     func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {

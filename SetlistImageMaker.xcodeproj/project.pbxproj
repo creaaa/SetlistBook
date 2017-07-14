@@ -8,25 +8,25 @@
 
 /* Begin PBXBuildFile section */
 		440F68C11F157013008511DC /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 440F68C01F157013008511DC /* AppDelegate.swift */; };
-		440F68C31F157013008511DC /* SetlistViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 440F68C21F157013008511DC /* SetlistViewController.swift */; };
+		440F68C31F157013008511DC /* SetListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 440F68C21F157013008511DC /* SetListViewController.swift */; };
 		440F68C61F157013008511DC /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 440F68C41F157013008511DC /* Main.storyboard */; };
 		440F68C81F157013008511DC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 440F68C71F157013008511DC /* Assets.xcassets */; };
 		440F68CB1F157013008511DC /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 440F68C91F157013008511DC /* LaunchScreen.storyboard */; };
 		441D0B961F1841F1007D171C /* EditSetListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 441D0B951F1841F1007D171C /* EditSetListViewController.swift */; };
-		4426B1F31F1578F800E37954 /* TableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4426B1F21F1578F800E37954 /* TableViewCell.swift */; };
+		4426B1F31F1578F800E37954 /* SongNameTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4426B1F21F1578F800E37954 /* SongNameTableViewCell.swift */; };
 		4474F91A1F16EA18005D360E /* LaunchImageCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4474F9191F16EA18005D360E /* LaunchImageCollectionViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		440F68BD1F157013008511DC /* SetlistImageMaker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SetlistImageMaker.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		440F68C01F157013008511DC /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		440F68C21F157013008511DC /* SetlistViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetlistViewController.swift; sourceTree = "<group>"; };
+		440F68C21F157013008511DC /* SetListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetListViewController.swift; sourceTree = "<group>"; };
 		440F68C51F157013008511DC /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		440F68C71F157013008511DC /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		440F68CA1F157013008511DC /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		440F68CC1F157013008511DC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		441D0B951F1841F1007D171C /* EditSetListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditSetListViewController.swift; sourceTree = "<group>"; };
-		4426B1F21F1578F800E37954 /* TableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableViewCell.swift; sourceTree = "<group>"; };
+		4426B1F21F1578F800E37954 /* SongNameTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SongNameTableViewCell.swift; sourceTree = "<group>"; };
 		4474F9191F16EA18005D360E /* LaunchImageCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LaunchImageCollectionViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -62,8 +62,8 @@
 			children = (
 				440F68C41F157013008511DC /* Main.storyboard */,
 				440F68C01F157013008511DC /* AppDelegate.swift */,
-				4426B1F21F1578F800E37954 /* TableViewCell.swift */,
-				440F68C21F157013008511DC /* SetlistViewController.swift */,
+				440F68C21F157013008511DC /* SetListViewController.swift */,
+				4426B1F21F1578F800E37954 /* SongNameTableViewCell.swift */,
 				441D0B951F1841F1007D171C /* EditSetListViewController.swift */,
 				4474F9191F16EA18005D360E /* LaunchImageCollectionViewController.swift */,
 				440F68C71F157013008511DC /* Assets.xcassets */,
@@ -146,10 +146,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				441D0B961F1841F1007D171C /* EditSetListViewController.swift in Sources */,
-				440F68C31F157013008511DC /* SetlistViewController.swift in Sources */,
+				440F68C31F157013008511DC /* SetListViewController.swift in Sources */,
 				4474F91A1F16EA18005D360E /* LaunchImageCollectionViewController.swift in Sources */,
 				440F68C11F157013008511DC /* AppDelegate.swift in Sources */,
-				4426B1F31F1578F800E37954 /* TableViewCell.swift in Sources */,
+				4426B1F31F1578F800E37954 /* SongNameTableViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
