@@ -37,16 +37,18 @@
                                             <segue destination="d9G-Q7-fWX" kind="show" id="tJG-h6-JNC"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="Btn" id="f76-sE-HN3" userLabel="AddSongCell">
-                                        <rect key="frame" x="0.0" y="100" width="375" height="44"/>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="Btn" rowHeight="100" id="f76-sE-HN3" userLabel="ButtonCell">
+                                        <rect key="frame" x="0.0" y="100" width="375" height="100"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="f76-sE-HN3" id="YQI-fH-Kvg">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="99"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oaI-kC-k79">
-                                                    <rect key="frame" x="153.5" y="5.5" width="68" height="33"/>
+                                                    <rect key="frame" x="50" y="15" width="275" height="69.5"/>
+                                                    <color key="backgroundColor" red="0.80000001190000003" green="0.80000001190000003" blue="0.80000001190000003" alpha="1" colorSpace="calibratedRGB"/>
                                                     <fontDescription key="fontDescription" name="Verdana" family="Verdana" pointSize="17"/>
+                                                    <inset key="contentEdgeInsets" minX="70" minY="20" maxX="70" maxY="20"/>
                                                     <state key="normal" title="Confirm"/>
                                                     <connections>
                                                         <action selector="tap:" destination="BYZ-38-t0r" eventType="touchUpInside" id="XZF-PK-iU5"/>
@@ -55,11 +57,16 @@
                                             </subviews>
                                             <constraints>
                                                 <constraint firstItem="oaI-kC-k79" firstAttribute="centerX" secondItem="YQI-fH-Kvg" secondAttribute="centerX" id="4XE-Bz-Jqi"/>
+                                                <constraint firstAttribute="trailing" secondItem="oaI-kC-k79" secondAttribute="trailing" constant="50" id="CDQ-Ah-ebI"/>
+                                                <constraint firstItem="oaI-kC-k79" firstAttribute="leading" secondItem="YQI-fH-Kvg" secondAttribute="leading" constant="50" id="PeF-5b-foY"/>
+                                                <constraint firstAttribute="bottom" secondItem="oaI-kC-k79" secondAttribute="bottom" constant="15" id="aqK-ft-J8l"/>
                                                 <constraint firstItem="oaI-kC-k79" firstAttribute="centerY" secondItem="YQI-fH-Kvg" secondAttribute="centerY" id="cPf-Cn-XTI"/>
+                                                <constraint firstItem="oaI-kC-k79" firstAttribute="top" secondItem="YQI-fH-Kvg" secondAttribute="top" constant="15" id="e3h-cr-Ltz"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                 </prototypes>
+                                <sections/>
                             </tableView>
                             <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="S68-g4-WYx">
                                 <rect key="frame" x="0.0" y="623" width="375" height="44"/>
@@ -81,7 +88,10 @@
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="DnV-nf-YON" secondAttribute="bottom" id="mVF-MC-hAI"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="new set list" id="8HA-QJ-xcn"/>
+                    <navigationItem key="navigationItem" title="new set list" id="8HA-QJ-xcn">
+                        <barButtonItem key="leftBarButtonItem" style="plain" systemItem="cancel" id="Ar3-Jc-E4q"/>
+                        <barButtonItem key="rightBarButtonItem" style="plain" systemItem="done" id="st9-F6-PwY"/>
+                    </navigationItem>
                     <connections>
                         <outlet property="tableView" destination="DnV-nf-YON" id="Dgg-pE-lGF"/>
                     </connections>

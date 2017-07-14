@@ -43,11 +43,22 @@ extension SetlistViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
     }
     
+    /*
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        if indexPath.section == 2, indexPath.row == self.numOfEncoreSongs[0] + 1 {
+            return 70
+        }
+        return 44
+    }
+    */
+    
+    
 }
 
 
 
 extension SetlistViewController: UITableViewDataSource {
+    
     
     func numberOfSections(in tableView: UITableView) -> Int {
         return 3
@@ -80,12 +91,13 @@ extension SetlistViewController: UITableViewDataSource {
         }
         // アンコール1
         if indexPath.section == 2 {
-            if indexPath.row == numOfEncoreSongs[0] {
+            if indexPath.row == self.numOfEncoreSongs[0] {
                 let cell = UITableViewCell()
                 cell.textLabel?.text = "タップして曲名を入力"
                 return cell
             } else if indexPath.row == numOfEncoreSongs[0] + 1 {
-                let cell = UITableViewCell(style: .default, reuseIdentifier: "Btn")
+                let cell = tableView.dequeueReusableCell(withIdentifier: "Btn")!
+                return cell
             }
         }
         
@@ -122,25 +134,26 @@ extension SetlistViewController: UITableViewDataSource {
             if indexPath.row == self.numOfEncoreSongs[0] ||
                indexPath.row == self.numOfEncoreSongs[0] + 1 { return false }
         }
-        if indexPath.section == 3 { return false }
 
         return true
         
     }
     
-    
     // セルの並び替えが発動した時の処理
-    
-    func tableView(_ tableView: UITableView, moveRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
-        print("un")
+    func tableView(_ tableView: UITableView, moveRowAt sourceIndexPath: IndexPath,
+                   to destinationIndexPath: IndexPath) {
+        
+        
+        
     }
     
-    
+   
+
     // <delete / insert 系>
     
     // 実装されてなくてもよい。その場合、すべてのセルは[編集可能]だとみなされる(暗黙的に true が指定される。)
     func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        if indexPath.section == 3 { return false }
+        if indexPath.section == 2, indexPath.row == numOfEncoreSongs[0] + 1 { return false }
         return true
     }
     
