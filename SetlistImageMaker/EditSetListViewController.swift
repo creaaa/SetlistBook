@@ -4,10 +4,13 @@ import UIKit
 final class EditSetListViewController: UIViewController {
 
     @IBOutlet weak var tableView: UITableView!
-    weak var suggestTableView: UITableView!
+    weak var suggestTableView:    UITableView!
+    
+    var songNo: Int!
     
     // 曲名候補が入る
-    var songList: [String] = ["想いきり", "プレイバック", "エーテル"]
+    var songList: [String] =
+        ["想いきり", "見せかけのラブソング", "猫にも愛を", "プレイバック", "エーテル"]
     
     override func viewDidLoad() {
         
@@ -17,6 +20,7 @@ final class EditSetListViewController: UIViewController {
         tableView.dataSource = self
 
     }
+    
     
     @IBAction func cencelButtonTapped(_ sender: Any) {
         
@@ -35,15 +39,21 @@ final class EditSetListViewController: UIViewController {
         
         if let navVC = self.presentingViewController as? UINavigationController,
             let parentVC = navVC.topViewController as? SetListViewController {
-            parentVC.songNames.append("unk")
+                let indexPath = IndexPath(row: 0, section: 0)
+                    if let cell = self.tableView.cellForRow(at: indexPath) as? SongNameTableViewCell {
+                        var ary = parentVC.songNames
+                        if self.songNo >= ary.count {
+                            ary.append("")
+                        }
+                        ary[self.songNo]   = cell.textField.text!
+                        parentVC.songNames = ary
+                    }
         }
         
         self.dismiss(animated: true, completion: nil)
         print("done!")
         
     }
-    
-    
     
 }
 
@@ -74,10 +84,10 @@ extension EditSetListViewController: UITableViewDataSource {
         }
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "TextFieldCell") as! SongNameTableViewCell
+        cell.textField.placeholder = "#\(self.songNo! + 1): 曲名を入力"
         cell.delegate = self
         
         return cell
-        
         
     }
     
