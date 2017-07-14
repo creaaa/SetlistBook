@@ -12,16 +12,16 @@ protocol TableViewCellDelegate: class {
 
 final class TableViewCell: UITableViewCell {
 
-    @IBOutlet weak var textField: UITextField!
+//    @IBOutlet weak var textField: UITextField!
 
     weak var delegate: TableViewCellDelegate!
 
     override func awakeFromNib() {
         
         super.awakeFromNib()
-        
-        textField.returnKeyType = .done
-        textField.delegate = self
+//        
+//        textField.returnKeyType = .done
+//        textField.delegate = self
         
         makeKeyboard()
         
@@ -51,12 +51,12 @@ final class TableViewCell: UITableViewCell {
         
         kbToolBar.items = [doneButton, spacer, nextButton]
         
-        self.textField.inputAccessoryView = kbToolBar
+        // self.textField.inputAccessoryView = kbToolBar
         
     }
     
     func doneButtonTapped() {
-        textField.resignFirstResponder()
+        // textField.resignFirstResponder()
     }
 
     func nextButtonTapped() {
@@ -76,7 +76,7 @@ extension TableViewCell: UITextFieldDelegate {
     
     // ただのキーボードキャンセル処理
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        self.textField.resignFirstResponder() // これだけでDidEndEditing呼ばれます
+        // self.textField.resignFirstResponder() // これだけでDidEndEditing呼ばれます
         return true
     }
     

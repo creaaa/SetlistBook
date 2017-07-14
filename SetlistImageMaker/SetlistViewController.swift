@@ -6,15 +6,20 @@ struct Song {
 }
 
 final class SetlistViewController: UIViewController {
-
-    var numOfSongs = 20
-    lazy var songNames: [String] = Array(repeating: "", count: self.numOfSongs)
+    
+    // 本編の曲数
+    var numOfSong = 0
+    // アンコールの曲数(アンコール1, アンコール2...)
+    var numOfEncoreSongs: [Int] = [0]
+    
+    lazy var songNames: [String]         = Array(repeating: "", count: self.numOfSong)
+    lazy var encoreSongNames: [[String]] = Array(repeating: Array<String>(),
+                                                 count: self.numOfEncoreSongs.count)
     
     @IBOutlet weak var tableView: UITableView!
-    var suggestTableView: UITableView!
     
     @IBAction func tap(_ sender: Any) {
-            print("うえー")
+        print("うえー")
     }
     
     override func viewDidLoad() {
@@ -24,83 +29,70 @@ final class SetlistViewController: UIViewController {
         self.tableView.delegate   = self
         self.tableView.dataSource = self
         
-        self.tableView.isEditing = false
+        self.tableView.isEditing  = true
         
         self.tableView.rowHeight = UITableViewAutomaticDimension
         self.tableView.estimatedRowHeight = 44
         
-        
     }
-    
-    var selectedCellNo: Int?
 
-    
 }
 
 extension SetlistViewController: UITableViewDelegate {
     
-    func numberOfSections(in tableView: UITableView) -> Int {
-        if tableView.tag == 100 { return 1 }
-        return 2
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
     }
     
 }
 
+
+
 extension SetlistViewController: UITableViewDataSource {
     
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 3
+    }
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        
-        if tableView.tag == 100 { return 5 }
         
         switch section {
             case 0:
                 return 1
             case 1:
-                return self.numOfSongs + 1 // 最後のセルにボタンが来る
+                return self.numOfSong + 1 // 最後のセルにボタンが来る
+            case 2:
+                return self.numOfEncoreSongs[0] + 1 + 1 // 曲を追加ボタン + 投稿ボタン
             default:
-                return 0
+                fatalError()
         }
         
     }
     
     
-    
-    func inputFromHistory(sender: UITapGestureRecognizer) {
-        if let cell = sender.view as? UITableViewCell {
-            let ip = IndexPath(row: selectedCellNo! - 1, section: 1)
-            if let c = self.tableView.cellForRow(at: ip) as? TableViewCell {
-                c.textField.text = cell.textLabel?.text
-            }
-        }
-        self.suggestTableView.removeFromSuperview()
-    }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 
-        if tableView.tag == 100 {
-            let cell = UITableViewCell(style: .default, reuseIdentifier: "SuggestCell")
-            cell.textLabel?.text = "ksg"
-            cell.addGestureRecognizer(
-                UITapGestureRecognizer(target: self,
-                                       action: #selector(inputFromHistory(sender:))))
+        // ライブ本編
+        if indexPath.section == 1 && indexPath.row == numOfSong {
+            let cell = UITableViewCell()
+            cell.textLabel?.text = "タップして曲名を入力"
             return cell
         }
-        
-        if indexPath.section == 1, indexPath.row == numOfSongs { // = 最後のセル
-            let cell = tableView.dequeueReusableCell(withIdentifier: "AddSongCell")!
-            return cell
+        // アンコール1
+        if indexPath.section == 2 {
+            if indexPath.row == numOfEncoreSongs[0] {
+                let cell = UITableViewCell()
+                cell.textLabel?.text = "タップして曲名を入力"
+                return cell
+            } else if indexPath.row == numOfEncoreSongs[0] + 1 {
+                let cell = UITableViewCell(style: .default, reuseIdentifier: "Btn")
+            }
         }
         
-        let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
-            as! TableViewCell
-        
-        cell.textField.text = self.songNames[indexPath.row]
-        cell.tag = indexPath.row + 1
-        cell.textField.placeholder = cell.tag.description + "."
-        
-        cell.delegate = self
-        
+        let cell = UITableViewCell()
+        cell.textLabel?.text = "曲名がきます1"
         return cell
+        
     }
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
@@ -110,6 +102,8 @@ extension SetlistViewController: UITableViewDataSource {
                 return "公演情報"
             case 1:
                 return "セットリスト"
+            case 2:
+                return "アンコール　#1"
             default:
                 fatalError("never executed")
         }
@@ -117,21 +111,21 @@ extension SetlistViewController: UITableViewDataSource {
     }
     
     
-    
-    // セルが削除が可能なことを伝えるメソッド
-    func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) ->UITableViewCellEditingStyle {
-        return tableView.isEditing ? .insert : .none
-    }
-
-    
     // <移動系>
     
-    // 並び替え可能なセルの指定(今回は"すべて")
+    // 並び替え可能なセルの指定
     func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
-        if indexPath.section == 0 { return false }
-        if indexPath.section == 1, indexPath.row == self.numOfSongs  { return false }
         
+        if indexPath.section == 0 { return false }
+        if indexPath.section == 1, indexPath.row == self.numOfSong  { return false }
+        if indexPath.section == 2 {
+            if indexPath.row == self.numOfEncoreSongs[0] ||
+               indexPath.row == self.numOfEncoreSongs[0] + 1 { return false }
+        }
+        if indexPath.section == 3 { return false }
+
         return true
+        
     }
     
     
@@ -141,15 +135,34 @@ extension SetlistViewController: UITableViewDataSource {
         print("un")
     }
     
-    ////
     
     // <delete / insert 系>
     
+    // 実装されてなくてもよい。その場合、すべてのセルは[編集可能]だとみなされる(暗黙的に true が指定される。)
     func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        if indexPath.section == 0 { return false }
-        if indexPath.section == 1, indexPath.row == self.numOfSongs  { return false }
-
+        if indexPath.section == 3 { return false }
         return true
+    }
+    
+    
+    // (※ isEditingがtrueの場合 かつ canEditRowAtでfalseになっていない場合 のみ意味を成す = アイコンが出現する)
+    func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) ->UITableViewCellEditingStyle {
+        
+        // ライブ本編
+        if indexPath.section == 0 {
+            return .insert
+        }
+        // ライブ本編
+        if indexPath.section == 1 && indexPath.row == self.numOfSong {
+            return .insert
+        }
+        // アンコール1
+        if indexPath.section == 2 {
+            if indexPath.row == self.numOfEncoreSongs[0] { return .insert }
+        }
+        
+        return .delete
+        
     }
     
     // delete / insert 発動時
@@ -166,9 +179,12 @@ extension SetlistViewController: UITableViewDataSource {
     }
     
     
+    
 }
 
 
+
+/*
 extension SetlistViewController: TableViewCellDelegate {
     
     // nextボタンでここが発動するとき、
@@ -229,7 +245,7 @@ extension SetlistViewController: TableViewCellDelegate {
     }
     
 }
-
+*/
 
 
 

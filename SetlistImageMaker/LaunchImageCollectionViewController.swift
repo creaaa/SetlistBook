@@ -1,7 +1,7 @@
 
 import UIKit
 
-class LaunchImageCollectionViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+final class LaunchImageCollectionViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
 
     /*
     private enum FilterName: String {
