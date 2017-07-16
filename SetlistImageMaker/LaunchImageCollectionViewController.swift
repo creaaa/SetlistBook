@@ -214,28 +214,64 @@ final class LaunchImageCollectionViewController: UIViewController {
     
     
     
-    // 並行処理でフィルター生成を展開
+    // 並列処理でフィルター生成を展開
     func yieldFilters() -> [CIFilter] {
         
         var result: [CIFilter] = []
         
+        // ここ、asyncにすると、filterNameをselfつけろっていわれる。syncだとそんなことない。
+        // つまりsyncだとエスケープしない、ってこと。asyncだとエスケープしてる。
+        // 検証の結果、ここ並列処理しなくても結果はそんなに変わらなかった。。。。
         DispatchQueue.global(qos: .default).sync {
-            (0..<8).forEach {
-                result.append(CIFilter(name: filterNames[$0])!)
+            (0..<8).forEach { no in
+                result.append(CIFilter(name: self.filterNames[no])!)
+                print("append!")
             }
-            print(result)
         }
+        
+        print(result)
         
         return result
         
     }
     
     
+    fileprivate func scrollViewSetup() {
+        
+        //(0..<8).forEach { no in
+            // ここ、syncからsyncになった瞬間くそはやくなった！なぜ！！
+            // 答え → 実は処理はまだ終わってなく、勝手に先に進んでるだけだから。
+            //DispatchQueue.global(qos: .default).async {
+        
+        // DispatchQueue.global(qos: .default).async {
+        
+        
+            (0..<8).forEach { no in
+
+                let coreImage = CIImage(image: self.imageView.image!)
+
+                self.filter[no].setDefaults()
+                self.filter[no].setValue(coreImage, forKey: kCIInputImageKey)
+                
+                let filteredImageData = self.filter[no].value(forKey: kCIOutputImageKey) as! CIImage
+                let filteredImageRef = self.ciContext.createCGImage(filteredImageData,
+                                                                    from: filteredImageData.extent)
+                print("\(no) done!")
+                
+            }
+        
+            //}
+        // }
+    }
     
     
     // ここがむちゃくちゃ重いｗｗｗ
+    
+    /*
     fileprivate func scrollViewSetup() {
         
+        // let queue = DispatchQueue.global(qos: .default)
+
         // Variables for setting the Font Buttons
         var xCoord: CGFloat = 5
         let yCoord: CGFloat = 5
@@ -244,7 +280,7 @@ final class LaunchImageCollectionViewController: UIViewController {
         let gapBetweenButtons: CGFloat = 5
         
         // Items Counter
-        var itemCount = 0
+        // var itemCount = 0
         
         
         // 生成が重いらしいので、外に出してあげる
@@ -256,15 +292,14 @@ final class LaunchImageCollectionViewController: UIViewController {
         
         
         // Loop for creating buttons
-        for i in 0..<8 {
+        (0..<8).forEach {
             
-            itemCount = i
-            
+            // itemCount = i
             
             // Button properties
             let filterButton = UIButton(type: .custom)
             filterButton.frame = CGRect(x: xCoord, y: yCoord, width: buttonWidth, height: buttonHeight)
-            filterButton.tag = itemCount
+            filterButton.tag = $0
             filterButton.showsTouchWhenHighlighted = true
             filterButton.addTarget(self, action: #selector(filterButtonTapped(_:)), for: .touchUpInside)
             filterButton.layer.cornerRadius = 6
@@ -277,9 +312,9 @@ final class LaunchImageCollectionViewController: UIViewController {
             
             // filter = CIFilter(name: filterNames[i])
             
-            self.filter[i].setDefaults()
-            self.filter[i].setValue(coreImage, forKey: kCIInputImageKey)
-            let filteredImageData = self.filter[i].value(forKey: kCIOutputImageKey) as! CIImage
+            self.filter[$0].setDefaults()
+            self.filter[$0].setValue(coreImage, forKey: kCIInputImageKey)
+            let filteredImageData = self.filter[$0].value(forKey: kCIOutputImageKey) as! CIImage
             
             /*
              filter!.setDefaults()
@@ -299,18 +334,18 @@ final class LaunchImageCollectionViewController: UIViewController {
             // Add Buttons in the Scroll View
             xCoord += buttonWidth + gapBetweenButtons
             self.scrollView.addSubview(filterButton)
-            
-            
-            
+
         }
         
         // Resize Scroll View
         self.scrollView.contentSize =
-            CGSize(width: buttonWidth * CGFloat(Double(itemCount) + 1.7), height: yCoord)
+            // この7は、本来、itemCountが来てた。注意。
+            CGSize(width: buttonWidth * CGFloat(Double(7) + 1.7), height: yCoord)
         
     }
+    */
     
-}
+} // end of class
 
 
 extension LaunchImageCollectionViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
