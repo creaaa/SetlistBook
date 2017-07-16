@@ -42,9 +42,16 @@ final class LaunchImageCollectionViewController: UIViewController {
     @IBOutlet weak var imageView:  UIImageView!
     @IBOutlet weak var scrollView: UIScrollView!
     
+    let ciContext  = CIContext(options: nil)
+    var filter: [CIFilter]!      //= yieldFilters() // lazyだからといってインスタンスメソッドが使えるわけじゃない.
+                                 // selfが使えるようになるだけ
     
     override func viewDidLoad() {
+        
         super.viewDidLoad()
+        
+        self.filter = yieldFilters()
+        
         scrollViewSetup()
     }
     
@@ -206,6 +213,26 @@ final class LaunchImageCollectionViewController: UIViewController {
     }
     
     
+    
+    // 並行処理でフィルター生成を展開
+    func yieldFilters() -> [CIFilter] {
+        
+        var result: [CIFilter] = []
+        
+        DispatchQueue.global(qos: .default).sync {
+            (0..<8).forEach {
+                result.append(CIFilter(name: filterNames[$0])!)
+            }
+            print(result)
+        }
+        
+        return result
+        
+    }
+    
+    
+    
+    
     // ここがむちゃくちゃ重いｗｗｗ
     fileprivate func scrollViewSetup() {
         
@@ -219,10 +246,20 @@ final class LaunchImageCollectionViewController: UIViewController {
         // Items Counter
         var itemCount = 0
         
+        
+        // 生成が重いらしいので、外に出してあげる
+        // let ciContext = CIContext(options: nil)
+        
+        // ↓ スレッドセーフではないので、
+        // 「スレッドごとに作り直してあげるか固定スレッドで処理させないといけないのですがこちらも一応流用可能」
+        // let filter    = yieldFilters()
+        
+        
         // Loop for creating buttons
         for i in 0..<8 {
             
             itemCount = i
+            
             
             // Button properties
             let filterButton = UIButton(type: .custom)
@@ -235,15 +272,24 @@ final class LaunchImageCollectionViewController: UIViewController {
             
             
             // Create filters for each button
-            let ciContext = CIContext(options: nil)
+            // ciContext = CIContext(options: nil)
             let coreImage = CIImage(image: self.imageView.image!)
             
-            let filter = CIFilter(name: filterNames[i])
+            // filter = CIFilter(name: filterNames[i])
             
-            filter!.setDefaults()
-            filter!.setValue(coreImage, forKey: kCIInputImageKey)
-            let filteredImageData = filter!.value(forKey: kCIOutputImageKey) as! CIImage
-            let filteredImageRef = ciContext.createCGImage(filteredImageData, from: filteredImageData.extent)
+            self.filter[i].setDefaults()
+            self.filter[i].setValue(coreImage, forKey: kCIInputImageKey)
+            let filteredImageData = self.filter[i].value(forKey: kCIOutputImageKey) as! CIImage
+            
+            /*
+             filter!.setDefaults()
+             filter!.setValue(coreImage, forKey: kCIInputImageKey)
+             let filteredImageData = filter!.value(forKey: kCIOutputImageKey) as! CIImage
+             */
+            
+            // ここが激重???????
+            let filteredImageRef = self.ciContext.createCGImage(filteredImageData, from: filteredImageData.extent)
+            
             let imageForButton = UIImage(cgImage: filteredImageRef!);
             
             // Assign filtered image to the button
@@ -253,6 +299,8 @@ final class LaunchImageCollectionViewController: UIViewController {
             // Add Buttons in the Scroll View
             xCoord += buttonWidth + gapBetweenButtons
             self.scrollView.addSubview(filterButton)
+            
+            
             
         }
         
