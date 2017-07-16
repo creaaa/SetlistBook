@@ -36,5 +36,7 @@
 	</array>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>いくよ</string>
+	<key>NSCameraUsageDescription</key>
+	<string>いくよー</string>
 </dict>
 </plist>

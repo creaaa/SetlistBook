@@ -3,31 +3,6 @@ import UIKit
 
 final class LaunchImageCollectionViewController: UIViewController {
 
-    /*
-    private enum FilterName: String {
-        
-        case CIPhotoEffectChrome
-        case CIPhotoEffectFade
-        case CIPhotoEffectInstant
-        case CIPhotoEffectNoir
-        case CIPhotoEffectProcess
-        case CIPhotoEffectTonal
-        case CIPhotoEffectTransfer
-        case CISepiaTone
-        
-        subscript(idx: Int) -> String {
-            switch idx {
-                case 0...3:
-                    return "CIPhotoEffectChrome"
-                case 4...7:
-                    return "CIPhotoEffectNoir"
-                default:
-                    fatalError()
-            }
-        }
-    }
-    */
-    
     let filterNames = [
         "CIPhotoEffectChrome",
         "CIPhotoEffectFade",
@@ -43,17 +18,10 @@ final class LaunchImageCollectionViewController: UIViewController {
     @IBOutlet weak var scrollView: UIScrollView!
     
     let ciContext  = CIContext(options: nil)
-    var filter: [CIFilter]!      //= yieldFilters() // lazyだからといってインスタンスメソッドが使えるわけじゃない.
-                                 // selfが使えるようになるだけ
     
-    override func viewDidLoad() {
-        
-        super.viewDidLoad()
-        
-        self.filter = yieldFilters()
-        
-        scrollViewSetup()
-    }
+    //= yieldFilters() // lazyだからといってインスタンスメソッドが使えるわけじゃない.
+    // selfが使えるようになるだけ
+    var filter: [CIFilter]!
     
     
     @IBAction func launch(_ sender: UIButton) {
@@ -66,16 +34,13 @@ final class LaunchImageCollectionViewController: UIViewController {
         alert.addAction(UIAlertAction(title: "Library", style: .default, handler: launchVC))
         alert.addAction(UIAlertAction(title: "Cancel",  style: .cancel,  handler: nil))
         
-        DispatchQueue.main.async {
-            self.present(alert, animated: true, completion: nil)
-        }
+        self.present(alert, animated: true, completion: nil)
         
     }
     
     
     private func launchVC(_ action: UIAlertAction) {
         switch action.title! {
-            
             case "Camera":
                 igniteVC(.camera)
             case "Library":
@@ -93,11 +58,7 @@ final class LaunchImageCollectionViewController: UIViewController {
         pickerController.delegate   = self
         pickerController.sourceType = type
         present(pickerController, animated: true, completion: nil)
-        
-        /*
-        if UIImagePickerController.isSourceTypeAvailable(type) {
-        }
-        */
+
     }
     
     
@@ -108,11 +69,23 @@ final class LaunchImageCollectionViewController: UIViewController {
     }
     
     
+    override func viewDidLoad() {
+        
+        super.viewDidLoad()
+        
+        self.filter = yieldFilters()
+        
+        scrollViewSetup { result in
+            result.forEach { self.scrollView.addSubview($0); print("とおった") }
+        }
+        
+    }
+    
+    
     // 各フィルターボタンがタップされた
     func filterButtonTapped(_ sender: UIButton) {
         // まず、フィルタされた画像をセットして...
         self.imageView.image = sender.backgroundImage(for: UIControlState())
-        
         // その上にセットリストをadd!
         // self.imageView.image = drawText(image: self.imageView.image!)
     }
@@ -155,14 +128,6 @@ final class LaunchImageCollectionViewController: UIViewController {
         
         self.imageView.image = image2
         
-    }
-    */
-    
-    
-    /*
-    @IBAction func compose(_ sender: UIButton) {
-        guard let image = self.imageView.image else { return }
-        self.imageView.image = drawText(image: image)
     }
     */
     
@@ -210,6 +175,7 @@ final class LaunchImageCollectionViewController: UIViewController {
         UIGraphicsEndImageContext()
         
         return newImage!
+        
     }
     
     
@@ -238,17 +204,19 @@ final class LaunchImageCollectionViewController: UIViewController {
     
     // ここがむちゃくちゃ重いｗｗｗ
     
-    fileprivate func scrollViewSetup() {
+    fileprivate func scrollViewSetup(completion: ([UIButton]) -> Void) {
         
         // Variables for setting the Font Buttons
-        var xCoord: CGFloat = 5
-        let yCoord: CGFloat = 5
-        let buttonWidth:CGFloat = 70
-        let buttonHeight: CGFloat = 70
+        var xCoord:            CGFloat = 5
+        let yCoord:            CGFloat = 5
+        let buttonWidth:       CGFloat = 70
+        let buttonHeight:      CGFloat = 70
         let gapBetweenButtons: CGFloat = 5
 
         
         DispatchQueue.global(qos: .default).sync {
+            
+            var result: [UIButton] = []
             
             (0..<8).forEach {
                 
@@ -277,29 +245,43 @@ final class LaunchImageCollectionViewController: UIViewController {
                 // ここが激重???????
                 let filteredImageRef = self.ciContext.createCGImage(filteredImageData, from: filteredImageData.extent)
                 
+                // result.append(filteredImageRef!)
                 
                 let imageForButton = UIImage(cgImage: filteredImageRef!)
                 
-                // Assign filtered image to the button
                 filterButton.setBackgroundImage(imageForButton, for: UIControlState())
-                filterButton.contentMode = .scaleAspectFill
+                filterButton.contentMode = .scaleAspectFit
                 
-                // Add Buttons in the Scroll View
                 xCoord += buttonWidth + gapBetweenButtons
-                self.scrollView.addSubview(filterButton)
+                
+                // self.scrollView.addSubview(filterButton)
+
+                result.append(filterButton)
                 
                 print("\($0) done!")
                 
             }
             
+            print("重いのはコールバックの前")
+            
+            completion(result)
+            
+            print("重いのはコールバックの後")
+        
         }
+        
+        print("重いのはリサイズの前")
         
         // Resize Scroll View
         self.scrollView.contentSize =
             // この7は、本来、itemCountが来てた。注意。
             CGSize(width: buttonWidth * CGFloat(Double(7) + 1.7), height: yCoord)
         
+        print("重いのはリサイズの後")
+        
     }
+    
+    deinit { print("消滅した") }
     
     
 } // end of class
@@ -307,23 +289,37 @@ final class LaunchImageCollectionViewController: UIViewController {
 
 extension LaunchImageCollectionViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
+
     // 写真を撮影/ライブラリから写真を選択した瞬間に呼ばれるメソッド
+    
+    // 今の実装バグあり！
+    // 現在と他の写真を選ぶとデッドロック？？固まる！！！と思いきや生きてる！
+    // 1枚目の写真が、なぜかやたら時間クソかかる！
+    
+    
     func imagePickerController(_ picker: UIImagePickerController,
                                didFinishPickingMediaWithInfo info: [String:Any]) {
         // 撮影/選択された画像を取得する
         guard let image = info[UIImagePickerControllerOriginalImage] as? UIImage else { return }
         
-        print(Thread.isMainThread)
         self.imageView.image = image
         
+        // 新たなimageを元にボタンを作る前に、古いやつをremoveしとく
+        self.scrollView.subviews.forEach {
+            $0.removeFromSuperview()
+        }
         
-        // フィルタボタンの写真を再セット
-        // ここで固まるｗｗｗｗ
-        scrollViewSetup()
+        scrollViewSetup { result in
+            result.forEach { self.scrollView.addSubview($0) }
+        }
         
         picker.dismiss(animated: true, completion: nil)
         
     }
+    // ここまで通ってるにもかかわらず、この直後落ちるｗどうしろとww
+    // なおカメラのみ発生する模様、ライブラリからだと落ちない
+    
+    
     
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
         // 閉じる
