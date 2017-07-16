@@ -3,31 +3,27 @@ import UIKit
 
 final class EditSetListViewController: UIViewController {
 
-    @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var tableView:  UITableView!
     
     @IBOutlet weak var prevButton: UIBarButtonItem!
     
-    weak var suggestTableView:    UITableView!
+    weak var suggestTableView:     UITableView!
     
-    // 遷移前画面から渡されてきた「曲名リスト」のコピー。モーダル終了時受け戻される。
+    // 遷移前画面から渡されてきた「曲名リスト」のコピー。
+    // モーダル終了時受け戻される。
     var songNames: [String]!
-    
-    var songNo: Int!
+    var songNo:    Int!
+    var encoreNo:  Int!
     
     // 曲名候補が入る
     var suggestSongList: [String] =
-        ["想いきり", "見せかけのラブソング", "猫にも愛を", "プレイバック", "エーテル"]
-    
-//    var prevButtonIsEnabled: Bool {
-//        get { return self.prevButton.isEnabled }
-//        set { self.prevButton.isEnabled =
-//                  self.songNo != 0 ? true : false}
-//    }
-    
-    
+        ["1. 想いきり", "2. 見せかけのラブソング", "3. 猫にも愛を", "4. プレイバック", "5. エーテル"]
+
     override func viewDidLoad() {
         
         super.viewDidLoad()
+        
+        print("受け渡されてきた曲名リスト: ", self.songNames)
         
         tableView.delegate   = self
         tableView.dataSource = self
@@ -41,19 +37,20 @@ final class EditSetListViewController: UIViewController {
     
     @IBAction func cencelButtonTapped(_ sender: Any) {
         
+        /*
         if let navVC = self.presentingViewController as? UINavigationController,
-           let parentVC = navVC.topViewController as? SetListViewController {
+           let _ = navVC.topViewController as? SetListViewController {
                 // parentVC.songNames.append("unk")
         }
+        */
         
         self.dismiss(animated: true, completion: nil)
-        
-        print("cancel!")
         
     }
     
     @IBAction func doneButtonTapped(_ sender: UIBarButtonItem) {
         
+        /*
         if let navVC = self.presentingViewController as? UINavigationController,
             let parentVC = navVC.topViewController as? SetListViewController {
                 let indexPath = IndexPath(row: 0, section: 0)
@@ -68,9 +65,40 @@ final class EditSetListViewController: UIViewController {
                         
                     }
         }
+        */
+        
+        guard let navVC = self.presentingViewController as? UINavigationController,
+            let parentVC = navVC.topViewController as? SetListViewController else {
+                self.dismiss(animated: true, completion: nil)
+                return
+        }
+        
+        let indexPath = IndexPath(row: 0, section: 0)
+        
+        guard let cell = self.tableView.cellForRow(at: indexPath) as? SongNameTableViewCell else {
+            self.dismiss(animated: true, completion: nil)
+            return
+        }
+        
+        if self.songNo >= self.songNames.count {
+            self.songNames.append("")
+        }
+        
+        self.songNames[self.songNo] = cell.textField.text!
+        
+        /*
+        parentVC.songNames = self.songNames
+        */
+        
+        if self.title == "SetList" {
+            parentVC.songNames = self.songNames
+        } else if let _ = self.encoreNo {
+            parentVC.encoreSongNames[encoreNo - 1] = self.songNames
+        } else {
+            fatalError()
+        }
         
         self.dismiss(animated: true, completion: nil)
-        print("done!")
         
     }
     
@@ -207,10 +235,7 @@ extension EditSetListViewController: UITableViewDataSource {
 
 extension EditSetListViewController: TableViewCellDelegate {
     
-    // nextボタンでここが発動するとき、
-    // tableViewが表示されない
-    
-    func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
+    private func yieldSuggestTableView(_ textField: UITextField) {
         
         let statusBarHeight = UIApplication.shared.statusBarFrame.height
         let textFieldHeight: CGFloat = 40
@@ -233,50 +258,25 @@ extension EditSetListViewController: TableViewCellDelegate {
         self.suggestTableView = tableView
         
         self.view.addSubview(tableView)
-        
+    
+    }
+    
+    // nextボタンでここが発動するとき、tableViewが表示されない
+    func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
+        yieldSuggestTableView(textField)
         return true
-        
     }
     
-    
-    func textFieldDidEndEditing(cell: SongNameTableViewCell) {
-        
+    func textFieldDidEndEditing(cell: UITableViewCell) {
         if let _ = self.suggestTableView {
             self.suggestTableView.removeFromSuperview()
         }
-        
-        print(cell.textField.text!)
-        
     }
     
-    
-    func textFieldNextButtonTapped(cell: SongNameTableViewCell) {
-        
+    func textFieldNextButtonTapped(cell: UITableViewCell) {
         nextSongButtonTapped(UIBarButtonItem())
-        
-        /*
-        if let _ = self.suggestTableView {
-            self.suggestTableView.removeFromSuperview()
-        }
-        
-        let nextCellTag = cell.tag + 1
-        let indexPath   = IndexPath(row: nextCellTag - 1, section: 1)
-        
-        if let cell = self.tableView.cellForRow(at: indexPath) as? SongNameTableViewCell {
-            cell.textField.becomeFirstResponder()
-        }
-        */
-        
     }
     
 }
-
-
-
-
-
-
-
-
 
 

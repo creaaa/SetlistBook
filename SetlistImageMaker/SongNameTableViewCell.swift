@@ -1,10 +1,10 @@
 
 import UIKit
 
-protocol TableViewCellDelegate: class {
-    func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool
-    func textFieldDidEndEditing(cell: SongNameTableViewCell)
-    func textFieldNextButtonTapped(cell: SongNameTableViewCell)
+@objc protocol TableViewCellDelegate: NSObjectProtocol {
+    @objc optional func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool
+    func textFieldDidEndEditing(cell: UITableViewCell)
+    @objc optional func textFieldNextButtonTapped(cell: UITableViewCell)
 }
 
 final class SongNameTableViewCell: UITableViewCell {
@@ -58,9 +58,9 @@ final class SongNameTableViewCell: UITableViewCell {
 
     func nextButtonTapped() {
         print("next")
-        self.delegate.textFieldNextButtonTapped(cell: self)
+        self.delegate.textFieldNextButtonTapped?(cell: self)
     }
-
+    
 }
 
 
@@ -68,13 +68,13 @@ extension SongNameTableViewCell: UITextFieldDelegate {
     
     // 開始時
     func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
-        _ = self.delegate.textFieldShouldBeginEditing(textField)
+        _ = self.delegate.textFieldShouldBeginEditing?(textField)
         return true
     }
     
     // ただのキーボードキャンセル処理
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        // self.textField.resignFirstResponder() // これだけでDidEndEditing呼ばれます
+        self.textField.resignFirstResponder() // これだけでDidEndEditing呼ばれます
         return true
     }
     
@@ -87,6 +87,8 @@ extension SongNameTableViewCell: UITextFieldDelegate {
         
         return true // ここfalseにすると、キー押しても文字入力されなくなるな..?
     }
+    
+    
     
 }
 

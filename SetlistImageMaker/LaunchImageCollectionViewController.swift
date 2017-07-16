@@ -1,7 +1,7 @@
 
 import UIKit
 
-final class LaunchImageCollectionViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+final class LaunchImageCollectionViewController: UIViewController {
 
     /*
     private enum FilterName: String {
@@ -48,34 +48,70 @@ final class LaunchImageCollectionViewController: UIViewController, UIImagePicker
         scrollViewSetup()
     }
     
-    override func viewDidLayoutSubviews() {
-        // ここでもだめ。
-        self.imageView.image = drawText(image: self.imageView.image!)
-    }
-
     
     @IBAction func launch(_ sender: UIButton) {
-        // ライブラリ（カメラロール）を指定してピッカーを開く
-        if UIImagePickerController.isSourceTypeAvailable(.photoLibrary) {
-            let pickerController = UIImagePickerController()
-            pickerController.delegate   = self
-            pickerController.sourceType = .photoLibrary
-            present(pickerController, animated: true, completion: nil)
+        
+        // ライブラリかカメラ、どっちを使うか尋ねる
+        let alert = UIAlertController(title: nil, message: "Choose resource you use...",
+                                      preferredStyle: .actionSheet)
+        
+        alert.addAction(UIAlertAction(title: "Camera",  style: .default, handler: launchVC))
+        alert.addAction(UIAlertAction(title: "Library", style: .default, handler: launchVC))
+        alert.addAction(UIAlertAction(title: "Cancel",  style: .cancel,  handler: nil))
+        
+        DispatchQueue.main.async {
+            self.present(alert, animated: true, completion: nil)
+        }
+        
+    }
+    
+    
+    private func launchVC(_ action: UIAlertAction) {
+        switch action.title! {
+            
+            case "Camera":
+                igniteVC(.camera)
+            case "Library":
+                igniteVC(.photoLibrary)
+            default:
+                fatalError()
         }
     }
     
+    private func igniteVC(_ type: UIImagePickerControllerSourceType) {
+        
+        guard UIImagePickerController.isSourceTypeAvailable(type) else { return }
+        
+        let pickerController = UIImagePickerController()
+        pickerController.delegate   = self
+        pickerController.sourceType = type
+        present(pickerController, animated: true, completion: nil)
+        
+        /*
+        if UIImagePickerController.isSourceTypeAvailable(type) {
+        }
+        */
+    }
+    
+    
+    // setlistボタンを押すと呼ばれる
     @IBAction func addSetlist(_ sender: UIBarButtonItem) {
         guard let image = self.imageView.image else { return }
         self.imageView.image = drawText(image: image)
     }
     
     
+    // 各フィルターボタンがタップされた
     func filterButtonTapped(_ sender: UIButton) {
+        // まず、フィルタされた画像をセットして...
         self.imageView.image = sender.backgroundImage(for: UIControlState())
-        self.imageView.image = drawText(image: self.imageView.image!)
+        
+        // その上にセットリストをadd!
+        // self.imageView.image = drawText(image: self.imageView.image!)
     }
     
-    
+
+    /*
     private func filter() {
         
         // image が 元画像のUIImage
@@ -113,30 +149,16 @@ final class LaunchImageCollectionViewController: UIViewController, UIImagePicker
         self.imageView.image = image2
         
     }
+    */
     
     
+    /*
     @IBAction func compose(_ sender: UIButton) {
         guard let image = self.imageView.image else { return }
         self.imageView.image = drawText(image: image)
     }
+    */
     
-    
-    // 写真を撮影/選択したときに呼ばれるメソッド
-    func imagePickerController(_ picker: UIImagePickerController,
-                               didFinishPickingMediaWithInfo info: [String:Any]) {
-        // 撮影/選択された画像を取得する
-        guard let image = info[UIImagePickerControllerOriginalImage] as? UIImage else { return }
-        print(Thread.isMainThread)
-        self.imageView.image = image
-        // 閉じる
-        picker.dismiss(animated: true, completion: nil)
-        
-    }
-    
-    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
-        // 閉じる
-        picker.dismiss(animated: true, completion: nil)
-    }
     
     private func drawText(image: UIImage) -> UIImage {
         
@@ -152,7 +174,6 @@ final class LaunchImageCollectionViewController: UIViewController, UIImagePicker
             "Some text9..\n" +
             "Some text10.."
         
-        // let font      = UIFont.boldSystemFont(ofSize: 32)
         
         let font      = UIFont(name: "Verdana", size: 28)
         
@@ -185,7 +206,8 @@ final class LaunchImageCollectionViewController: UIViewController, UIImagePicker
     }
     
     
-    private func scrollViewSetup() {
+    // ここがむちゃくちゃ重いｗｗｗ
+    fileprivate func scrollViewSetup() {
         
         // Variables for setting the Font Buttons
         var xCoord: CGFloat = 5
@@ -243,7 +265,36 @@ final class LaunchImageCollectionViewController: UIViewController, UIImagePicker
 }
 
 
-//extension
+extension LaunchImageCollectionViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+    
+    // 写真を撮影/ライブラリから写真を選択した瞬間に呼ばれるメソッド
+    func imagePickerController(_ picker: UIImagePickerController,
+                               didFinishPickingMediaWithInfo info: [String:Any]) {
+        // 撮影/選択された画像を取得する
+        guard let image = info[UIImagePickerControllerOriginalImage] as? UIImage else { return }
+        
+        print(Thread.isMainThread)
+        self.imageView.image = image
+        
+        
+        // フィルタボタンの写真を再セット
+        // ここで固まるｗｗｗｗ
+        scrollViewSetup()
+        
+        picker.dismiss(animated: true, completion: nil)
+        
+    }
+    
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        // 閉じる
+        picker.dismiss(animated: true, completion: nil)
+    }
+    
+}
+
+
+
+
 
 
 
