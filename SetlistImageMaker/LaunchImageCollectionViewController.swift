@@ -221,7 +221,7 @@ final class LaunchImageCollectionViewController: UIViewController {
         
         // ここ、asyncにすると、filterNameをselfつけろっていわれる。syncだとそんなことない。
         // つまりsyncだとエスケープしない、ってこと。asyncだとエスケープしてる。
-        // 検証の結果、ここ並列処理しなくても結果はそんなに変わらなかった。。。。
+        // 検証の結果、ここ並列処理しなくても結果はそんなに変わらなかった。。。。とりまやっとく
         DispatchQueue.global(qos: .default).sync {
             (0..<8).forEach { no in
                 result.append(CIFilter(name: self.filterNames[no])!)
@@ -236,105 +236,62 @@ final class LaunchImageCollectionViewController: UIViewController {
     }
     
     
-    fileprivate func scrollViewSetup() {
-        
-        //(0..<8).forEach { no in
-            // ここ、syncからsyncになった瞬間くそはやくなった！なぜ！！
-            // 答え → 実は処理はまだ終わってなく、勝手に先に進んでるだけだから。
-            //DispatchQueue.global(qos: .default).async {
-        
-        // DispatchQueue.global(qos: .default).async {
-        
-        
-            (0..<8).forEach { no in
-
-                let coreImage = CIImage(image: self.imageView.image!)
-
-                self.filter[no].setDefaults()
-                self.filter[no].setValue(coreImage, forKey: kCIInputImageKey)
-                
-                let filteredImageData = self.filter[no].value(forKey: kCIOutputImageKey) as! CIImage
-                let filteredImageRef = self.ciContext.createCGImage(filteredImageData,
-                                                                    from: filteredImageData.extent)
-                print("\(no) done!")
-                
-            }
-        
-            //}
-        // }
-    }
-    
-    
     // ここがむちゃくちゃ重いｗｗｗ
     
-    /*
     fileprivate func scrollViewSetup() {
         
-        // let queue = DispatchQueue.global(qos: .default)
-
         // Variables for setting the Font Buttons
         var xCoord: CGFloat = 5
         let yCoord: CGFloat = 5
         let buttonWidth:CGFloat = 70
         let buttonHeight: CGFloat = 70
         let gapBetweenButtons: CGFloat = 5
-        
-        // Items Counter
-        // var itemCount = 0
-        
-        
-        // 生成が重いらしいので、外に出してあげる
-        // let ciContext = CIContext(options: nil)
-        
-        // ↓ スレッドセーフではないので、
-        // 「スレッドごとに作り直してあげるか固定スレッドで処理させないといけないのですがこちらも一応流用可能」
-        // let filter    = yieldFilters()
-        
-        
-        // Loop for creating buttons
-        (0..<8).forEach {
-            
-            // itemCount = i
-            
-            // Button properties
-            let filterButton = UIButton(type: .custom)
-            filterButton.frame = CGRect(x: xCoord, y: yCoord, width: buttonWidth, height: buttonHeight)
-            filterButton.tag = $0
-            filterButton.showsTouchWhenHighlighted = true
-            filterButton.addTarget(self, action: #selector(filterButtonTapped(_:)), for: .touchUpInside)
-            filterButton.layer.cornerRadius = 6
-            filterButton.clipsToBounds = true
-            
-            
-            // Create filters for each button
-            // ciContext = CIContext(options: nil)
-            let coreImage = CIImage(image: self.imageView.image!)
-            
-            // filter = CIFilter(name: filterNames[i])
-            
-            self.filter[$0].setDefaults()
-            self.filter[$0].setValue(coreImage, forKey: kCIInputImageKey)
-            let filteredImageData = self.filter[$0].value(forKey: kCIOutputImageKey) as! CIImage
-            
-            /*
-             filter!.setDefaults()
-             filter!.setValue(coreImage, forKey: kCIInputImageKey)
-             let filteredImageData = filter!.value(forKey: kCIOutputImageKey) as! CIImage
-             */
-            
-            // ここが激重???????
-            let filteredImageRef = self.ciContext.createCGImage(filteredImageData, from: filteredImageData.extent)
-            
-            let imageForButton = UIImage(cgImage: filteredImageRef!);
-            
-            // Assign filtered image to the button
-            filterButton.setBackgroundImage(imageForButton, for: UIControlState())
-            filterButton.contentMode = .scaleAspectFill
-            
-            // Add Buttons in the Scroll View
-            xCoord += buttonWidth + gapBetweenButtons
-            self.scrollView.addSubview(filterButton)
 
+        
+        DispatchQueue.global(qos: .default).sync {
+            
+            (0..<8).forEach {
+                
+                // itemCount = i
+                
+                // Button properties
+                let filterButton = UIButton(type: .custom)
+                filterButton.frame = CGRect(x: xCoord, y: yCoord, width: buttonWidth, height: buttonHeight)
+                filterButton.tag = $0
+                filterButton.showsTouchWhenHighlighted = true
+                filterButton.addTarget(self, action: #selector(filterButtonTapped(_:)), for: .touchUpInside)
+                filterButton.layer.cornerRadius = 6
+                filterButton.clipsToBounds = true
+                
+                
+                // Create filters for each button
+                // ciContext = CIContext(options: nil)
+                let coreImage = CIImage(image: self.imageView.image!)
+                
+                // filter = CIFilter(name: filterNames[i])
+                
+                self.filter[$0].setDefaults()
+                self.filter[$0].setValue(coreImage, forKey: kCIInputImageKey)
+                let filteredImageData = self.filter[$0].value(forKey: kCIOutputImageKey) as! CIImage
+                
+                // ここが激重???????
+                let filteredImageRef = self.ciContext.createCGImage(filteredImageData, from: filteredImageData.extent)
+                
+                
+                let imageForButton = UIImage(cgImage: filteredImageRef!)
+                
+                // Assign filtered image to the button
+                filterButton.setBackgroundImage(imageForButton, for: UIControlState())
+                filterButton.contentMode = .scaleAspectFill
+                
+                // Add Buttons in the Scroll View
+                xCoord += buttonWidth + gapBetweenButtons
+                self.scrollView.addSubview(filterButton)
+                
+                print("\($0) done!")
+                
+            }
+            
         }
         
         // Resize Scroll View
@@ -343,7 +300,7 @@ final class LaunchImageCollectionViewController: UIViewController {
             CGSize(width: buttonWidth * CGFloat(Double(7) + 1.7), height: yCoord)
         
     }
-    */
+    
     
 } // end of class
 
