@@ -111,10 +111,8 @@
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
-                  symbolName = "-[UIImagePickerController _imagePickerDidCompleteWithInfo:]"
-                  moduleName = "UIKit"
                   usesParentBreakpointCondition = "Yes"
-                  offsetFromSymbolStart = "188">
+                  offsetFromSymbolStart = "0">
                </Location>
             </Locations>
          </BreakpointContent>

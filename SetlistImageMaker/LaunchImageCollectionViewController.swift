@@ -220,8 +220,6 @@ final class LaunchImageCollectionViewController: UIViewController {
             
             (0..<8).forEach {
                 
-                // itemCount = i
-                
                 // Button properties
                 let filterButton = UIButton(type: .custom)
                 filterButton.frame = CGRect(x: xCoord, y: yCoord, width: buttonWidth, height: buttonHeight)
@@ -262,22 +260,15 @@ final class LaunchImageCollectionViewController: UIViewController {
                 
             }
             
-            print("重いのはコールバックの前")
-            
             completion(result)
-            
-            print("重いのはコールバックの後")
         
         }
         
-        print("重いのはリサイズの前")
         
         // Resize Scroll View
         self.scrollView.contentSize =
             // この7は、本来、itemCountが来てた。注意。
             CGSize(width: buttonWidth * CGFloat(Double(7) + 1.7), height: yCoord)
-        
-        print("重いのはリサイズの後")
         
     }
     
@@ -295,7 +286,6 @@ extension LaunchImageCollectionViewController: UIImagePickerControllerDelegate, 
     // 今の実装バグあり！
     // 現在と他の写真を選ぶとデッドロック？？固まる！！！と思いきや生きてる！
     // 1枚目の写真が、なぜかやたら時間クソかかる！
-    
     
     func imagePickerController(_ picker: UIImagePickerController,
                                didFinishPickingMediaWithInfo info: [String:Any]) {
@@ -316,10 +306,9 @@ extension LaunchImageCollectionViewController: UIImagePickerControllerDelegate, 
         picker.dismiss(animated: true, completion: nil)
         
     }
+    
     // ここまで通ってるにもかかわらず、この直後落ちるｗどうしろとww
     // なおカメラのみ発生する模様、ライブラリからだと落ちない
-    
-    
     
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
         // 閉じる
@@ -327,10 +316,6 @@ extension LaunchImageCollectionViewController: UIImagePickerControllerDelegate, 
     }
     
 }
-
-
-
-
 
 
 
