@@ -26,7 +26,6 @@ final class SetListViewController: UIViewController {
     
     @IBAction func doneButtonTapped(_ sender: UIBarButtonItem) {
         
-        
         let alert = UIAlertController(title: "Confirm", message: "end editing?", preferredStyle: .alert)
         
         alert.addAction(UIAlertAction(title: "OK",     style: .default, handler: moveTo))
