@@ -42,9 +42,6 @@ class LoginViewController: UIViewController {
             }
             
             // 取得したアカウントで処理を行う...
-            print(accounts[0].username)
-            print(accounts[1].username)
-            
             self.showAccountSelectSheet(accounts: accounts)
 
         }
@@ -64,7 +61,7 @@ class LoginViewController: UIViewController {
                 UIAlertAction(title: account.username, style: .default) { action in
                     print("your select account is \(account)")
                     self.twAccount = account
-                    self.postTweet()
+                    self.postSetList()
                 }
             )
         }
@@ -73,70 +70,83 @@ class LoginViewController: UIViewController {
         alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
         
         // 表示する
-        self.present(alert, animated: true, completion: nil)
+        present(alert, animated: true, completion: nil)
         
     }
     
     
-    // タイムラインを取得する
-    private func getTimeline() {
-        
-        let url = URL(string: "https://api.twitter.com/1.1/statuses/user_timeline.json")
-        
-        // GET/POSTやパラメータに気をつけてリクエスト情報を生成
-        let request = SLRequest(forServiceType: SLServiceTypeTwitter, requestMethod: .GET, url: url, parameters: nil)
-        
-        // 認証したアカウントをセット
-        request?.account = self.twAccount
-        
-        // APIコールを実行
-        request?.perform { responseData, urlResponse, error in
-            
-            guard error == nil else {
-                print("error is \(error)")
-                return
-            }
-
-            // 結果の表示
-            let result = try? JSONSerialization.jsonObject(with: responseData!, options: .allowFragments)
-                
-            print("result is \(result)")
-            
-        }
-    }
+//    // タイムラインを取得する
+//    private func getTimeline() {
+//        
+//        let url = URL(string: "https://api.twitter.com/1.1/statuses/user_timeline.json")
+//        
+//        // GET/POSTやパラメータに気をつけてリクエスト情報を生成
+//        let request = SLRequest(forServiceType: SLServiceTypeTwitter, requestMethod: .GET, url: url, parameters: nil)
+//        
+//        // 認証したアカウントをセット
+//        request?.account = self.twAccount
+//        
+//        // APIコールを実行
+//        request?.perform { responseData, urlResponse, error in
+//            
+//            guard error == nil else {
+//                print("error is \(error)")
+//                return
+//            }
+//
+//            // 結果の表示
+//            let result = try? JSONSerialization.jsonObject(with: responseData!, options: .allowFragments)
+//                
+//            print("result is \(result)")
+//            
+//        }
+//    }
     
     
-    // ツイートを投稿
-    private func postTweet() {
+//    // ツイートを投稿
+//    private func postTweet() {
+//        
+//        let url = URL(string: "https://api.twitter.com/1.1/statuses/update.json")
+//        
+//        // ツイートしたい文章をセット
+//        let params = ["status" : "new msg from web API..."]
+//        
+//        // リクエストを生成
+//        let request = SLRequest(forServiceType: SLServiceTypeTwitter,
+//                                requestMethod: .POST,
+//                                url: url,
+//                                parameters: params)
+//        
+//        // 取得したアカウントをセット
+//        request?.account = twAccount
+//        
+//        // APIコールを実行
+//        request?.perform { responseData, urlResponse, error in
+//            
+//            guard error == nil else {
+//                print("error is \(error)")
+//                return
+//            }
+//            
+//            // 結果の表示
+//            let result = try? JSONSerialization.jsonObject(with: responseData!, options: .allowFragments)
+//            
+//            print("result is \(result)")
+//            
+//        }
+//    }
+//    
+    
+    private func postSetList() {
+    
+        let vc = SLComposeViewController(forServiceType: SLServiceTypeTwitter)
         
-        let url = URL(string: "https://api.twitter.com/1.1/statuses/update.json")
+        vc?.setInitialText("hello!")
         
-        // ツイートしたい文章をセット
-        let params = ["status" : "new msg from web API..."]
+        vc?.add(#imageLiteral(resourceName: "fever"))
+    
+        present(vc!, animated: true, completion: nil)
         
-        // リクエストを生成
-        let request = SLRequest(forServiceType: SLServiceTypeTwitter,
-                                requestMethod: .POST,
-                                url: url,
-                                parameters: params)
-        
-        // 取得したアカウントをセット
-        request?.account = twAccount
-        
-        // APIコールを実行
-        request?.perform { responseData, urlResponse, error in
-            
-            guard error == nil else {
-                print("error is \(error)")
-                return
-            }
-            
-            // 結果の表示
-            let result = try? JSONSerialization.jsonObject(with: responseData!, options: .allowFragments)
-            
-            print("result is \(result)")
-            
-        }
     }
     
     
@@ -146,14 +156,11 @@ class LoginViewController: UIViewController {
                                                 message: "please admit tweeting in pref scene",
                                                 preferredStyle: .alert)
        
-        alertController.addAction(UIAlertAction(title: "Later", style: .default) { action in
-            
-            }
-        )
+        alertController.addAction(UIAlertAction(title: "Later", style: .default, handler: nil))
 
         alertController.addAction(UIAlertAction(title: "Setting", style: .cancel) { action in
             
-            // ここ、「A」ppって大文字にしないと遷移しない。無反応。
+            // ここ、「A」ppって大文字にしないと遷移しない。無反応。気をつけてね
             if let url = URL(string:"App-prefs:root=TWITTER") {
                 if #available(iOS 10.0, *) {
                     UIApplication.shared.open(url, options: [:], completionHandler: nil)

@@ -81,10 +81,10 @@
 				4426B1F21F1578F800E37954 /* SongNameTableViewCell.swift */,
 				441D0B951F1841F1007D171C /* EditSetListViewController.swift */,
 				4474F9191F16EA18005D360E /* LaunchImageCollectionViewController.swift */,
+				4444978A1F1D7F23006FBEF8 /* LoginViewController.swift */,
 				440F68C71F157013008511DC /* Assets.xcassets */,
 				440F68C91F157013008511DC /* LaunchScreen.storyboard */,
 				440F68CC1F157013008511DC /* Info.plist */,
-				4444978A1F1D7F23006FBEF8 /* LoginViewController.swift */,
 			);
 			path = SetlistImageMaker;
 			sourceTree = "<group>";

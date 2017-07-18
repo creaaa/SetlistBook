@@ -58,11 +58,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SetlistImageMaker/LoginViewController.swift"
-            timestampString = "522096204.952945"
+            timestampString = "522097976.602002"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "157"
-            endingLineNumber = "157"
+            startingLineNumber = "176"
+            endingLineNumber = "176"
             landmarkName = "promptGrantTweet()"
             landmarkType = "7">
          </BreakpointContent>
