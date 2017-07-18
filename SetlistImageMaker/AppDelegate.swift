@@ -1,13 +1,12 @@
 
 import UIKit
-import TwitterKit
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
 
-
+    /*
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
 
         Twitter.sharedInstance().start(
@@ -22,5 +21,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                      options: [UIApplicationOpenURLOptionsKey : Any] = [:]) -> Bool {
         return Twitter.sharedInstance().application(app, open: url, options: options)
     }
-
+    */
+    
 }

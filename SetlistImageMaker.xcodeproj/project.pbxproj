@@ -18,7 +18,6 @@
 		4426B1F31F1578F800E37954 /* SongNameTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4426B1F21F1578F800E37954 /* SongNameTableViewCell.swift */; };
 		4444978B1F1D7F23006FBEF8 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4444978A1F1D7F23006FBEF8 /* LoginViewController.swift */; };
 		4474F91A1F16EA18005D360E /* LaunchImageCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4474F9191F16EA18005D360E /* LaunchImageCollectionViewController.swift */; };
-		FE27518EC3EDF04A8489811C /* Pods_SetlistImageMaker.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1ACE2886BD26485ADE85C638 /* Pods_SetlistImageMaker.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -37,7 +36,6 @@
 		4426B1F21F1578F800E37954 /* SongNameTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SongNameTableViewCell.swift; sourceTree = "<group>"; };
 		4444977E1F1D7902006FBEF8 /* TwitterKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = TwitterKit.framework; path = ../../Downloads/TwitterKitManual/TwitterKit.framework; sourceTree = "<group>"; };
 		444497801F1D790F006FBEF8 /* TwitterCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = TwitterCore.framework; path = ../../Downloads/TwitterKitManual/TwitterCore.framework; sourceTree = "<group>"; };
-		444497871F1D7D05006FBEF8 /* SetlistImageMaker-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "SetlistImageMaker-Bridging-Header.h"; sourceTree = "<group>"; };
 		4444978A1F1D7F23006FBEF8 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		4474F9191F16EA18005D360E /* LaunchImageCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LaunchImageCollectionViewController.swift; sourceTree = "<group>"; };
 		C3E30C4C615CA05141FE12E3 /* Pods-SetlistImageMaker.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SetlistImageMaker.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SetlistImageMaker/Pods-SetlistImageMaker.debug.xcconfig"; sourceTree = "<group>"; };
@@ -48,7 +46,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				FE27518EC3EDF04A8489811C /* Pods_SetlistImageMaker.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -87,7 +84,6 @@
 				440F68C71F157013008511DC /* Assets.xcassets */,
 				440F68C91F157013008511DC /* LaunchScreen.storyboard */,
 				440F68CC1F157013008511DC /* Info.plist */,
-				444497871F1D7D05006FBEF8 /* SetlistImageMaker-Bridging-Header.h */,
 				4444978A1F1D7F23006FBEF8 /* LoginViewController.swift */,
 			);
 			path = SetlistImageMaker;
@@ -119,13 +115,10 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 440F68CF1F157013008511DC /* Build configuration list for PBXNativeTarget "SetlistImageMaker" */;
 			buildPhases = (
-				3CA20391DCCE91791FE1D658 /* [CP] Check Pods Manifest.lock */,
 				440F68B91F157013008511DC /* Sources */,
 				440F68BA1F157013008511DC /* Frameworks */,
 				440F68BB1F157013008511DC /* Resources */,
 				444497821F1D79FF006FBEF8 /* ShellScript */,
-				644A4F865B1244D6D58A8679 /* [CP] Embed Pods Frameworks */,
-				191DB3A8770FF27A85259199 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -186,36 +179,6 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		191DB3A8770FF27A85259199 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-SetlistImageMaker/Pods-SetlistImageMaker-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		3CA20391DCCE91791FE1D658 /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
-			showEnvVarsInLog = 0;
-		};
 		444497821F1D79FF006FBEF8 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -228,21 +191,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "";
-		};
-		644A4F865B1244D6D58A8679 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-SetlistImageMaker/Pods-SetlistImageMaker-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -392,7 +340,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = co.masa.SetlistImageMaker;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_OBJC_BRIDGING_HEADER = "SetlistImageMaker/SetlistImageMaker-Bridging-Header.h";
+				SWIFT_OBJC_BRIDGING_HEADER = "";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 3.0;
 			};
@@ -413,7 +361,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = co.masa.SetlistImageMaker;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_OBJC_BRIDGING_HEADER = "SetlistImageMaker/SetlistImageMaker-Bridging-Header.h";
+				SWIFT_OBJC_BRIDGING_HEADER = "";
 				SWIFT_VERSION = 3.0;
 			};
 			name = Release;
