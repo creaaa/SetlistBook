@@ -1,6 +1,5 @@
 
 import UIKit
-
 import Accounts
 import Social
 
@@ -8,7 +7,7 @@ import Social
 class LoginViewController: UIViewController {
 
     var accountStore = ACAccountStore()
-    var twAccount: ACAccount?
+    var twAccount:     ACAccount?
     
     
     override func viewDidLoad() {
@@ -30,17 +29,9 @@ class LoginViewController: UIViewController {
             }
             
             guard isGranted else {
-                
                 print("error! Twitterアカウントの利用が許可されていません")
-                
-                let url = URL(string: UIApplicationOpenSettingsURLString)
-                
-                // deprecated
-                //UIApplication.shared.openURL(url!)
-                UIApplication.shared.open(url!, options: [:], completionHandler: nil)
-                
+                self.promptGrantTweet()
                 return
-                
             }
             
             let accounts = self.accountStore.accounts(with: accountType) as! [ACAccount]
@@ -121,7 +112,7 @@ class LoginViewController: UIViewController {
         let url = URL(string: "https://api.twitter.com/1.1/statuses/update.json")
         
         // ツイートしたい文章をセット
-        let params = ["status" : "Tweet from API"]
+        let params = ["status" : "new msg from web API..."]
         
         // リクエストを生成
         let request = SLRequest(forServiceType: SLServiceTypeTwitter,
@@ -135,7 +126,7 @@ class LoginViewController: UIViewController {
         // APIコールを実行
         request?.perform { responseData, urlResponse, error in
             
-            guard error != nil else {
+            guard error == nil else {
                 print("error is \(error)")
                 return
             }
@@ -146,6 +137,36 @@ class LoginViewController: UIViewController {
             print("result is \(result)")
             
         }
+    }
+    
+    
+    private func promptGrantTweet() {
+        
+        let alertController = UIAlertController(title: "not admitted tweet",
+                                                message: "please admit tweeting in pref scene",
+                                                preferredStyle: .alert)
+       
+        alertController.addAction(UIAlertAction(title: "Later", style: .default) { action in
+            
+            }
+        )
+
+        alertController.addAction(UIAlertAction(title: "Setting", style: .cancel) { action in
+            
+            // ここ、「A」ppって大文字にしないと遷移しない。無反応。
+            if let url = URL(string:"App-prefs:root=TWITTER") {
+                if #available(iOS 10.0, *) {
+                    UIApplication.shared.open(url, options: [:], completionHandler: nil)
+                    print("ks")
+                } else {
+                    UIApplication.shared.openURL(url)
+                    print("nnkr")
+                }
+            }
+        })
+
+        present(alertController, animated: true, completion: nil)
+    
     }
     
 }

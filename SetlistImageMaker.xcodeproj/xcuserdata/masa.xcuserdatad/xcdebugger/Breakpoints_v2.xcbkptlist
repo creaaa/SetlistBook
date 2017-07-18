@@ -6,27 +6,27 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "SetlistImageMaker/LoginViewController.swift"
-            timestampString = "522092640.794432"
+            timestampString = "522096204.952945"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "136"
-            endingLineNumber = "136"
+            startingLineNumber = "127"
+            endingLineNumber = "127"
             landmarkName = "postTweet()"
             landmarkType = "7">
             <Locations>
                <Location
-                  shouldBeEnabled = "Yes"
+                  shouldBeEnabled = "No"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
                   symbolName = "SetlistImageMaker.LoginViewController.(postTweet in _EE6A78000F5AD8A8470F9A2A91B7A57C) () -&gt; ()"
                   moduleName = "SetlistImageMaker"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/masa/Desktop/SetlistImageMaker/SetlistImageMaker/LoginViewController.swift"
-                  timestampString = "522092641.607989"
+                  timestampString = "522093196.283637"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "136"
@@ -34,14 +34,14 @@
                   offsetFromSymbolStart = "656">
                </Location>
                <Location
-                  shouldBeEnabled = "Yes"
+                  shouldBeEnabled = "No"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
                   symbolName = "SetlistImageMaker.LoginViewController.((postTweet in _EE6A78000F5AD8A8470F9A2A91B7A57C) () -&gt; ()).(closure #1)"
                   moduleName = "SetlistImageMaker"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/masa/Desktop/SetlistImageMaker/SetlistImageMaker/LoginViewController.swift"
-                  timestampString = "522092641.61205"
+                  timestampString = "522093196.28693"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "138"
@@ -49,6 +49,22 @@
                   offsetFromSymbolStart = "23">
                </Location>
             </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "SetlistImageMaker/LoginViewController.swift"
+            timestampString = "522096204.952945"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "157"
+            endingLineNumber = "157"
+            landmarkName = "promptGrantTweet()"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>
