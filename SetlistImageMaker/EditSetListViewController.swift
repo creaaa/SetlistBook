@@ -4,10 +4,12 @@ import UIKit
 final class EditSetListViewController: UIViewController {
 
     @IBOutlet weak var tableView:  UITableView!
-    
     @IBOutlet weak var prevButton: UIBarButtonItem!
     
-    weak var suggestTableView:     UITableView!
+    // weak var suggestTableView:     UITableView!
+    
+    @IBOutlet weak var suggestTableView: UITableView!
+    
     
     // 遷移前画面から渡されてきた「曲名リスト」のコピー。
     // モーダル終了時受け戻される。
@@ -28,44 +30,23 @@ final class EditSetListViewController: UIViewController {
         tableView.delegate   = self
         tableView.dataSource = self
         
+        suggestTableView.delegate   = self
+        suggestTableView.dataSource = self
+        
         if self.songNo == 0 {
             self.prevButton.isEnabled = false
         }
+        
+        tableView.sizeToFit()
 
     }
     
     
     @IBAction func cencelButtonTapped(_ sender: Any) {
-        
-        /*
-        if let navVC = self.presentingViewController as? UINavigationController,
-           let _ = navVC.topViewController as? SetListViewController {
-                // parentVC.songNames.append("unk")
-        }
-        */
-        
         self.dismiss(animated: true, completion: nil)
-        
     }
     
     @IBAction func doneButtonTapped(_ sender: UIBarButtonItem) {
-        
-        /*
-        if let navVC = self.presentingViewController as? UINavigationController,
-            let parentVC = navVC.topViewController as? SetListViewController {
-                let indexPath = IndexPath(row: 0, section: 0)
-                    if let cell = self.tableView.cellForRow(at: indexPath) as? SongNameTableViewCell {
-                        
-                        if self.songNo >= self.songNames.count {
-                            self.songNames.append("")
-                        }
-                        
-                        self.songNames[self.songNo] = cell.textField.text!
-                        parentVC.songNames = self.songNames
-                        
-                    }
-        }
-        */
         
         guard let navVC = self.presentingViewController as? UINavigationController,
             let parentVC = navVC.topViewController as? SetListViewController else {
@@ -85,10 +66,6 @@ final class EditSetListViewController: UIViewController {
         }
         
         self.songNames[self.songNo] = cell.textField.text!
-        
-        /*
-        parentVC.songNames = self.songNames
-        */
         
         if self.title == "SetList" {
             parentVC.songNames = self.songNames
@@ -160,61 +137,91 @@ final class EditSetListViewController: UIViewController {
 
 extension EditSetListViewController: UITableViewDelegate {
     
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        print("f")
+        
+        
+        if tableView.tag == 2 {
+            
+            // 固定化された「曲入力セル」
+            let songNameCell =
+                // これ、(0,0)セルが画面外にあるとぬるぽする！なんでだよ
+                // ここのselfは必須。考えたらわかるな??
+                self.tableView.cellForRow(at: IndexPath(row: 0, section: 0)) as! SongNameTableViewCell
+            
+            // セル自分自身
+            let cell = tableView.cellForRow(at: indexPath)
+            
+            // 曲名を転記
+            songNameCell.textField.text = cell?.textLabel?.text
+            
+        }
+        
+    }
+    
 }
 
 extension EditSetListViewController: UITableViewDataSource {
     
+    
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 1
+    }
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
-        if tableView.tag == 100 {
-            return self.suggestSongList.count
+        switch tableView.tag {
+            case 1:
+                return 1
+            case 2:
+                return 30 // self.suggestSongList.count
+            default:
+                fatalError()
         }
-        return 1
+        
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        if tableView.tag == 100 {
-            let cell = UITableViewCell(style: .default, reuseIdentifier: "SuggestCell")
-            cell.textLabel?.text = self.suggestSongList[indexPath.row]
-            cell.addGestureRecognizer(
-                UITapGestureRecognizer(target: self,
-                                       action: #selector(inputFromHistory(sender:))))
-            return cell
-        }
         
-        
-        let cell = tableView.dequeueReusableCell(withIdentifier: "TextFieldCell") as! SongNameTableViewCell
-        
-        cell.textField.placeholder = "#\(self.songNo! + 1): 曲名を入力"
-        if !self.songNames.isEmpty {
-            if self.songNo < self.songNames.count {
-                cell.textField.text = self.songNames[self.songNo]
-            } else {
-                cell.textField.text = nil
+        switch tableView.tag {
+            
+        case 1:
+            let cell = tableView.dequeueReusableCell(withIdentifier: "TextFieldCell") as! SongNameTableViewCell
+            cell.textField.placeholder = "#\(self.songNo! + 1): 曲名を入力"
+            if !self.songNames.isEmpty {
+                if self.songNo < self.songNames.count {
+                    cell.textField.text = self.songNames[self.songNo]
+                } else {
+                    cell.textField.text = nil
+                }
             }
+            cell.delegate = self
+            return cell
+        case 2:
+            let cell = UITableViewCell()
+            cell.textLabel?.text = self.suggestSongList[indexPath.row % 5]
+            return cell
+        default:
+                fatalError()
         }
-        
-        cell.delegate = self
-        
-        return cell
         
     }
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         
-        if tableView.tag == 100 {
-            return "Probably..."
-        }
-            
-        switch section {
-        case 0:
+        switch tableView.tag {
+        case 1:
             return "曲名(必須)"
+        case 2:
+            return "Probably..."
         default:
             fatalError("never executed")
         }
     }
     
+    /*
     func inputFromHistory(sender: UITapGestureRecognizer) {
         
         self.suggestTableView.removeFromSuperview()
@@ -229,12 +236,14 @@ extension EditSetListViewController: UITableViewDataSource {
         
         resignFirstResponder()
     }
+    */
     
 }
 
 
 extension EditSetListViewController: TableViewCellDelegate {
     
+    /*
     private func yieldSuggestTableView(_ textField: UITextField) {
         
         let statusBarHeight = UIApplication.shared.statusBarFrame.height
@@ -260,10 +269,11 @@ extension EditSetListViewController: TableViewCellDelegate {
         self.view.addSubview(tableView)
     
     }
+    */
     
     // nextボタンでここが発動するとき、tableViewが表示されない
     func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
-        yieldSuggestTableView(textField)
+        // yieldSuggestTableView(textField)
         return true
     }
     
