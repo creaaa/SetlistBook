@@ -48,7 +48,7 @@ final class SongNameTableViewCell: UITableViewCell {
         
         kbToolBar.items = [doneButton, spacer, nextButton]
         
-         self.textField.inputAccessoryView = kbToolBar
+        self.textField.inputAccessoryView = kbToolBar
         
     }
     
