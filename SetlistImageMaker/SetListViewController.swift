@@ -26,14 +26,24 @@ final class SetListViewController: UIViewController {
     
     @IBAction func doneButtonTapped(_ sender: UIBarButtonItem) {
         
-        let alert = UIAlertController(title: "Confirm", message: "end editing?", preferredStyle: .alert)
+        let alert = UIAlertController(title: "setlist saved!", message: nil, preferredStyle: .alert)
         
         alert.addAction(UIAlertAction(title: "OK",     style: .default, handler: moveTo))
-        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel,  handler: nil))
+        alert.addAction(UIAlertAction(title: "Tweet",  style: .cancel,  handler: tweet))
         
+        let img = ImageGenerator().drawText(image: UIImage(named: "orange")!)
+        
+        if let img = img {
+            ImageGenerator().savePhoto(image: img)
+        }
+        
+        
+        
+        /*
         DispatchQueue.main.async {
             self.present(alert, animated: true, completion: nil)
         }
+        */
         
     }
     
@@ -43,6 +53,14 @@ final class SetListViewController: UIViewController {
             as? LaunchImageCollectionViewController else { return }
         self.navigationController?.pushViewController(vc, animated: true)
     }
+    
+    func tweet(action: UIAlertAction) {
+        let vc = LoginViewController()
+        present(vc, animated: true, completion: nil)
+    }
+    
+    
+    
     
     
     @IBAction func addEncoreButtonTapped(_ sender: UIBarButtonItem) {
@@ -86,7 +104,7 @@ final class SetListViewController: UIViewController {
         
         self.tableView.reloadData()
     }
-
+    
 }
 
 

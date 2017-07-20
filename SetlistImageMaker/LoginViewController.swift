@@ -12,7 +12,10 @@ class LoginViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        self.view.backgroundColor = .white
         selectTwitterAccount()
+        
     }
     
     
@@ -38,6 +41,7 @@ class LoginViewController: UIViewController {
             
             guard accounts.count != 0 else {
                 print("error! 設定画面からアカウントを設定してください")
+                self.dismiss(animated: true, completion: nil)
                 return
             }
             
@@ -67,75 +71,16 @@ class LoginViewController: UIViewController {
         }
         
         // キャンセルボタン
-        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel) { _ in
+            self.dismiss(animated: true, completion: nil)
+        })
         
         // 表示する
         present(alert, animated: true, completion: nil)
         
     }
     
-    
-//    // タイムラインを取得する
-//    private func getTimeline() {
-//        
-//        let url = URL(string: "https://api.twitter.com/1.1/statuses/user_timeline.json")
-//        
-//        // GET/POSTやパラメータに気をつけてリクエスト情報を生成
-//        let request = SLRequest(forServiceType: SLServiceTypeTwitter, requestMethod: .GET, url: url, parameters: nil)
-//        
-//        // 認証したアカウントをセット
-//        request?.account = self.twAccount
-//        
-//        // APIコールを実行
-//        request?.perform { responseData, urlResponse, error in
-//            
-//            guard error == nil else {
-//                print("error is \(error)")
-//                return
-//            }
-//
-//            // 結果の表示
-//            let result = try? JSONSerialization.jsonObject(with: responseData!, options: .allowFragments)
-//                
-//            print("result is \(result)")
-//            
-//        }
-//    }
-    
-    
-//    // ツイートを投稿
-//    private func postTweet() {
-//        
-//        let url = URL(string: "https://api.twitter.com/1.1/statuses/update.json")
-//        
-//        // ツイートしたい文章をセット
-//        let params = ["status" : "new msg from web API..."]
-//        
-//        // リクエストを生成
-//        let request = SLRequest(forServiceType: SLServiceTypeTwitter,
-//                                requestMethod: .POST,
-//                                url: url,
-//                                parameters: params)
-//        
-//        // 取得したアカウントをセット
-//        request?.account = twAccount
-//        
-//        // APIコールを実行
-//        request?.perform { responseData, urlResponse, error in
-//            
-//            guard error == nil else {
-//                print("error is \(error)")
-//                return
-//            }
-//            
-//            // 結果の表示
-//            let result = try? JSONSerialization.jsonObject(with: responseData!, options: .allowFragments)
-//            
-//            print("result is \(result)")
-//            
-//        }
-//    }
-//    
+
     
     private func postSetList() {
     
@@ -143,8 +88,21 @@ class LoginViewController: UIViewController {
         
         vc?.setInitialText("hello!")
         
-        vc?.add(#imageLiteral(resourceName: "fever"))
+        // vc?.add(#imageLiteral(resourceName: "fever"))
     
+        vc?.completionHandler = {
+            switch $0 {
+                case .done:
+                    print("done")
+                case .cancelled:
+                    print("cancel!おら")
+            }
+            // これ、2行書かないとだめ。すげー不可解だけど
+            self.dismiss(animated: true, completion: nil)
+            self.dismiss(animated: true, completion: nil)
+        }
+        
+        
         present(vc!, animated: true, completion: nil)
         
     }
@@ -177,6 +135,8 @@ class LoginViewController: UIViewController {
     }
     
 }
+
+
 
 
 

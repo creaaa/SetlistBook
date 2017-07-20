@@ -4,12 +4,9 @@ import UIKit
 final class EditSetListViewController: UIViewController {
 
     @IBOutlet weak var tableView:  UITableView!
-    @IBOutlet weak var prevButton: UIBarButtonItem!
-    
-    // weak var suggestTableView:     UITableView!
-    
     @IBOutlet weak var suggestTableView: UITableView!
     
+    @IBOutlet weak var prevButton: UIBarButtonItem!
     
     // 遷移前画面から渡されてきた「曲名リスト」のコピー。
     // モーダル終了時受け戻される。
@@ -37,10 +34,12 @@ final class EditSetListViewController: UIViewController {
             self.prevButton.isEnabled = false
         }
         
-        tableView.sizeToFit()
-
     }
     
+    
+    //////////////
+    // nav bar  //
+    //////////////
     
     @IBAction func cencelButtonTapped(_ sender: Any) {
         self.dismiss(animated: true, completion: nil)
@@ -78,6 +77,10 @@ final class EditSetListViewController: UIViewController {
         self.dismiss(animated: true, completion: nil)
         
     }
+    
+    //////////////
+    // toolbar  //
+    //////////////
     
     @IBAction func prevSongButtonTapped(_ sender: UIBarButtonItem) {
         
@@ -139,9 +142,6 @@ extension EditSetListViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
-        print("f")
-        
-        
         if tableView.tag == 2 {
             
             // 固定化された「曲入力セル」
@@ -155,15 +155,12 @@ extension EditSetListViewController: UITableViewDelegate {
             
             // 曲名を転記
             songNameCell.textField.text = cell?.textLabel?.text
-            
         }
-        
     }
-    
 }
 
+
 extension EditSetListViewController: UITableViewDataSource {
-    
     
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
@@ -186,27 +183,25 @@ extension EditSetListViewController: UITableViewDataSource {
         
         
         switch tableView.tag {
-            
-        case 1:
-            let cell = tableView.dequeueReusableCell(withIdentifier: "TextFieldCell") as! SongNameTableViewCell
-            cell.textField.placeholder = "#\(self.songNo! + 1): 曲名を入力"
-            if !self.songNames.isEmpty {
-                if self.songNo < self.songNames.count {
-                    cell.textField.text = self.songNames[self.songNo]
-                } else {
-                    cell.textField.text = nil
+            case 1:
+                let cell = tableView.dequeueReusableCell(withIdentifier: "TextFieldCell") as! SongNameTableViewCell
+                cell.textField.placeholder = "#\(self.songNo! + 1): 曲名を入力"
+                if !self.songNames.isEmpty {
+                    if self.songNo < self.songNames.count {
+                        cell.textField.text = self.songNames[self.songNo]
+                    } else {
+                        cell.textField.text = nil
+                    }
                 }
-            }
-            cell.delegate = self
-            return cell
-        case 2:
-            let cell = UITableViewCell()
-            cell.textLabel?.text = self.suggestSongList[indexPath.row % 5]
-            return cell
-        default:
+                cell.delegate = self
+                return cell
+            case 2:
+                let cell = UITableViewCell()
+                cell.textLabel?.text = self.suggestSongList[indexPath.row % 5]
+                return cell
+            default:
                 fatalError()
         }
-        
     }
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
@@ -271,16 +266,15 @@ extension EditSetListViewController: TableViewCellDelegate {
     }
     */
     
-    // nextボタンでここが発動するとき、tableViewが表示されない
+
     func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
-        // yieldSuggestTableView(textField)
         return true
     }
     
     func textFieldDidEndEditing(cell: UITableViewCell) {
-        if let _ = self.suggestTableView {
-            self.suggestTableView.removeFromSuperview()
-        }
+//        if let _ = self.suggestTableView {
+//            self.suggestTableView.removeFromSuperview()
+//        }
     }
     
     func textFieldNextButtonTapped(cell: UITableViewCell) {

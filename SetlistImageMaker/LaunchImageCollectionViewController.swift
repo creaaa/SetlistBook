@@ -80,9 +80,7 @@ final class LaunchImageCollectionViewController: UIViewController {
         configureScrollView { result in
             result.forEach { self.scrollView.addSubview($0) }
         }
-        
-        print("おら", self.imageView.image?.size, self.imageView.image?.scale)
-        
+                
     }
     
     
@@ -110,7 +108,18 @@ final class LaunchImageCollectionViewController: UIViewController {
                 "Some text7..\n" +
                 "Some text8..\n" +
                 "Some text9..\n" +
-        "Some text10.."
+                "Some text10..\n" +
+                "Some text11..\n" +
+                "Some text12..\n" +
+                "Some text13..\n" +
+                "Some text14..\n" +
+                "Some text15..\n" +
+                "Some text16..\n" +
+                "Some text17..\n" +
+                "Some text18..\n" +
+                "Some text19..\n" +
+                "Some text20.."
+        
         
         let font      = UIFont(name: "Verdana", size: 28)
         
