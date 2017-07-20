@@ -19,6 +19,9 @@
 		4444978B1F1D7F23006FBEF8 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4444978A1F1D7F23006FBEF8 /* LoginViewController.swift */; };
 		4458EA7F1F2000B200FCC85A /* ImageGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4458EA7E1F2000B200FCC85A /* ImageGenerator.swift */; };
 		4474F91A1F16EA18005D360E /* LaunchImageCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4474F9191F16EA18005D360E /* LaunchImageCollectionViewController.swift */; };
+		44A91DCA1F210C250088D9E6 /* WelcomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44A91DC91F210C250088D9E6 /* WelcomeViewController.swift */; };
+		44A91DCD1F211AAA0088D9E6 /* RealmSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 44A91DCB1F211AAA0088D9E6 /* RealmSwift.framework */; };
+		44A91DCE1F211AAA0088D9E6 /* Realm.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 44A91DCC1F211AAA0088D9E6 /* Realm.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -40,6 +43,9 @@
 		4444978A1F1D7F23006FBEF8 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		4458EA7E1F2000B200FCC85A /* ImageGenerator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageGenerator.swift; sourceTree = "<group>"; };
 		4474F9191F16EA18005D360E /* LaunchImageCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LaunchImageCollectionViewController.swift; sourceTree = "<group>"; };
+		44A91DC91F210C250088D9E6 /* WelcomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WelcomeViewController.swift; sourceTree = "<group>"; };
+		44A91DCB1F211AAA0088D9E6 /* RealmSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RealmSwift.framework; path = Carthage/Build/iOS/RealmSwift.framework; sourceTree = "<group>"; };
+		44A91DCC1F211AAA0088D9E6 /* Realm.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Realm.framework; path = Carthage/Build/iOS/Realm.framework; sourceTree = "<group>"; };
 		44D5AF271F20289100EB0CA5 /* Quicksand-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Quicksand-Regular.ttf"; sourceTree = "<group>"; };
 		C3E30C4C615CA05141FE12E3 /* Pods-SetlistImageMaker.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SetlistImageMaker.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SetlistImageMaker/Pods-SetlistImageMaker.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -49,6 +55,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				44A91DCD1F211AAA0088D9E6 /* RealmSwift.framework in Frameworks */,
+				44A91DCE1F211AAA0088D9E6 /* Realm.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -79,6 +87,7 @@
 				44D5AF271F20289100EB0CA5 /* Quicksand-Regular.ttf */,
 				440F68C41F157013008511DC /* Main.storyboard */,
 				440F68C01F157013008511DC /* AppDelegate.swift */,
+				44A91DC91F210C250088D9E6 /* WelcomeViewController.swift */,
 				440F68C21F157013008511DC /* SetListViewController.swift */,
 				4458EA7B1F20000800FCC85A /* Cell - Artist */,
 				4458EA7C1F20002000FCC85A /* Cell - Song */,
@@ -95,6 +104,8 @@
 		4444977D1F1D7902006FBEF8 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				44A91DCB1F211AAA0088D9E6 /* RealmSwift.framework */,
+				44A91DCC1F211AAA0088D9E6 /* Realm.framework */,
 				444497801F1D790F006FBEF8 /* TwitterCore.framework */,
 				4444977E1F1D7902006FBEF8 /* TwitterKit.framework */,
 				1ACE2886BD26485ADE85C638 /* Pods_SetlistImageMaker.framework */,
@@ -214,12 +225,14 @@
 			files = (
 			);
 			inputPaths = (
+				"$(SRCROOT)/Carthage/Build/iOS/RealmSwift.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/Realm.framework",
 			);
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "";
+			shellScript = "/usr/local/bin/carthage copy-frameworks";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -229,6 +242,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				441D0B961F1841F1007D171C /* EditSetListViewController.swift in Sources */,
+				44A91DCA1F210C250088D9E6 /* WelcomeViewController.swift in Sources */,
 				4458EA7F1F2000B200FCC85A /* ImageGenerator.swift in Sources */,
 				440F68C31F157013008511DC /* SetListViewController.swift in Sources */,
 				4474F91A1F16EA18005D360E /* LaunchImageCollectionViewController.swift in Sources */,
@@ -365,6 +379,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
 				);
 				INFOPLIST_FILE = SetlistImageMaker/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -386,6 +401,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
 				);
 				INFOPLIST_FILE = SetlistImageMaker/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
