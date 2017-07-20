@@ -53,7 +53,7 @@ class Setlist: Object {
     dynamic var songs:       [String]   = []
      
     // アンコール群
-    dynamic var encoreSongs: [[String]] = []
+    dynamic var encoreSongs: [[String]]?
     
     /**
      id をプライマリーキーとして設定
@@ -62,17 +62,7 @@ class Setlist: Object {
         return "id"
     }
     
-    
-    
 }
-
-
-
-
-
-
-
-
 
 
 

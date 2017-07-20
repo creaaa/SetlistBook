@@ -1,7 +1,10 @@
 
 import UIKit
+import RealmSwift
 
 final class SetListViewController: UIViewController {
+    
+    var realm = try! Realm()
     
     /* View */
     weak var suggestTableView: UITableView!
@@ -26,24 +29,44 @@ final class SetListViewController: UIViewController {
     
     @IBAction func doneButtonTapped(_ sender: UIBarButtonItem) {
         
-        let alert = UIAlertController(title: "setlist saved!", message: nil, preferredStyle: .alert)
+        let alert = UIAlertController(title: "save setlist?", message: nil, preferredStyle: .alert)
         
-        alert.addAction(UIAlertAction(title: "OK",     style: .default, handler: moveTo))
-        alert.addAction(UIAlertAction(title: "Tweet",  style: .cancel,  handler: tweet))
+        alert.addAction(UIAlertAction(title: "Yes",     style: .default, handler: saveSetlist))
+        alert.addAction(UIAlertAction(title: "No",      style: .cancel,  handler: nil))
         
+        
+        /*
         let img = ImageGenerator().drawText(image: UIImage(named: "orange")!)
         
         if let img = img {
             ImageGenerator().savePhoto(image: img)
         }
-
-        /*
+        */
+        
+        
+        
         DispatchQueue.main.async {
             self.present(alert, animated: true, completion: nil)
         }
-        */
+        
         
     }
+    
+    
+    func saveSetlist(action: UIAlertAction) {
+        
+        do {
+            try self.realm.write {
+                
+            }
+        } catch {
+            
+        }
+        
+    }
+    
+    
+    
     
     func moveTo(action: UIAlertAction) {
         
