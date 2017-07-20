@@ -2,15 +2,13 @@
 import UIKit
 import RealmSwift
 
-class WelcomeViewController: UIViewController {
+final class WelcomeViewController: UIViewController {
 
     @IBOutlet weak var tableView: UITableView!
     
     override func viewDidLoad() {
         
         super.viewDidLoad()
-        
-        
         
     }
     
@@ -32,7 +30,14 @@ extension WelcomeViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        return UITableViewCell()
+        
+        let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
+        
+        cell.textLabel?.text       = ""
+        cell.detailTextLabel?.text = ""
+        
+        return cell
+        
     }
     
 }

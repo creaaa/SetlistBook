@@ -6,9 +6,9 @@ final class EditArtistViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
     
     // 前画面から受け渡されるモデル
-    var artist: String!
-    var place:  String!
-    
+    var artist: String?
+    var place:  String?
+    var date:   String?
     
     @IBAction func cancelButtonTapped(_ sender: UIBarButtonItem) {
         self.dismiss(animated: true, completion: nil)
@@ -17,24 +17,26 @@ final class EditArtistViewController: UIViewController {
     @IBAction func doneButtonTapped(_ sender: UIBarButtonItem) {
         
         guard let navVC = self.presentingViewController as? UINavigationController,
-            let parentVC = navVC.topViewController as? SetListViewController else { return }
-        
-        var indexPath = IndexPath(row: 0, section: 0)
-            
-        guard let cell1 = self.tableView.cellForRow(at: indexPath) as? ArtistTableViewCell else {
-            return
+            let parentVC = navVC.topViewController as? SetListViewController else {
+                self.dismiss(animated: true, completion: nil)
+                return
         }
         
-        parentVC.artistInfoNames.artist = cell1.textField.text!
-            
-        indexPath = IndexPath(row: 0, section: 1)
-        
-        guard let cell2 = self.tableView.cellForRow(at: indexPath) as? ArtistTableViewCell else {
-            return
+        guard let artistCell = self.tableView.cellForRow(at: IndexPath(row: 0, section: 0)) as? ArtistTableViewCell,
+              let placeCell  = self.tableView.cellForRow(at: IndexPath(row: 1, section: 0)) as? ArtistTableViewCell,
+              let dateCell   = self.tableView.cellForRow(at: IndexPath(row: 2, section: 0)) as? ArtistTableViewCell else {
+              self.dismiss(animated: true, completion: nil)
+              return
         }
         
-        parentVC.artistInfoNames.place = cell2.textField.text!
-
+        self.artist = artistCell.textField.text
+        self.place  = placeCell.textField.text
+        self.date   = dateCell.textField.text
+        
+        parentVC.artistInfoNames.artist = self.artist
+        parentVC.artistInfoNames.place  = self.place
+        parentVC.artistInfoNames.date   = self.date
+        
         self.dismiss(animated: true, completion: nil)
         
     }
@@ -46,7 +48,6 @@ final class EditArtistViewController: UIViewController {
         tableView.delegate   = self
         tableView.dataSource = self
         
-        
         self.tableView.rowHeight  = UITableViewAutomaticDimension
         self.tableView.estimatedRowHeight = 44
         
@@ -55,17 +56,18 @@ final class EditArtistViewController: UIViewController {
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
-
+    
 }
 
 extension EditArtistViewController: UITableViewDelegate {
-    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    }
 }
 
 extension EditArtistViewController: UITableViewDataSource {
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 2
+        return 3
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -87,8 +89,12 @@ extension EditArtistViewController: UITableViewDataSource {
             if let place = self.place {
                 cell.textField.text = place
             }
+        } else if indexPath.section == 2 {
+            cell.textField.placeholder = "公演日時を入力"
+            if let date = self.date {
+                cell.textField.text = date //DateUtils.stringFromDate(date: date, format: "yyyy/MM/dd")
+            }
         }
-        
         
         cell.delegate = self
 
@@ -103,6 +109,8 @@ extension EditArtistViewController: UITableViewDataSource {
                 return "アーティスト名"
             case 1:
                 return "公演情報"
+            case 2:
+                return "日付"
             default:
                 fatalError()
         }
@@ -117,9 +125,4 @@ extension EditArtistViewController: TableViewCellDelegate {
     }
     
 }
-
-
-
-
-
 

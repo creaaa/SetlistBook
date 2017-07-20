@@ -11,7 +11,7 @@ final class SetListViewController: UIViewController {
     // アンコールの回数
     var numOfEncore = 0
     
-    var artistInfoNames: (artist: String?, place: String?) = (nil, nil)
+    var artistInfoNames: (artist: String?, place: String?, date: String?) = (nil, nil, nil)
     
     var songNames: [String] = Array(repeating: "", count: 0)
     
@@ -36,9 +36,7 @@ final class SetListViewController: UIViewController {
         if let img = img {
             ImageGenerator().savePhoto(image: img)
         }
-        
-        
-        
+
         /*
         DispatchQueue.main.async {
             self.present(alert, animated: true, completion: nil)
@@ -58,9 +56,6 @@ final class SetListViewController: UIViewController {
         let vc = LoginViewController()
         present(vc, animated: true, completion: nil)
     }
-    
-    
-    
     
     
     @IBAction func addEncoreButtonTapped(_ sender: UIBarButtonItem) {
@@ -235,11 +230,19 @@ extension SetListViewController: UITableViewDataSource {
 
         // アーティスト・公演情報
         if indexPath.section == 0 {
+            
             let cell = UITableViewCell(style: .subtitle, reuseIdentifier: "ArtistCell")
-            cell.textLabel?.text       = self.artistInfoNames.artist ?? "タップして情報を入力"
-            cell.detailTextLabel?.text = self.artistInfoNames.place  ?? ""
+            cell.textLabel?.text = self.artistInfoNames.artist ?? "タップして情報を入力"
+            
+            var str = ""
+            str.append(self.artistInfoNames.place ?? "")
+            if str != "" { str.append(" / ") }
+            str.append(self.artistInfoNames.date ?? "")
+            
+            cell.detailTextLabel?.text = str != "" ? str : nil
             
             return cell
+            
         }
         
         // ライブ本編
