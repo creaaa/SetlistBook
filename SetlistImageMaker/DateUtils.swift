@@ -1,5 +1,5 @@
 
-import Foundation
+import UIKit
 
 struct DateUtils {
     
@@ -15,3 +15,4 @@ struct DateUtils {
         return formatter.string(from: date)
     }
 }
+

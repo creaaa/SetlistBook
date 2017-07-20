@@ -152,11 +152,14 @@ extension EditSetListViewController: UITableViewDelegate {
             
             // セル自分自身
             let cell = tableView.cellForRow(at: indexPath)
+            // ハイライトさせない
+            tableView.deselectRow(at: indexPath, animated: true)
             
             // 曲名を転記
             songNameCell.textField.text = cell?.textLabel?.text
         }
     }
+    
 }
 
 

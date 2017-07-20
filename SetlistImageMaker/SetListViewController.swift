@@ -114,16 +114,17 @@ extension SetListViewController: UITableViewDelegate {
     
         switch indexPath.section {
             
-            // アーティスト / 公演情報
+            // アーティスト / 会場 / 日付
             case 0:
                 
                 guard let vc = self.storyboard?.instantiateViewController(withIdentifier: "EditArtist")
                     as? UINavigationController else { return }
                 
                 if let editVC = vc.viewControllers.first as? EditArtistViewController {
-                    //                editVC.title  = "アーティスト / 公演情報"
+                    // editVC.title  = "アーティスト / 公演情報"
                     editVC.artist = self.artistInfoNames.artist
                     editVC.place  = self.artistInfoNames.place
+                    editVC.date   = self.artistInfoNames.date
                 }
                 
                 self.present(vc, animated: true, completion: nil)
@@ -195,7 +196,7 @@ extension SetListViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
         switch section {
-            
+        
             // アーティスト名・公演情報
             case 0:
                 return 1

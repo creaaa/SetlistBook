@@ -15,6 +15,10 @@ final class ArtistTableViewCell: UITableViewCell {
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
     }
+    
+    // くそだせぇ..
+    var date: Date?
+    
 
 }
 
@@ -23,7 +27,12 @@ extension ArtistTableViewCell: UITextFieldDelegate {
     
     func textFieldDidBeginEditing(_ textField: UITextField) {
         
+        // セルがアーティスト・場所なら何もせず、日時の場合のみピッカーを表示
+        guard textField.tag == 3 else { return }
+        
         let datePickerView  = UIDatePicker()
+        datePickerView.datePickerMode = .date
+        
         textField.inputView = datePickerView
         
         // ピッカー
@@ -38,22 +47,29 @@ extension ArtistTableViewCell: UITextFieldDelegate {
         
         //完了ボタンを設定
         let toolBarBtn  = UIBarButtonItem(title: "完了", style: .done,
-                                          target: self, action: #selector(doneButtonTapped))
+                                          target: self, action: #selector(doneButtonTapped(sender:)))
         
         //ツールバーにボタンを表示
         pickerToolBar.items = [spaceBarBtn, toolBarBtn]
         
         textField.inputAccessoryView = pickerToolBar
         
+        /// くそだせぇ
+        // self.date = Date()
+        
         datePickerView.addTarget(self, action: #selector(valueChanged(sender:)), for: .valueChanged)
         
     }
     
     func valueChanged(sender: UIDatePicker) {
+        self.date = sender.date
         self.textField.text = DateUtils.stringFromDate(date: sender.date, format: "yyyy/MM/dd")
     }
     
-    func doneButtonTapped() {
+    // 日付ピッカーに付随する完了ボタンの方ね。
+    func doneButtonTapped(sender: UIBarButtonItem) {
+        self.textField.text = DateUtils.stringFromDate(date: self.date ?? Date(), format: "yyyy/MM/dd")
+        
         self.textField.resignFirstResponder() // これだけでDidEndEditing呼ばれます
     }
     

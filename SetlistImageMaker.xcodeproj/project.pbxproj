@@ -23,6 +23,7 @@
 		44A91DCD1F211AAA0088D9E6 /* RealmSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 44A91DCB1F211AAA0088D9E6 /* RealmSwift.framework */; };
 		44A91DCE1F211AAA0088D9E6 /* Realm.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 44A91DCC1F211AAA0088D9E6 /* Realm.framework */; };
 		44A91DD01F211EAC0088D9E6 /* DateUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44A91DCF1F211EAC0088D9E6 /* DateUtils.swift */; };
+		44A91DD21F215AFC0088D9E6 /* Setlist.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44A91DD11F215AFC0088D9E6 /* Setlist.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -48,6 +49,7 @@
 		44A91DCB1F211AAA0088D9E6 /* RealmSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RealmSwift.framework; path = Carthage/Build/iOS/RealmSwift.framework; sourceTree = "<group>"; };
 		44A91DCC1F211AAA0088D9E6 /* Realm.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Realm.framework; path = Carthage/Build/iOS/Realm.framework; sourceTree = "<group>"; };
 		44A91DCF1F211EAC0088D9E6 /* DateUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DateUtils.swift; sourceTree = "<group>"; };
+		44A91DD11F215AFC0088D9E6 /* Setlist.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Setlist.swift; sourceTree = "<group>"; };
 		44D5AF271F20289100EB0CA5 /* Quicksand-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Quicksand-Regular.ttf"; sourceTree = "<group>"; };
 		C3E30C4C615CA05141FE12E3 /* Pods-SetlistImageMaker.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SetlistImageMaker.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SetlistImageMaker/Pods-SetlistImageMaker.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -90,6 +92,8 @@
 				440F68C41F157013008511DC /* Main.storyboard */,
 				440F68C01F157013008511DC /* AppDelegate.swift */,
 				440F68CC1F157013008511DC /* Info.plist */,
+				44A91DCF1F211EAC0088D9E6 /* DateUtils.swift */,
+				44A91DD11F215AFC0088D9E6 /* Setlist.swift */,
 				44A91DC91F210C250088D9E6 /* WelcomeViewController.swift */,
 				440F68C21F157013008511DC /* SetListViewController.swift */,
 				4458EA7B1F20000800FCC85A /* Live Info VC */,
@@ -99,7 +103,6 @@
 				4458EA7E1F2000B200FCC85A /* ImageGenerator.swift */,
 				440F68C71F157013008511DC /* Assets.xcassets */,
 				440F68C91F157013008511DC /* LaunchScreen.storyboard */,
-				44A91DCF1F211EAC0088D9E6 /* DateUtils.swift */,
 			);
 			path = SetlistImageMaker;
 			sourceTree = "<group>";
@@ -252,6 +255,7 @@
 				4474F91A1F16EA18005D360E /* LaunchImageCollectionViewController.swift in Sources */,
 				440F68C11F157013008511DC /* AppDelegate.swift in Sources */,
 				4444978B1F1D7F23006FBEF8 /* LoginViewController.swift in Sources */,
+				44A91DD21F215AFC0088D9E6 /* Setlist.swift in Sources */,
 				4426B1F31F1578F800E37954 /* SongNameTableViewCell.swift in Sources */,
 				441D0B981F19BD97007D171C /* EditArtistViewController.swift in Sources */,
 				441D0B9A1F19C2EF007D171C /* ArtistTableViewCell.swift in Sources */,

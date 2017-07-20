@@ -23,8 +23,8 @@ final class EditArtistViewController: UIViewController {
         }
         
         guard let artistCell = self.tableView.cellForRow(at: IndexPath(row: 0, section: 0)) as? ArtistTableViewCell,
-              let placeCell  = self.tableView.cellForRow(at: IndexPath(row: 1, section: 0)) as? ArtistTableViewCell,
-              let dateCell   = self.tableView.cellForRow(at: IndexPath(row: 2, section: 0)) as? ArtistTableViewCell else {
+              let placeCell  = self.tableView.cellForRow(at: IndexPath(row: 0, section: 1)) as? ArtistTableViewCell,
+              let dateCell   = self.tableView.cellForRow(at: IndexPath(row: 0, section: 2)) as? ArtistTableViewCell else {
               self.dismiss(animated: true, completion: nil)
               return
         }
@@ -95,6 +95,8 @@ extension EditArtistViewController: UITableViewDataSource {
                 cell.textField.text = date //DateUtils.stringFromDate(date: date, format: "yyyy/MM/dd")
             }
         }
+        
+        cell.textField.tag = indexPath.section + 1
         
         cell.delegate = self
 
