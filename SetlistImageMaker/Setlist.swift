@@ -88,10 +88,26 @@ class Setlist: Object {
 // 「本編」「アンコール1」...みたいな、1セクションごとの曲の集まり
 class Songs: Object {
     
-    let songs = List<Song>()
+    var songs = List<Song>()
     
+    required convenience init(songs: /*List<Song>*/ [Song]  ) {
+        
+        self.init()
+        
+        // self.songs = songs
+        
+        var result = List<Song>()
+        
+        songs.forEach {
+            result.append($0)
+        }
+        
+        self.songs = result
+        
+    }
     
 }
+
 
 class Song: Object {
     
