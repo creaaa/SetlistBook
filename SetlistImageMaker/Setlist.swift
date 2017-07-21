@@ -13,10 +13,9 @@ class Setlist: Object {
     dynamic var date:  Date?
     
     // 本編
-    var mainSongs = List<Songs>()
+    var mainSongs   = List<Songs>()
     // アンコール群
-    var encoreSongs: [List<Songs>] = []
-    
+    var encoreSongs = List<EncoreSongs>()
     
     /**
      id をプライマリーキーとして設定
@@ -36,7 +35,7 @@ class Setlist: Object {
         
     }
     
-    required convenience init(mainSongs: [Songs], encoreSongs: [[Songs]]) {
+    required convenience init(mainSongs: [Songs], encoreSongs: [EncoreSongs]) {
         
         self.init()
         
@@ -45,42 +44,47 @@ class Setlist: Object {
         self.mainSongs = result1
 
         
-        var result2: [List<Songs>] = []
+        let result2 = List<EncoreSongs>()
 
-        for elm in encoreSongs {
-            let tmp = List<Songs>()
-            elm.forEach { tmp.append($0) }
-            result2.append(tmp)
+        // 「アンコール1」に対し...
+        encoreSongs.forEach {
+            result2.append($0)
         }
         
         self.encoreSongs = result2
     
     }
     
+}
+
+
+// 「アンコール1」「アンコール2」...みたいな、1セクションごとの曲の集まり
+class EncoreSongs: Object {
     
-    /*
-    required convenience init(id: Int, artist: String, place: String, date: Date,
-                              songs: List<Songs>, encoreSongs: List<Songs>) {
+    var encoreSongs = List<Songs>()
+    
+    required convenience init(encoreSongs: [[Songs]]) {
         
         self.init()
         
-        //self.init()
+        let result = List<Songs>()
         
-        self.id     = id
-        self.artist = artist
-        self.place  = place
-        self.date   = date
+        // 「アンコール1」(1つぶん)が持つ曲群に対し,,,
+        for eachEncoreSongs: [Songs] in encoreSongs {
+            eachEncoreSongs.forEach {
+                // $0: Songs
+                result.append($0)
+            }
+        }
         
-        self.mainSongs   = songs
-        self.encoreSongs = encoreSongs
+        self.encoreSongs = result
         
     }
-    */
-  
     
 }
 
-// 「本編」「アンコール1」...みたいな、1セクションごとの曲の集まり
+
+// 「本編」
 class Songs: Object {
     
     var songs = List<Song>()
@@ -88,8 +92,6 @@ class Songs: Object {
     required convenience init(songs: [Song]) {
         
         self.init()
-        
-        // self.songs = songs
         
         let result = List<Song>()
         
