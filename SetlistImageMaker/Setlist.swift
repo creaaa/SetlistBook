@@ -6,11 +6,12 @@ import RealmSwift
 class Setlist: Object {
     
     // 管理用ID。プライマリーキー
-    dynamic var id = 0
+    dynamic var id     = UUID().uuidString
     
     dynamic var artist = ""
     dynamic var place  = ""
     dynamic var date:  Date?
+    
     
     // ここ、無理やりListにしないと落ちる。
     // mainSongsまでリストにしないとダメとかまじナンセンスだけど仕方ない。
@@ -109,8 +110,6 @@ class Songs: Object {
         self.songs = result
         
     }
-    
-    
     
 }
 

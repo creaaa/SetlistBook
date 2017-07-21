@@ -5,8 +5,11 @@ import RealmSwift
 final class WelcomeViewController: UIViewController {
 
     var realm =   try! Realm()
-    var setlists: Results<Setlist>!
-
+    
+    // var setlists: Results<Setlist>!
+    var setlists: [Setlist]!
+    
+    
     @IBOutlet weak var tableView: UITableView!
     
     @IBAction func addButtonTapped(_ sender: UIBarButtonItem) {
@@ -36,16 +39,19 @@ final class WelcomeViewController: UIViewController {
         
         // testInjection()
         
-        self.setlists = realm.objects(Setlist.self)
-        
-        self.setlists.first?.printInfo()
+        // self.setlists = realm.objects(Setlist.self).sorted { $0.id < $1.id }
         
     }
-    
     
     override func viewWillAppear(_ animated: Bool) {
         
         super.viewWillAppear(animated)
+        
+        self.setlists = realm.objects(Setlist.self).sorted { $0.artist < $1.artist }
+
+        self.setlists.forEach {
+            print($0.id)
+        }
         
         if let selectedRow = self.tableView.indexPathForSelectedRow {
             self.tableView.deselectRow(at: selectedRow, animated: true)
@@ -62,7 +68,8 @@ final class WelcomeViewController: UIViewController {
 
         let newSetlist = Setlist(mainSongs: main)
         
-        newSetlist.id = 1
+        // newSetlist.id = 1
+        // newSetlist.id = UUID().uuidString
         
         /*
         newSetlist.artist = "Indigo la End"
@@ -72,6 +79,7 @@ final class WelcomeViewController: UIViewController {
         
         try! realm.write {
             realm.add(newSetlist)
+            print("addしました")
         }
         
         return newSetlist
@@ -107,7 +115,7 @@ final class WelcomeViewController: UIViewController {
                 
                 ////////////
                 
-                newSetlist.id = 1
+                // newSetlist.id     = UUID().uuidString
                 newSetlist.artist = "aiko"
                 newSetlist.place  = "Zepp Tokyo"
                 newSetlist.date   = Date()
