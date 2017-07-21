@@ -71,7 +71,7 @@ final class SetListViewController: UIViewController {
     
     
     func saveSetlist(action: UIAlertAction) {
-        
+        /*
         do {
             try self.realm.write {
                 
@@ -82,7 +82,11 @@ final class SetListViewController: UIViewController {
                 newSetlist.place  = "横浜アリーナ"
                 newSetlist.date   = Date()
                 
-                let songs1: Songs = Songs(value: List<Song>())
+                let song1 = Song(songName: "キスする前に")
+                let song2 = Song(songName: "深海冷蔵庫")
+                let song3 = Song(songName: "17の月")
+                
+                let songs1: Songs = Songs(value: List<Song>(songName: "j"))
                 
                 let list1 = List<Songs>()
                 // list1.append(List<Song>(""))
@@ -100,7 +104,7 @@ final class SetListViewController: UIViewController {
         } catch {
             
         }
-        
+        */
     }
     
     

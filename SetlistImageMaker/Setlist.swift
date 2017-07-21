@@ -38,6 +38,7 @@ class City: Object {
 
 
 import Foundation  // dynamicを使うために必須
+import Realm
 import RealmSwift
 
 class Setlist: Object {
@@ -86,11 +87,21 @@ class Setlist: Object {
 
 // 「本編」「アンコール1」...みたいな、1セクションごとの曲の集まり
 class Songs: Object {
+    
     let songs = List<Song>()
+    
+    
 }
 
 class Song: Object {
+    
     dynamic var name = ""
+    
+    required convenience init(songName: String) {
+        self.init()
+        self.name = songName
+    }
+    
 }
 
 
