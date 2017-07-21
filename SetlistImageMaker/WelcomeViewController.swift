@@ -14,8 +14,6 @@ final class WelcomeViewController: UIViewController {
         guard let vc = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "SetList")
             as? UINavigationController else { return }
         
-        // self.navigationController?.pushViewController(vc, animated: true)
-        
         self.present(vc, animated: true, completion: nil)
         
     }
@@ -25,10 +23,14 @@ final class WelcomeViewController: UIViewController {
         
         super.viewDidLoad()
         
+        tableView.delegate   = self
+        tableView.dataSource = self
+        
+        self.tableView.rowHeight  = UITableViewAutomaticDimension
+        self.tableView.estimatedRowHeight = 44
+        
         // Realmのパス
         print(Realm.Configuration.defaultConfiguration.fileURL!)
-        
-        // testInjection()
         
         self.setlists = realm.objects(Setlist.self)
         
