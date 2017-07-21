@@ -78,18 +78,23 @@ final class SetListViewController: UIViewController {
                 let newSetlist = Setlist()
                 
                 newSetlist.id = 1
-                newSetlist.artist = ""
-                newSetlist.place  = ""
+                newSetlist.artist = "aiko"
+                newSetlist.place  = "横浜アリーナ"
                 newSetlist.date   = Date()
                 
                 let songs1: Songs = Songs(value: List<Song>())
                 
                 let list1 = List<Songs>()
+                // list1.append(List<Song>(""))
                 list1.append(songs1)
                 
                 newSetlist.mainSongs = list1
-                newSetlist.encoreSongs.append(list1)
                 
+                newSetlist.encoreSongs = [list1, list1, list1]
+                
+                realm.add(newSetlist)
+                
+                print("はい、セーブできてるはず")
                 
             }
         } catch {

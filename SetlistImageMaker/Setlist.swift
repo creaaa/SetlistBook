@@ -52,7 +52,7 @@ class Setlist: Object {
     // 本編
     var mainSongs   = List<Songs>()
     // アンコール群
-    var encoreSongs = List<Songs>()
+    var encoreSongs: [List<Songs>] = []
     
     
     /**
