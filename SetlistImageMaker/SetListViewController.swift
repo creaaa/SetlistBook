@@ -4,13 +4,15 @@ import RealmSwift
 
 final class SetListViewController: UIViewController {
     
-    var realm    = try! Realm()
-    var setlist:   Setlist!
-    
-    /* View */
-    weak var suggestTableView: UITableView!
+    var realm = try! Realm()
     
     /* Model */
+
+    
+    // セルをタップして遷移してきた場合、ここには既存の値が入る
+    // +(add)ボタンを押して遷移してきた場合は、nilになる
+    var setlist:   Setlist?
+
     
     // アンコールの回数
     var numOfEncore = 0
@@ -22,8 +24,14 @@ final class SetListViewController: UIViewController {
     lazy var encoreSongNames: [[String]] = Array(repeating: [String](),
                                                  count: self.numOfEncore)
     
-    @IBOutlet weak var tableView: UITableView!
     
+    //////////////
+    
+    /* View */
+    
+    weak var suggestTableView: UITableView!
+    
+    @IBOutlet weak var tableView: UITableView!
     
     @IBAction func cancelButtonTapped(_ sender: UIBarButtonItem) {
         
@@ -51,26 +59,14 @@ final class SetListViewController: UIViewController {
         alert.addAction(UIAlertAction(title: "Yes",     style: .default, handler: saveSetlist))
         alert.addAction(UIAlertAction(title: "No",      style: .cancel,  handler: nil))
         
-        
-        /*
-        let img = ImageGenerator().drawText(image: UIImage(named: "orange")!)
-        
-        if let img = img {
-            ImageGenerator().savePhoto(image: img)
-        }
-        */
-        
-        
-        
         DispatchQueue.main.async {
             self.present(alert, animated: true, completion: nil)
         }
         
-        
     }
     
     
-    func saveSetlist(action: UIAlertAction) {
+    private func saveSetlist(action: UIAlertAction) {
         
         do {
             try self.realm.write {
@@ -108,18 +104,17 @@ final class SetListViewController: UIViewController {
  
             }
         } catch {
-            
         }
-        
     }
     
-    
+    /*
     func moveTo(action: UIAlertAction) {
         
         guard let vc = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "LaunchImage")
             as? LaunchImageCollectionViewController else { return }
         self.navigationController?.pushViewController(vc, animated: true)
     }
+    */
     
     func tweet(action: UIAlertAction) {
         let vc = LoginViewController()
@@ -140,6 +135,10 @@ final class SetListViewController: UIViewController {
         
     }
     
+    
+    ////////////////
+    // Life Cycle //
+    ////////////////
     
     override func viewDidLoad() {
         
@@ -172,6 +171,7 @@ final class SetListViewController: UIViewController {
 }
 
 
+///////////////
 
 extension SetListViewController: UITableViewDelegate {
     
@@ -197,7 +197,6 @@ extension SetListViewController: UITableViewDelegate {
                 }
                 
                 self.present(vc, animated: true, completion: nil)
-                
                 
             // 本編 / アンコール
             default:
@@ -225,34 +224,6 @@ extension SetListViewController: UITableViewDelegate {
                 self.present(vc, animated: true, completion: nil)
         }
     }
-    
-    
-    /*
-    // スワイプ時のラベル名変更(↓メソッドを実装した場合は上書きされるので意味なし)
-    func tableView(_ tableView: UITableView, titleForDeleteConfirmationButtonForRowAt indexPath: IndexPath) -> String? {
-        return "unk"
-    }
-    
-    
-    func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
-        
-        let action1 = UITableViewRowAction(style: .default,
-                                          title: "1",
-                                          handler: {_ in})
-        
-        let action2 = UITableViewRowAction(style: .normal,
-                                           title: "2",
-                                           handler: {_ in})
-        
-        let action3 = UITableViewRowAction(style: .destructive,
-                                           title: "3",
-                                           handler: {_ in})
-        
-        return [action1, action2, action3]
-    }
-    */
-    
-    
 }
 
 
@@ -354,14 +325,6 @@ extension SetListViewController: UITableViewDataSource {
             cell.textLabel?.text = "タップして曲名を入力"
         }
 
-        /*
-        if !self.encoreSongNames[indexPath.section-2].isEmpty {
-            if indexPath.row != self.encoreSongNames[indexPath.section-2].count {
-                cell.textLabel?.text = self.encoreSongNames[indexPath.section-2][indexPath.row]
-            }
-        }
-        */
-        
         return cell
         
     }
@@ -379,7 +342,6 @@ extension SetListViewController: UITableViewDataSource {
         }
         
     }
-    
     
     // <移動系>
     
@@ -399,8 +361,6 @@ extension SetListViewController: UITableViewDataSource {
         }
 
         // 最後以外のアンコール
-        // この if case からおかしい、今日はココからデバッグ
-        // (2,0)のときは呼ばれるが、(2,1)のときは呼ばれない
         // まさか、editabaleじゃないと、移動もできない疑惑。。。？？
         // まじだった。editable = false なセルは、このメソッドが呼ばれない。
         // すなわち、実装は canEditAtからやらなくてはいけない。
@@ -439,14 +399,6 @@ extension SetListViewController: UITableViewDataSource {
             // swapは、lazyな配列だとなぜかコンパイルエラーになる。
             // 加え、同じ要素同士をswapすると実行時エラー。エラーチェック必須。頼むよ
             
-            /*
-            guard sourceIndexPath.row != destinationIndexPath.row else {
-                return
-            }
-            
-            swap(&songNames[sourceIndexPath.row], &songNames[destinationIndexPath.row])
-            */
-            
             let tmp = self.songNames.remove(at: sourceIndexPath.row)
             self.songNames.insert(tmp, at: destinationIndexPath.row)
             
@@ -471,9 +423,6 @@ extension SetListViewController: UITableViewDataSource {
 
         }
 
-        
-        // print(self.songNames)
-        
         self.tableView.reloadData()
         
     }
@@ -566,28 +515,11 @@ extension SetListViewController: UITableViewDataSource {
             case 1:
                 if self.songNames.count == 0 { return true }
 
-                /*
-                if indexPath.row == self.songNames.count {
-                    return false
-                } else {
-                    return true
-                }
-                */
-            
                 return true
             
             // 最後以外のアンコール・セクション
             case (2..<1 + numOfEncore):
-                
-                /*
-                if indexPath.row == self.encoreSongNames[indexPath.section-2].count {
-                    return false
-                } else {
-                    return true
-                }
-                */
-            
-            return true
+                return true
             
             case (1 + numOfEncore):  // 最後のアンコール
                 guard self.numOfEncore > 0 else { return false }
@@ -600,9 +532,7 @@ extension SetListViewController: UITableViewDataSource {
                 
             default:
                 fatalError()
-            
         }
-
     }
     
     
@@ -623,17 +553,13 @@ extension SetListViewController: UITableViewDataSource {
             }
         }
         
-        // ↓　ここより下はまだ試してない
-        
         // 最後以外のアンコール・セクション
         if case (2..<1 + numOfEncore) = indexPath.section {
-            
             if indexPath.row == self.encoreSongNames[indexPath.section-2].count {
                 return .insert
             } else {
                 return .delete
             }
-            
         }
         
         // 最後のアンコール・セクション
@@ -665,12 +591,4 @@ extension SetListViewController: UITableViewDataSource {
         }
     }
 }
-
-
-
-
-
-
-
-
 

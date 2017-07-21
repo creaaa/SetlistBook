@@ -12,7 +12,8 @@ class Setlist: Object {
     dynamic var place  = ""
     dynamic var date:  Date?
     
-    // ここ、無理やりListにしないと落ちる。mainSongsの方とかまじナンセンスだけど仕方ない。
+    // ここ、無理やりListにしないと落ちる。
+    // mainSongsまでリストにしないとダメとかまじナンセンスだけど仕方ない。
     // 本編
     var mainSongs = List<Songs>()
     // アンコール群
