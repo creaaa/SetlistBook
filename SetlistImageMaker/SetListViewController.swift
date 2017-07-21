@@ -75,26 +75,33 @@ final class SetListViewController: UIViewController {
         do {
             try self.realm.write {
                 
-                let newSetlist = Setlist()
-                
-                newSetlist.id = 1
-                newSetlist.artist = "aiko"
-                newSetlist.place  = "横浜アリーナ"
-                newSetlist.date   = Date()
-                
                 let song1 = Song(songName: "キスする前に")
                 let song2 = Song(songName: "深海冷蔵庫")
                 let song3 = Song(songName: "17の月")
                 
-                let mainSongs = Songs(songs: [song1, song2, song3])
-                /*
-                newSetlist.mainSongs = mainSongs
+                let song4 = Song(songName: "ジェット")
+                let song5 = Song(songName: "トンネル")
                 
-                newSetlist.encoreSongs = [list1, list1, list1]
+                let song6 = Song(songName: "えりあし")
+                
+                
+                let main    = Songs(songs: [song1, song2, song3])
+                
+                let encore1 = Songs(songs: [song4, song5])
+                let encore2 = Songs(songs: [song6])
+
+                // let newSetlist = Setlist(mainSongs: [main])
+                let newSetlist = Setlist(mainSongs: [main], encoreSongs: [[encore1], [encore2]])
+                
+                ////////////
+                
+                newSetlist.id = 3
+                newSetlist.artist = "aiko"
+                newSetlist.place  = "Zepp Tokyo"
+                newSetlist.date   = Date()
                 
                 realm.add(newSetlist)
-                */
-                
+
                 print("はい、セーブできてるはず")
  
             }

@@ -1,42 +1,4 @@
 
-/*
-
-import Foundation  // dynamicを使うために必須
-import RealmSwift
-
-class City: Object {
-    
-    // 管理用ID。プライマリーキー
-    dynamic var id = 0
-    dynamic var name = ""
-    dynamic var timeZone = ""
-    dynamic var isSelected = false
-    
-    dynamic var orderNo = -1
-    
-    /**
-     id をプライマリーキーとして設定
-     */
-    override static func primaryKey() -> String? {
-        return "id"
-    }
-    
-    // Realmオブジェクトにイニシャライザを設定するには、この書き方でないとダメ
-    convenience init(id: Int, name: String, timeZone: String, isSelected: Bool = false) {
-        
-        self.init()
-        
-        self.id = id
-        self.name = name
-        self.timeZone = timeZone
-        self.isSelected = isSelected
-        
-    }
-}
-
-*/
-
-
 import Foundation  // dynamicを使うために必須
 import Realm
 import RealmSwift
@@ -51,7 +13,7 @@ class Setlist: Object {
     dynamic var date:  Date?
     
     // 本編
-    var mainSongs   = List<Songs>()
+    var mainSongs = List<Songs>()
     // アンコール群
     var encoreSongs: [List<Songs>] = []
     
@@ -62,6 +24,39 @@ class Setlist: Object {
     override static func primaryKey() -> String? {
         return "id"
     }
+    
+    required convenience init(mainSongs: [Songs]) {
+        
+        self.init()
+        
+        let result = List<Songs>()
+        mainSongs.forEach { result.append($0) }
+        
+        self.mainSongs = result
+        
+    }
+    
+    required convenience init(mainSongs: [Songs], encoreSongs: [[Songs]]) {
+        
+        self.init()
+        
+        let result1 = List<Songs>()
+        mainSongs.forEach { result1.append($0) }
+        self.mainSongs = result1
+
+        
+        var result2: [List<Songs>] = []
+
+        for elm in encoreSongs {
+            let tmp = List<Songs>()
+            elm.forEach { tmp.append($0) }
+            result2.append(tmp)
+        }
+        
+        self.encoreSongs = result2
+    
+    }
+    
     
     /*
     required convenience init(id: Int, artist: String, place: String, date: Date,
@@ -90,13 +85,13 @@ class Songs: Object {
     
     var songs = List<Song>()
     
-    required convenience init(songs: /*List<Song>*/ [Song]  ) {
+    required convenience init(songs: [Song]) {
         
         self.init()
         
         // self.songs = songs
         
-        var result = List<Song>()
+        let result = List<Song>()
         
         songs.forEach {
             result.append($0)
