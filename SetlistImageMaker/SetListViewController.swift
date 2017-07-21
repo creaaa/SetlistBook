@@ -11,7 +11,7 @@ final class SetListViewController: UIViewController {
     // セルをタップして遷移してきた場合、ここには既存の値が入る
     // +(add)ボタンを押して遷移してきた場合は、nilになる
     var setlist = Setlist()
-
+    //var setlist: Setlist?
     
     //////////////
     
@@ -101,6 +101,8 @@ final class SetListViewController: UIViewController {
         self.tableView.rowHeight  = UITableViewAutomaticDimension
         self.tableView.estimatedRowHeight = 44
         
+        print("受け渡されてきたセトリ: \(self.setlist)")
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -138,22 +140,10 @@ extension SetListViewController: UITableViewDelegate {
                 guard let vc = self.storyboard?.instantiateViewController(withIdentifier: "EditArtist")
                     as? UINavigationController else { return }
                 
-                if let editVC = vc.viewControllers.first as? EditArtistViewController {
+                guard let editVC = vc.viewControllers.first as? EditArtistViewController else { return }
                     
-                    // editVC.title  = "アーティスト / 公演情報"
-                    
-                    /*
-                    editVC.artist = self.setlist.artist
-                    editVC.place  = self.setlist.place
-                    
-                    if let date = self.setlist.date {
-                    editVC.date = DateUtils.stringFromDate(date: date,
-                                                           format: "YYYY/MM/DD")
-                    }
- 
-                    */
-                    
-                }
+                editVC.title  = "アーティスト / 公演情報"
+                editVC.setlist = self.setlist
                 
                 self.present(vc, animated: true, completion: nil)
                 

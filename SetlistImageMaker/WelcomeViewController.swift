@@ -57,8 +57,8 @@ final class WelcomeViewController: UIViewController {
                 */
                 
                 let main    = Songs(songs: [song1, song2, song3])
-                let encore1 = Songs(songs: [song4, song5])
                 /*
+                let encore1 = Songs(songs: [song4, song5])
                 let encore2 = Songs(songs: [song6])
                 */
                 
@@ -66,7 +66,7 @@ final class WelcomeViewController: UIViewController {
                 // let newSetlist = Setlist(mainSongs: main)
                 
                 // こっちは?
-                let newSetlist = Setlist(mainSongs: main, encoreSongs: [encore1])
+                let newSetlist = Setlist(mainSongs: main, encoreSongs: [])
                 
                 ////////////
                 
