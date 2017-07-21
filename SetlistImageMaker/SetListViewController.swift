@@ -75,17 +75,6 @@ final class SetListViewController: UIViewController {
     
     @IBAction func addEncoreButtonTapped(_ sender: UIBarButtonItem) {
         
-        /*
-        self.numOfEncore += 1
-        
-        let newAry = Array<String>()
-        self.encoreSongNames.append(newAry)
-        
-        print(self.encoreSongNames)
-        
-        self.tableView.reloadData()
-        */
-        
         try! realm.write {
             self.setlist.encores.append(Songs())
             print(self.setlist.encores)
@@ -150,6 +139,7 @@ extension SetListViewController: UITableViewDelegate {
                     as? UINavigationController else { return }
                 
                 if let editVC = vc.viewControllers.first as? EditArtistViewController {
+                    
                     // editVC.title  = "アーティスト / 公演情報"
                     
                     /*
@@ -169,30 +159,31 @@ extension SetListViewController: UITableViewDelegate {
                 
             // 本編 / アンコール
             default:
+                
                 guard let vc = self.storyboard?.instantiateViewController(withIdentifier: "EditSetList")
                     as? UINavigationController else { return }
+
+                guard let editVC = vc.viewControllers.first as? EditSetListViewController  else { return }
                 
-                if let editVC = vc.viewControllers.first as? EditSetListViewController {
+                editVC.songNo    = indexPath.row
+                
+                // 本編の編集ならば
+                if indexPath.section == 1 {
                     
-                    editVC.songNo    = indexPath.row
+                    guard let mainSongs = self.setlist.mainSongs.first else { return }
                     
-                    // 本編の編集ならば
-                    if indexPath.section == 1 {
-                        
-                        guard let mainSongs = self.setlist.mainSongs.first else {
-                            return
-                        }
-                        
-                        editVC.songNames = mainSongs
-                        
-                        editVC.title     = "SetList"
-                        
-                    } else {  // アンコールの編集ならば
-                        // ex. アンコール #1 なら、[0]の配列が渡される
-                        editVC.songNames = self.setlist.encores[indexPath.section - 2]
-                        editVC.encoreNo  = indexPath.section - 1
-                        editVC.title     = "Encore #\(editVC.encoreNo!)"
-                    }
+                    editVC.setlist = mainSongs //self.setlist.mainSongs.first!
+                    
+                    editVC.title   = "SetList"
+                    
+                } else {  // アンコールの編集ならば
+                    // ex. アンコール #1 なら、[0]の配列が渡される
+                    
+                    let encoreSongs = self.setlist.encores[indexPath.section-2]
+                    
+                    editVC.setlist  = encoreSongs //self.setlist.encores[indexPath.section - 2]
+                    
+                    editVC.title    = "Encore #\(indexPath.section - 1)"
                     
                 }
                 
@@ -606,17 +597,13 @@ extension SetListViewController: UITableViewDataSource {
             case .delete:
             
                 try! realm.write {
-                    
                     switch indexPath.section {
-                        
                         case 1:
                             self.setlist.mainSongs.first!.songs.remove(objectAtIndex: indexPath.row)
                         print("けした")
                         default:
                             self.setlist.encores[indexPath.section-2].songs.remove(objectAtIndex: indexPath.row)
-                            
                     }
-                    
                 }
             
                 self.tableView.reloadData()
