@@ -47,13 +47,13 @@ class Setlist: Object {
     
     dynamic var artist = ""
     dynamic var place  = ""
-    dynamic var date : Date?
+    dynamic var date:  Date?
     
     // 本編
-    dynamic var songs:       [String]   = []
-     
+    var mainSongs   = List<Songs>()
     // アンコール群
-    dynamic var encoreSongs: [[String]]?
+    var encoreSongs = List<Songs>()
+    
     
     /**
      id をプライマリーキーとして設定
@@ -62,7 +62,37 @@ class Setlist: Object {
         return "id"
     }
     
+    /*
+    required convenience init(id: Int, artist: String, place: String, date: Date,
+                              songs: List<Songs>, encoreSongs: List<Songs>) {
+        
+        self.init()
+        
+        //self.init()
+        
+        self.id     = id
+        self.artist = artist
+        self.place  = place
+        self.date   = date
+        
+        self.mainSongs   = songs
+        self.encoreSongs = encoreSongs
+        
+    }
+    */
+  
+    
 }
+
+// 「本編」「アンコール1」...みたいな、1セクションごとの曲の集まり
+class Songs: Object {
+    let songs = List<Song>()
+}
+
+class Song: Object {
+    dynamic var name = ""
+}
+
 
 
 

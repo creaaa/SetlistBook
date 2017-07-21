@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12121" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="mzr-67-j6u">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12121" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="pzd-Ye-gtO">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -11,7 +11,7 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Welcome View Controller-->
+        <!--Setlist-->
         <scene sceneID="Nex-SA-gRk">
             <objects>
                 <viewController automaticallyAdjustsScrollViewInsets="NO" id="mxS-2w-Dxy" customClass="WelcomeViewController" customModule="SetlistImageMaker" customModuleProvider="target" sceneMemberID="viewController">
@@ -62,14 +62,20 @@
                             <constraint firstItem="H2e-dt-PjD" firstAttribute="top" secondItem="lBR-G4-3dt" secondAttribute="bottom" id="xgY-cT-Dj8"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" id="nQ6-4Y-kZj"/>
+                    <navigationItem key="navigationItem" title="Setlist" id="nQ6-4Y-kZj">
+                        <barButtonItem key="rightBarButtonItem" title="Item" systemItem="add" id="XbL-SW-WEe">
+                            <connections>
+                                <action selector="addButtonTapped:" destination="mxS-2w-Dxy" id="e2x-D4-0kh"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="tableView" destination="lBR-G4-3dt" id="SJg-m3-r7a"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dod-GU-lPk" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1162" y="690"/>
+            <point key="canvasLocation" x="214" y="763"/>
         </scene>
         <!--new set list-->
         <scene sceneID="tne-QT-ifu">
@@ -133,7 +139,7 @@
                                                     <inset key="contentEdgeInsets" minX="70" minY="20" maxX="70" maxY="20"/>
                                                     <state key="normal" title="Confirm"/>
                                                     <connections>
-                                                        <action selector="tap:" destination="BYZ-38-t0r" eventType="touchUpInside" id="XZF-PK-iU5"/>
+                                                        <action selector="confirmButtonTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="ZYE-lR-W0X"/>
                                                     </connections>
                                                 </button>
                                             </subviews>
@@ -175,8 +181,12 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="new set list" id="8HA-QJ-xcn">
-                        <barButtonItem key="leftBarButtonItem" style="done" systemItem="cancel" id="Ar3-Jc-E4q"/>
-                        <barButtonItem key="rightBarButtonItem" style="done" systemItem="done" id="st9-F6-PwY">
+                        <barButtonItem key="leftBarButtonItem" style="done" systemItem="cancel" id="Ar3-Jc-E4q">
+                            <connections>
+                                <action selector="cancelButtonTapped:" destination="BYZ-38-t0r" id="qlJ-YB-OO5"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" style="done" systemItem="save" id="st9-F6-PwY">
                             <connections>
                                 <action selector="doneButtonTapped:" destination="BYZ-38-t0r" id="B77-4P-dO3"/>
                             </connections>
@@ -188,7 +198,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1980" y="689.5052473763119"/>
+            <point key="canvasLocation" x="2767.1999999999998" y="761.46926536731644"/>
         </scene>
         <!--公演情報入力-->
         <scene sceneID="WUZ-Lk-Jfk">
@@ -260,7 +270,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="77J-Rg-e4x" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3652" y="336.88155922038982"/>
+            <point key="canvasLocation" x="4591.1999999999998" y="336.88155922038982"/>
         </scene>
         <!--曲名入力-->
         <scene sceneID="doY-MM-USv">
@@ -402,7 +412,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="qaK-l9-jiX" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3652" y="1045.7271364317842"/>
+            <point key="canvasLocation" x="4591.1999999999998" y="1045.7271364317842"/>
         </scene>
         <!--Launch Image Collection View Controller-->
         <scene sceneID="W3b-vd-WR9">
@@ -506,7 +516,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkR-f2-YfB" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-2062" y="690"/>
+            <point key="canvasLocation" x="-687" y="763"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="XOs-NJ-4zY">
@@ -524,7 +534,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="JKq-33-vPK" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2712.8000000000002" y="1045.7271364317842"/>
+            <point key="canvasLocation" x="3652" y="1045.7271364317842"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="E1J-gi-gUO">
@@ -542,25 +552,25 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="BjI-dd-rMY" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2712.8000000000002" y="336.88155922038982"/>
+            <point key="canvasLocation" x="3652" y="336.88155922038982"/>
         </scene>
         <!--Navigation Controller-->
-        <scene sceneID="W5h-Yz-odB">
+        <scene sceneID="AkT-PV-EAq">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="mzr-67-j6u" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="SetList" automaticallyAdjustsScrollViewInsets="NO" id="3eC-uV-VhH" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="kZ6-Mh-VR4">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="Nvk-9H-u1p">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
-                        <segue destination="BYZ-38-t0r" kind="relationship" relationship="rootViewController" id="rbw-Tl-VTq"/>
+                        <segue destination="BYZ-38-t0r" kind="relationship" relationship="rootViewController" id="Jzh-oe-MT6"/>
                     </connections>
                 </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="cRL-se-HZa" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="NDp-Gj-5s1" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1040.8" y="689.5052473763119"/>
+            <point key="canvasLocation" x="1828" y="761.46926536731644"/>
         </scene>
     </scenes>
     <resources>

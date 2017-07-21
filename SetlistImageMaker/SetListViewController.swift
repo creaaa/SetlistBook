@@ -4,7 +4,8 @@ import RealmSwift
 
 final class SetListViewController: UIViewController {
     
-    var realm = try! Realm()
+    var realm    = try! Realm()
+    var setlist:   Setlist!
     
     /* View */
     weak var suggestTableView: UITableView!
@@ -23,8 +24,24 @@ final class SetListViewController: UIViewController {
     
     @IBOutlet weak var tableView: UITableView!
     
-    @IBAction func tap(_ sender: Any) {
-        print("うえー")
+    
+    @IBAction func cancelButtonTapped(_ sender: UIBarButtonItem) {
+        
+        let alert = UIAlertController(title: "cancel editing?", message: "content will be dicarded.", preferredStyle: .alert)
+        
+        alert.addAction(UIAlertAction(title: "Yes",     style: .default) { _ in
+           self.dismiss(animated: true, completion: nil)
+        })
+        alert.addAction(UIAlertAction(title: "No",      style: .cancel,  handler: nil))
+        
+        DispatchQueue.main.async {
+            self.present(alert, animated: true, completion: nil)
+        }
+        
+    }
+    
+    @IBAction func confirmButtonTapped(_ sender: UIButton) {
+        doneButtonTapped(UIBarButtonItem())
     }
     
     @IBAction func doneButtonTapped(_ sender: UIBarButtonItem) {
@@ -57,6 +74,22 @@ final class SetListViewController: UIViewController {
         
         do {
             try self.realm.write {
+                
+                let newSetlist = Setlist()
+                
+                newSetlist.id = 1
+                newSetlist.artist = ""
+                newSetlist.place  = ""
+                newSetlist.date   = Date()
+                
+                let songs1: Songs = Songs(value: List<Song>())
+                
+                let list1 = List<Songs>()
+                list1.append(songs1)
+                
+                newSetlist.mainSongs = list1
+                newSetlist.encoreSongs.append(list1)
+                
                 
             }
         } catch {
