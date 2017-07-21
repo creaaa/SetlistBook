@@ -11,10 +11,12 @@ final class WelcomeViewController: UIViewController {
     
     @IBAction func addButtonTapped(_ sender: UIBarButtonItem) {
         
-        guard let vc = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "SetList")
-            as? UINavigationController else { return }
+        guard let navigationVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "SetList") as? UINavigationController,
+            let vc = navigationVC.viewControllers.first as? SetListViewController else { return }
         
-        self.present(vc, animated: true, completion: nil)
+        vc.setlist = makeNewSetlist()
+        
+        self.present(navigationVC, animated: true, completion: nil)
         
     }
     
@@ -41,7 +43,42 @@ final class WelcomeViewController: UIViewController {
     }
     
     
-    func testInjection() {
+    override func viewWillAppear(_ animated: Bool) {
+        
+        super.viewWillAppear(animated)
+        
+        if let selectedRow = self.tableView.indexPathForSelectedRow {
+            self.tableView.deselectRow(at: selectedRow, animated: true)
+        }
+        
+        self.tableView.reloadData()
+        
+    }
+    
+    // + ボタンを使って遷移するときのため、次の画面に渡されるセットリストを生成
+    private func makeNewSetlist() -> Setlist {
+        
+        let main = Songs(songs: [])
+
+        let newSetlist = Setlist(mainSongs: main)
+        
+        newSetlist.id = 1
+        
+        /*
+        newSetlist.artist = "Indigo la End"
+        newSetlist.place  = "Zepp Tokyo"
+        newSetlist.date   = Date()
+        */
+        
+        try! realm.write {
+            realm.add(newSetlist)
+        }
+        
+        return newSetlist
+        
+    }
+    
+    private func testInjection() {
         
         do {
             try self.realm.write {
@@ -122,8 +159,10 @@ extension WelcomeViewController: UITableViewDataSource {
         str.append(self.setlists[indexPath.row].place ?? "")
         if str != "" { str.append(" / ") }
         
-        let date = self.setlists[indexPath.row].date
-        str.append(DateUtils.stringFromDate(date: date!, format: "yyyy/MM/dd") ?? "")
+        
+        if let date = self.setlists[indexPath.row].date {
+            str.append(DateUtils.stringFromDate(date: date, format: "yyyy/MM/dd") ?? "")
+        }
         
         cell.detailTextLabel?.text = str != "" ? str : nil
         
@@ -132,10 +171,5 @@ extension WelcomeViewController: UITableViewDataSource {
     }
     
 }
-
-
-
-
-
 
 

@@ -11,7 +11,6 @@ final class SetListViewController: UIViewController {
     // セルをタップして遷移してきた場合、ここには既存の値が入る
     // +(add)ボタンを押して遷移してきた場合は、nilになる
     var setlist = Setlist()
-    //var setlist: Setlist?
     
     //////////////
     
@@ -23,6 +22,7 @@ final class SetListViewController: UIViewController {
     
     @IBAction func cancelButtonTapped(_ sender: UIBarButtonItem) {
         
+        /*
         let alert = UIAlertController(title: "cancel editing?", message: "content will be dicarded.", preferredStyle: .alert)
         
         alert.addAction(UIAlertAction(title: "Yes",     style: .default) { _ in
@@ -33,6 +33,10 @@ final class SetListViewController: UIViewController {
         DispatchQueue.main.async {
             self.present(alert, animated: true, completion: nil)
         }
+ 
+        */
+        
+        self.dismiss(animated: true, completion: nil)
         
     }
     
@@ -42,10 +46,11 @@ final class SetListViewController: UIViewController {
     
     @IBAction func doneButtonTapped(_ sender: UIBarButtonItem) {
         
-        let alert = UIAlertController(title: "save setlist?", message: nil, preferredStyle: .alert)
+        let alert = UIAlertController(title: "Action?", message: nil, preferredStyle: .actionSheet)
         
-        alert.addAction(UIAlertAction(title: "Yes",     style: .default, handler: saveSetlist))
-        alert.addAction(UIAlertAction(title: "No",      style: .cancel,  handler: nil))
+        alert.addAction(UIAlertAction(title: "Share on Twitter", style: .default, handler: tweet))
+        
+        alert.addAction(UIAlertAction(title: "No",    style: .destructive,  handler: nil))
         
         DispatchQueue.main.async {
             self.present(alert, animated: true, completion: nil)
@@ -53,10 +58,11 @@ final class SetListViewController: UIViewController {
         
     }
     
-    
+    /*
     private func saveSetlist(action: UIAlertAction) {
     
     }
+    */
     
     /*
     func moveTo(action: UIAlertAction) {
@@ -187,13 +193,7 @@ extension SetListViewController: UITableViewDelegate {
 extension SetListViewController: UITableViewDataSource {
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        
-        let num = 2 + self.setlist.encores.count
-        
-        print(num)
-        
-        return num
-        
+        return 2 + self.setlist.encores.count
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -205,7 +205,14 @@ extension SetListViewController: UITableViewDataSource {
                 return 1
             // 本編
             case 1:
-                return self.setlist.mainSongs.first!.songs.count + 1 // self.numOfSong + 1 // 最後のセルに曲追加ボタンが来る
+        
+                // +1 = 最後のセルに曲追加ボタンが来る
+                // return self.setlist.mainSongs.first!.songs.count + 1
+                
+                // こうも書ける、けどこれ以降全部変えなきゃだめなのでやめた
+                let count = self.setlist.mainSongs.first?.songs.count
+                return count.map{$0 + 1} ?? 0
+            
             
             ////////////
             // encore //
