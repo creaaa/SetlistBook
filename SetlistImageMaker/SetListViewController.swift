@@ -402,12 +402,6 @@ extension SetListViewController: UITableViewDataSource {
     }
     
     
-
-
-
-
-    /*
-    
     // <移動系>
     
     // 並び替え可能なセルの指定
@@ -418,19 +412,20 @@ extension SetListViewController: UITableViewDataSource {
         
         // 本編
         if indexPath.section == 1 {
-            if indexPath.row == self.songNames.count {
+            if indexPath.row == self.setlist.mainSongs.first!.songs.count {
                 return false
             } else {
                 return true
             }
         }
 
+        
         // 最後以外のアンコール
         // まさか、editabaleじゃないと、移動もできない疑惑。。。？？
         // まじだった。editable = false なセルは、このメソッドが呼ばれない。
         // すなわち、実装は canEditAtからやらなくてはいけない。
-        if case (2..<1 + numOfEncore) = indexPath.section {
-            if indexPath.row < self.encoreSongNames[indexPath.section-2].count {
+        if case (2..<1 + self.setlist.encores.count) = indexPath.section {
+            if indexPath.row < self.setlist.encores[indexPath.section-2].songs.count {
                 return true
             } else {
                 return false
@@ -438,10 +433,10 @@ extension SetListViewController: UITableViewDataSource {
         }
 
         // 最後のアンコールセクション
-        if case (1 + numOfEncore) = indexPath.section {
-            guard self.numOfEncore > 0 else { return false }
-            if indexPath.row == self.encoreSongNames[numOfEncore-1].count ||
-                indexPath.row == self.encoreSongNames[numOfEncore-1].count + 1 {
+        if case (1 + self.setlist.encores.count) = indexPath.section {
+            guard self.setlist.encores.count > 0 else { return false }
+            if indexPath.row == self.setlist.encores[setlist.encores.count-1].songs.count ||
+                indexPath.row == self.setlist.encores[setlist.encores.count-1].songs.count + 1 {
                 return false
             } else {
                 return true
@@ -464,27 +459,46 @@ extension SetListViewController: UITableViewDataSource {
             // swapは、lazyな配列だとなぜかコンパイルエラーになる。
             // 加え、同じ要素同士をswapすると実行時エラー。エラーチェック必須。頼むよ
             
-            let tmp = self.songNames.remove(at: sourceIndexPath.row)
-            self.songNames.insert(tmp, at: destinationIndexPath.row)
+            // let tmp = self.setlist.mainSongs.remove(at: sourceIndexPath.row)
+            // self.setlist.mainSongs.insert(tmp, at: destinationIndexPath.row)
+
+            try! realm.write {
+                // writeの中で書かないと実行時エラー
+                setlist.mainSongs.first!.songs.move(from: sourceIndexPath.row, to: destinationIndexPath.row)
+            }
             
         }
         
         // 最後以外のアンコール
-        else if case (2..<1 + numOfEncore) = sourceIndexPath.section {
-            let tmp = self.encoreSongNames[sourceIndexPath.section-2].remove(at: sourceIndexPath.row)
-            self.encoreSongNames[sourceIndexPath.section-2].insert(tmp, at: destinationIndexPath.row)
+        else if case (2..<1 + self.setlist.encores.count) = sourceIndexPath.section {
             
-            print(self.encoreSongNames[sourceIndexPath.section-2])
+            /*
+            let tmp = self.setlist.encores[sourceIndexPath.section-2].songs.remove(at: sourceIndexPath.row)
+            self.setlist.encores[sourceIndexPath.section-2].songs.insert(tmp, at: destinationIndexPath.row)
+            */
+            
+            try! realm.write {
+                setlist.encores[destinationIndexPath.section-2].songs.move(from: sourceIndexPath.row, to: destinationIndexPath.row)
+            }
+            
+            print(self.setlist.encores[sourceIndexPath.section-2])
             
         }
         
         
         // 最後のアンコール
-        else if case (1 + numOfEncore) = sourceIndexPath.section {
-            let tmp = self.encoreSongNames[sourceIndexPath.section-2].remove(at: sourceIndexPath.row)
-            self.encoreSongNames[sourceIndexPath.section-2].insert(tmp, at: destinationIndexPath.row)
+        else if case (1 + self.setlist.encores.count) = sourceIndexPath.section {
             
-            print(self.encoreSongNames[sourceIndexPath.section-2])
+            /*
+            let tmp = self.setlist.encores[sourceIndexPath.section-2].songs.remove(at: sourceIndexPath.row)
+            self.setlist.encores[sourceIndexPath.section-2].songs.insert(tmp, at: destinationIndexPath.row)
+            */
+            
+            try! realm.write {
+                self.setlist.encores[sourceIndexPath.section-2].songs.move(from: sourceIndexPath.row, to: destinationIndexPath.row)
+            }
+            
+            print(self.setlist.encores[sourceIndexPath.section-2])
 
         }
 
@@ -506,23 +520,24 @@ extension SetListViewController: UITableViewDataSource {
             }
             
             // 「タップして曲を追加」は固定
-            if proposedDestinationIndexPath.row == self.songNames.count {
+            if proposedDestinationIndexPath.row == self.setlist.mainSongs.first!.songs.count {
                 return IndexPath(row: proposedDestinationIndexPath.row - 1, section: 1)
             }
             
             // アンコールへ移動しようとした場合
             else if proposedDestinationIndexPath.section > 1 {
-                return IndexPath(row: self.songNames.count - 1, section: 1)
+                return IndexPath(row: self.setlist.mainSongs.count - 1, section: 1)
             }
             
         }
         
         // 最後以外のアンコール
-        else if case (2..<1 + numOfEncore) = sourceIndexPath.section {
+        else if case (2..<1 + self.setlist.encores.count) = sourceIndexPath.section {
             
             // 「タップして曲を追加」は固定
             if proposedDestinationIndexPath.section == sourceIndexPath.section {
-                if proposedDestinationIndexPath.row == encoreSongNames[sourceIndexPath.section-2].count {
+                if proposedDestinationIndexPath.row ==
+                    self.setlist.encores[sourceIndexPath.section-2].songs.count {
                     let ip = IndexPath(row: proposedDestinationIndexPath.row - 1,
                                      section: sourceIndexPath.section)
                     return ip
@@ -536,25 +551,25 @@ extension SetListViewController: UITableViewDataSource {
                     return IndexPath(row: 0, section: sourceIndexPath.section)
                 // 自分より「下」にいこうとしたら
                 } else {
-                    let ip = IndexPath(row: self.encoreSongNames[sourceIndexPath.section-2].count - 1,
-                                     section: sourceIndexPath.section)
+                    let ip = IndexPath(row: self.setlist.encores[sourceIndexPath.section-2].songs.count - 1, section: sourceIndexPath.section)
                     return ip
                 }
             }
         }
         
         // 最後のアンコール
-        else if case (1 + numOfEncore) = sourceIndexPath.section {
+        else if case (1 + self.setlist.encores.count) = sourceIndexPath.section {
             
             // 「タップして曲を追加」は固定
             if proposedDestinationIndexPath.section == sourceIndexPath.section {
-                if proposedDestinationIndexPath.row == encoreSongNames[sourceIndexPath.section-2].count ||
-                    proposedDestinationIndexPath.row == encoreSongNames[sourceIndexPath.section-2].count + 1
+                
+                if proposedDestinationIndexPath.row == self.setlist.encores[sourceIndexPath.section-2].songs.count ||
+                    proposedDestinationIndexPath.row == setlist.encores[sourceIndexPath.section-2].songs.count + 1
                     {
-                    let ip = IndexPath(row: encoreSongNames[sourceIndexPath.section-2].count - 1,
-                                       section: sourceIndexPath.section)
+                    let ip = IndexPath(row: self.setlist.encores[sourceIndexPath.section-2].songs.count - 1, section: sourceIndexPath.section)
                     return ip
                 }
+                
             }
             
             if proposedDestinationIndexPath.section != sourceIndexPath.section {
@@ -567,6 +582,7 @@ extension SetListViewController: UITableViewDataSource {
     }
     
    
+    /*
     // <delete / insert 系>
     
     // 実装されてなくてもよい。その場合、すべてのセルは[編集可能]だとみなされる(暗黙的に true が指定される。)
@@ -638,10 +654,11 @@ extension SetListViewController: UITableViewDataSource {
         fatalError()
         
     }
+    */
+    
     
     
     // insertのボタンを押すと、(_:commit:forRowAt:)が呼び出されます．
-    
     // delete / insert 発動時
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
         switch editingStyle {
@@ -655,8 +672,6 @@ extension SetListViewController: UITableViewDataSource {
                 print("なんもねえ")
         }
     }
- 
-     */
     
 }
 
