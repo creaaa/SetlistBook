@@ -12,10 +12,12 @@ class Setlist: Object {
     dynamic var place  = ""
     dynamic var date:  Date?
     
+    // ここ、無理やりListにしないと落ちる
+    
     // 本編
-    var mainSongs   = List<Songs>()
+    var mainSongs = List<Songs>()
     // アンコール群
-    var encoreSongs = List<EncoreSongs>()
+    var encores   = List<Encores>()
     
     /**
      id をプライマリーキーとして設定
@@ -24,18 +26,20 @@ class Setlist: Object {
         return "id"
     }
     
-    required convenience init(mainSongs: [Songs]) {
+    required convenience init(mainSongs: Songs) {
         
         self.init()
         
         let result = List<Songs>()
-        mainSongs.forEach { result.append($0) }
+        result.append(mainSongs)
         
         self.mainSongs = result
         
     }
     
-    required convenience init(mainSongs: [Songs], encoreSongs: [EncoreSongs]) {
+    /*
+    required convenience init(mainSongs: [Songs], encoreSongs: [[Songs]]) {
+        
         
         self.init()
         
@@ -44,47 +48,42 @@ class Setlist: Object {
         self.mainSongs = result1
 
         
-        let result2 = List<EncoreSongs>()
+        let result2 = Encores()
 
         // 「アンコール1」に対し...
         encoreSongs.forEach {
-            result2.append($0)
+            // 「アンコール1が持つ曲の1曲」に対し...
+            var encore: Encores = Encores(encores: $0)
         }
         
-        self.encoreSongs = result2
-    
+        self.encores = result2
+        
     }
+     */
     
 }
 
 
-// 「アンコール1」「アンコール2」...みたいな、1セクションごとの曲の集まり
-class EncoreSongs: Object {
+// アンコール群
+class Encores: Object {
     
-    var encoreSongs = List<Songs>()
+    var encores = List<Songs>()
     
-    required convenience init(encoreSongs: [[Songs]]) {
+    required convenience init(encores: [Songs]) {
         
         self.init()
         
         let result = List<Songs>()
+        encores.forEach { result.append($0) }
         
-        // 「アンコール1」(1つぶん)が持つ曲群に対し,,,
-        for eachEncoreSongs: [Songs] in encoreSongs {
-            eachEncoreSongs.forEach {
-                // $0: Songs
-                result.append($0)
-            }
-        }
-        
-        self.encoreSongs = result
+        self.encores = result
         
     }
     
 }
 
 
-// 「本編」
+// 「本編」「アンコール1」「アンコール2」など、それぞれがのセクションが持つ曲リスト
 class Songs: Object {
     
     var songs = List<Song>()
