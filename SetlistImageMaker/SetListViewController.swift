@@ -197,8 +197,6 @@ extension SetListViewController: UITableViewDelegate {
 extension SetListViewController: UITableViewDataSource {
     
     func numberOfSections(in tableView: UITableView) -> Int {
-       
-        // return 2 + self.numOfEncore
         
         let num = 2 + self.setlist.encores.count
         
@@ -449,6 +447,8 @@ extension SetListViewController: UITableViewDataSource {
     }
     
     // セルの移動範囲に制限を課す
+    // ドラッグし、各セルの上を通過する瞬間に毎回呼ばれる。
+    // 例) (0,0)から(0,3)へもっていくときは、(0,1)ぶん,(0,2)ぶん,(0,3)ぶんの3回呼ばれる
     func tableView(_ tableView: UITableView,
                    targetIndexPathForMoveFromRowAt sourceIndexPath: IndexPath,
                    toProposedIndexPath proposedDestinationIndexPath: IndexPath) -> IndexPath {
@@ -462,13 +462,16 @@ extension SetListViewController: UITableViewDataSource {
             }
             
             // 「タップして曲を追加」は固定
-            if proposedDestinationIndexPath.row == self.setlist.mainSongs.first!.songs.count {
-                return IndexPath(row: proposedDestinationIndexPath.row - 1, section: 1)
+            else if proposedDestinationIndexPath.section == 1 {
+                print("destination: \(proposedDestinationIndexPath.section), \(proposedDestinationIndexPath.row)")
+                if proposedDestinationIndexPath.row == self.setlist.mainSongs.first!.songs.count {
+                    return IndexPath(row: self.setlist.mainSongs.first!.songs.count - 1, section: 1)
+                }
             }
             
             // アンコールへ移動しようとした場合
             else if proposedDestinationIndexPath.section > 1 {
-                return IndexPath(row: self.setlist.mainSongs.count - 1, section: 1)
+                return IndexPath(row: self.setlist.mainSongs.first!.songs.count - 1, section: 1)
             }
             
         }

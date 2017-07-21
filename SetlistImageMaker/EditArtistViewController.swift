@@ -5,9 +5,7 @@ final class EditArtistViewController: UIViewController {
 
     @IBOutlet weak var tableView: UITableView!
     
-    
     /*
-    
     // 前画面から受け渡されるモデル
     var artist: String?
     var place:  String?

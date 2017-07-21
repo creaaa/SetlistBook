@@ -52,18 +52,21 @@ final class WelcomeViewController: UIViewController {
                 
                 let song4 = Song(songName: "ジェット")
                 let song5 = Song(songName: "トンネル")
-                
+                /*
                 let song6 = Song(songName: "えりあし")
+                */
                 
                 let main    = Songs(songs: [song1, song2, song3])
                 let encore1 = Songs(songs: [song4, song5])
+                /*
                 let encore2 = Songs(songs: [song6])
+                */
                 
                 // こっちはOK
                 // let newSetlist = Setlist(mainSongs: main)
                 
                 // こっちは?
-                let newSetlist = Setlist(mainSongs: main, encoreSongs: [encore1, encore2])
+                let newSetlist = Setlist(mainSongs: main, encoreSongs: [encore1])
                 
                 ////////////
                 
