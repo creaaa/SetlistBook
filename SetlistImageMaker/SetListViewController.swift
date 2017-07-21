@@ -89,17 +89,17 @@ final class SetListViewController: UIViewController {
                 let encore1 = Songs(songs: [song4, song5])
                 let encore2 = Songs(songs: [song6])
                 
-                let encore = Encores(encores: [encore1, encore2])
+                let encores = Encores(encores: [encore1, encore2])
                 
                 // こっちはOK
-                let newSetlist = Setlist(mainSongs: main)
+                // let newSetlist = Setlist(mainSongs: main)
                 
                 // こっちは?
-                //let newSetlist = Setlist(mainSongs: [main], encoreSongs: [encore])
+                let newSetlist = Setlist(mainSongs: main, encoreSongs: encores)
                 
                 ////////////
                 
-                newSetlist.id = 5
+                newSetlist.id = 1
                 newSetlist.artist = "aiko"
                 newSetlist.place  = "Zepp Tokyo"
                 newSetlist.date   = Date()

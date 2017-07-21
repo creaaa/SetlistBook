@@ -12,8 +12,7 @@ class Setlist: Object {
     dynamic var place  = ""
     dynamic var date:  Date?
     
-    // ここ、無理やりListにしないと落ちる
-    
+    // ここ、無理やりListにしないと落ちる。mainSongsの方とかまじナンセンスだけど仕方ない。
     // 本編
     var mainSongs = List<Songs>()
     // アンコール群
@@ -37,29 +36,23 @@ class Setlist: Object {
         
     }
     
-    /*
-    required convenience init(mainSongs: [Songs], encoreSongs: [[Songs]]) {
-        
+    required convenience init(mainSongs: Songs, encoreSongs: Encores) {
         
         self.init()
         
         let result1 = List<Songs>()
-        mainSongs.forEach { result1.append($0) }
+        result1.append(mainSongs)
+        
         self.mainSongs = result1
 
         
-        let result2 = Encores()
-
-        // 「アンコール1」に対し...
-        encoreSongs.forEach {
-            // 「アンコール1が持つ曲の1曲」に対し...
-            var encore: Encores = Encores(encores: $0)
-        }
+        let result2 = List<Encores>()
+        result2.append(encoreSongs)
         
         self.encores = result2
         
     }
-     */
+    
     
 }
 
