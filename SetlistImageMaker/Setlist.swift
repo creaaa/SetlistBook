@@ -16,7 +16,7 @@ class Setlist: Object {
     // 本編
     var mainSongs = List<Songs>()
     // アンコール群
-    var encores   = List<Encores>()
+    var encores   = List<Songs>()
     
     /**
      id をプライマリーキーとして設定
@@ -36,7 +36,7 @@ class Setlist: Object {
         
     }
     
-    required convenience init(mainSongs: Songs, encoreSongs: Encores) {
+    required convenience init(mainSongs: Songs, encoreSongs: [Songs]) {
         
         self.init()
         
@@ -46,17 +46,22 @@ class Setlist: Object {
         self.mainSongs = result1
 
         
-        let result2 = List<Encores>()
-        result2.append(encoreSongs)
+        let result2 = List<Songs>()
+        
+        encoreSongs.forEach {
+            result2.append($0)
+        }
+        
+        //result2.append(encoreSongs)
         
         self.encores = result2
         
     }
     
-    
 }
 
 
+/*
 // アンコール群
 class Encores: Object {
     
@@ -72,8 +77,8 @@ class Encores: Object {
         self.encores = result
         
     }
-    
 }
+*/
 
 
 // 「本編」「アンコール1」「アンコール2」など、それぞれがのセクションが持つ曲リスト
