@@ -32,6 +32,8 @@ final class WelcomeViewController: UIViewController {
         // Realmのパス
         print(Realm.Configuration.defaultConfiguration.fileURL!)
         
+        // testInjection()
+        
         self.setlists = realm.objects(Setlist.self)
         
         self.setlists.first?.printInfo()
@@ -41,27 +43,42 @@ final class WelcomeViewController: UIViewController {
     
     func testInjection() {
         
-        /*
-        let songs1: Songs = Songs(value: List<Song>())
-        
-        let list1 = List<Songs>()
-        list1.append(songs1)
-        
-        
-        let mySetlist1 = Setlist(id: 1, artist: "Alice", place: "横浜アリーナ", date: Date(), songs: songs1, encoreSongs: list1)
-        
-        let mySetlist2 = Setlist(id: 2, artist: "Bob", place: "日本武道館", date: Date(),
-                                 songs: songs1, encoreSongs: list1)
-        
-        let mySetlist3 = Setlist(id: 3, artist: "Calin", place: "新宿JAM", date: Date(),
-                                 songs: songs1, encoreSongs: list1)
-        
-        try! realm.write {
-            realm.add(mySetlist1)
-            realm.add(mySetlist2)
-            realm.add(mySetlist3)
+        do {
+            try self.realm.write {
+                
+                let song1 = Song(songName: "キスする前に")
+                let song2 = Song(songName: "深海冷蔵庫")
+                let song3 = Song(songName: "17の月")
+                
+                let song4 = Song(songName: "ジェット")
+                let song5 = Song(songName: "トンネル")
+                
+                let song6 = Song(songName: "えりあし")
+                
+                let main    = Songs(songs: [song1, song2, song3])
+                let encore1 = Songs(songs: [song4, song5])
+                let encore2 = Songs(songs: [song6])
+                
+                // こっちはOK
+                // let newSetlist = Setlist(mainSongs: main)
+                
+                // こっちは?
+                let newSetlist = Setlist(mainSongs: main, encoreSongs: [encore1, encore2])
+                
+                ////////////
+                
+                newSetlist.id = 1
+                newSetlist.artist = "aiko"
+                newSetlist.place  = "Zepp Tokyo"
+                newSetlist.date   = Date()
+                
+                realm.add(newSetlist)
+                
+                print("はい、セーブできてるはず")
+                
+            }
+        } catch {
         }
-        */
         
     }
     

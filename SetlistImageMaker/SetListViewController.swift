@@ -8,24 +8,10 @@ final class SetListViewController: UIViewController {
     
     /* Model */
 
-    
     // セルをタップして遷移してきた場合、ここには既存の値が入る
     // +(add)ボタンを押して遷移してきた場合は、nilになる
     var setlist = Setlist()
 
-    
-    /*
-    // アンコールの回数
-    var numOfEncore = 0
-    
-    var artistInfoNames: (artist: String?, place: String?, date: String?) = (nil, nil, nil)
-    
-    var songNames: [String] = Array(repeating: "", count: 0)
-    
-    lazy var encoreSongNames: [[String]] = Array(repeating: [String](),
-                                                 count: self.numOfEncore)
-    */
-    
     
     //////////////
     
@@ -69,43 +55,7 @@ final class SetListViewController: UIViewController {
     
     
     private func saveSetlist(action: UIAlertAction) {
-        
-        do {
-            try self.realm.write {
-                
-                let song1 = Song(songName: "キスする前に")
-                let song2 = Song(songName: "深海冷蔵庫")
-                let song3 = Song(songName: "17の月")
-                
-                let song4 = Song(songName: "ジェット")
-                let song5 = Song(songName: "トンネル")
-                
-                let song6 = Song(songName: "えりあし")
-                
-                
-                let main    = Songs(songs: [song1, song2, song3])
-                let encore1 = Songs(songs: [song4, song5])
-                let encore2 = Songs(songs: [song6])
-                
-                // こっちはOK
-                // let newSetlist = Setlist(mainSongs: main)
-                
-                // こっちは?
-                let newSetlist = Setlist(mainSongs: main, encoreSongs: [encore1, encore2])
-                
-                ////////////
-                
-                newSetlist.id = 1
-                newSetlist.artist = "aiko"
-                newSetlist.place  = "Zepp Tokyo"
-                newSetlist.date   = Date()
-                
-                realm.add(newSetlist)
-
-                print("はい、セーブできてるはず")
-            }
-        } catch {
-        }
+    
     }
     
     /*
@@ -136,9 +86,10 @@ final class SetListViewController: UIViewController {
         self.tableView.reloadData()
         */
         
-        
-        self.setlist.encores.append(Songs())
-        print(self.setlist.encores)
+        try! realm.write {
+            self.setlist.encores.append(Songs())
+            print(self.setlist.encores)
+        }
         
         self.tableView.reloadData()
         
@@ -466,8 +417,8 @@ extension SetListViewController: UITableViewDataSource {
                 // writeの中で書かないと実行時エラー
                 setlist.mainSongs.first!.songs.move(from: sourceIndexPath.row, to: destinationIndexPath.row)
             }
-            
         }
+
         
         // 最後以外のアンコール
         else if case (2..<1 + self.setlist.encores.count) = sourceIndexPath.section {
@@ -581,8 +532,7 @@ extension SetListViewController: UITableViewDataSource {
         
     }
     
-   
-    /*
+    
     // <delete / insert 系>
     
     // 実装されてなくてもよい。その場合、すべてのセルは[編集可能]だとみなされる(暗黙的に true が指定される。)
@@ -594,21 +544,14 @@ extension SetListViewController: UITableViewDataSource {
                 return true
                 
             case 1:
-                if self.songNames.count == 0 { return true }
-
                 return true
             
             // 最後以外のアンコール・セクション
-            case (2..<1 + numOfEncore):
+            case (2..<1 + self.setlist.encores.count):
                 return true
             
-            case (1 + numOfEncore):  // 最後のアンコール
-                guard self.numOfEncore > 0 else { return false }
-                
-                if indexPath.row == self.encoreSongNames[numOfEncore-1].count + 1 {
-                    return false
-                }
-                
+            case (1 + self.setlist.encores.count):  // 最後のアンコール
+                guard self.setlist.encores.count > 0 else { return false }
                 return true
                 
             default:
@@ -627,7 +570,7 @@ extension SetListViewController: UITableViewDataSource {
         // ライブ本編
         if indexPath.section == 1 {
             
-            if indexPath.row == self.songNames.count {
+            if indexPath.row == self.setlist.mainSongs.first!.songs.count {
                 return .insert
             } else {
                 return .delete
@@ -635,8 +578,8 @@ extension SetListViewController: UITableViewDataSource {
         }
         
         // 最後以外のアンコール・セクション
-        if case (2..<1 + numOfEncore) = indexPath.section {
-            if indexPath.row == self.encoreSongNames[indexPath.section-2].count {
+        if case (2..<1 + self.setlist.encores.count) = indexPath.section {
+            if indexPath.row == self.setlist.encores[indexPath.section-2].songs.count {
                 return .insert
             } else {
                 return .delete
@@ -644,8 +587,8 @@ extension SetListViewController: UITableViewDataSource {
         }
         
         // 最後のアンコール・セクション
-        if case (1 + numOfEncore) = indexPath.section {
-            if indexPath.row == self.encoreSongNames[indexPath.section-2].count {
+        if case (1 + self.setlist.encores.count) = indexPath.section {
+            if indexPath.row == self.setlist.encores[indexPath.section-2].songs.count {
                     return .insert
             }
             return .delete
@@ -654,8 +597,6 @@ extension SetListViewController: UITableViewDataSource {
         fatalError()
         
     }
-    */
-    
     
     
     // insertのボタンを押すと、(_:commit:forRowAt:)が呼び出されます．
@@ -663,15 +604,35 @@ extension SetListViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
         switch editingStyle {
             case .delete:
-                print("きえた")
+            
+                try! realm.write {
+                    
+                    switch indexPath.section {
+                        
+                        case 1:
+                            self.setlist.mainSongs.first!.songs.remove(objectAtIndex: indexPath.row)
+                        print("けした")
+                        default:
+                            self.setlist.encores[indexPath.section-2].songs.remove(objectAtIndex: indexPath.row)
+                            
+                    }
+                    
+                }
+            
+                self.tableView.reloadData()
             
             case .insert:
                 cellTapped(indexPath)
-            
             case .none:
-                print("なんもねえ")
+                break
         }
     }
     
 }
+
+
+
+
+
+
 
