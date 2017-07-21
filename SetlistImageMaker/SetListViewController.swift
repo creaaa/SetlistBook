@@ -11,9 +11,10 @@ final class SetListViewController: UIViewController {
     
     // セルをタップして遷移してきた場合、ここには既存の値が入る
     // +(add)ボタンを押して遷移してきた場合は、nilになる
-    var setlist:   Setlist?
+    var setlist = Setlist()
 
     
+    /*
     // アンコールの回数
     var numOfEncore = 0
     
@@ -23,6 +24,7 @@ final class SetListViewController: UIViewController {
     
     lazy var encoreSongNames: [[String]] = Array(repeating: [String](),
                                                  count: self.numOfEncore)
+    */
     
     
     //////////////
@@ -101,7 +103,6 @@ final class SetListViewController: UIViewController {
                 realm.add(newSetlist)
 
                 print("はい、セーブできてるはず")
- 
             }
         } catch {
         }
@@ -124,12 +125,20 @@ final class SetListViewController: UIViewController {
     
     @IBAction func addEncoreButtonTapped(_ sender: UIBarButtonItem) {
         
+        /*
         self.numOfEncore += 1
         
         let newAry = Array<String>()
         self.encoreSongNames.append(newAry)
         
         print(self.encoreSongNames)
+        
+        self.tableView.reloadData()
+        */
+        
+        
+        self.setlist.encores.append(Songs())
+        print(self.setlist.encores)
         
         self.tableView.reloadData()
         
@@ -162,8 +171,8 @@ final class SetListViewController: UIViewController {
             self.tableView.deselectRow(at: selectedRow, animated: true)
         }
         
-        print("main songs: ",   self.songNames)
-        print("encore songs: ", self.encoreSongNames)
+        print("main songs: ",   self.setlist.mainSongs)
+        print("encore songs: ", self.setlist.encores)
         
         self.tableView.reloadData()
     }
@@ -191,9 +200,18 @@ extension SetListViewController: UITableViewDelegate {
                 
                 if let editVC = vc.viewControllers.first as? EditArtistViewController {
                     // editVC.title  = "アーティスト / 公演情報"
-                    editVC.artist = self.artistInfoNames.artist
-                    editVC.place  = self.artistInfoNames.place
-                    editVC.date   = self.artistInfoNames.date
+                    
+                    /*
+                    editVC.artist = self.setlist.artist
+                    editVC.place  = self.setlist.place
+                    
+                    if let date = self.setlist.date {
+                    editVC.date = DateUtils.stringFromDate(date: date,
+                                                           format: "YYYY/MM/DD")
+                    }
+ 
+                    */
+                    
                 }
                 
                 self.present(vc, animated: true, completion: nil)
@@ -209,12 +227,18 @@ extension SetListViewController: UITableViewDelegate {
                     
                     // 本編の編集ならば
                     if indexPath.section == 1 {
-                        editVC.songNames = self.songNames
+                        
+                        guard let mainSongs = self.setlist.mainSongs.first else {
+                            return
+                        }
+                        
+                        editVC.songNames = mainSongs
+                        
                         editVC.title     = "SetList"
-                        // アンコールの編集ならば
-                    } else {
+                        
+                    } else {  // アンコールの編集ならば
                         // ex. アンコール #1 なら、[0]の配列が渡される
-                        editVC.songNames = self.encoreSongNames[indexPath.section - 2]
+                        editVC.songNames = self.setlist.encores[indexPath.section - 2]
                         editVC.encoreNo  = indexPath.section - 1
                         editVC.title     = "Encore #\(editVC.encoreNo!)"
                     }
@@ -222,6 +246,7 @@ extension SetListViewController: UITableViewDelegate {
                 }
                 
                 self.present(vc, animated: true, completion: nil)
+            
         }
     }
 }
@@ -230,7 +255,15 @@ extension SetListViewController: UITableViewDelegate {
 extension SetListViewController: UITableViewDataSource {
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 2 + self.numOfEncore
+       
+        // return 2 + self.numOfEncore
+        
+        let num = 2 + self.setlist.encores.count
+        
+        print(num)
+        
+        return num
+        
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -242,24 +275,27 @@ extension SetListViewController: UITableViewDataSource {
                 return 1
             // 本編
             case 1:
-                return self.songNames.count + 1 // self.numOfSong + 1 // 最後のセルに曲追加ボタンが来る
+                return self.setlist.mainSongs.first!.songs.count + 1 // self.numOfSong + 1 // 最後のセルに曲追加ボタンが来る
             
             ////////////
             // encore //
             ////////////
             
             // 最後以外のアンコール
-            case (2..<1 + numOfEncore):
+            case (2..<1 + self.setlist.encores.count):
                 
-                if self.encoreSongNames[section-2].isEmpty {
+                if self.setlist.encores[section-2].songs.isEmpty {
                     return 1
                 } else {
-                    return self.encoreSongNames[section-2].count + 1 // + 曲追加ボタン
+                    
+                    print("ここ常に2", self.setlist.encores[section-2].songs.count)
+                    
+                    return self.setlist.encores[section-2].songs.count + 1 // + 曲追加ボタン
                 }
             
             // 最後のアンコール
-            case (1 + numOfEncore):  // 最後のアンコール
-                return self.encoreSongNames[section-2].count + 1 + 1 // + 曲追加ボタン + 投稿ボタン
+            case (1 + self.setlist.encores.count):  // 最後のアンコール
+                return self.setlist.encores[section-2].songs.count + 1 // + 曲追加ボタン + 投稿ボタン
 
             default:
                 fatalError()
@@ -273,12 +309,15 @@ extension SetListViewController: UITableViewDataSource {
         if indexPath.section == 0 {
             
             let cell = UITableViewCell(style: .subtitle, reuseIdentifier: "ArtistCell")
-            cell.textLabel?.text = self.artistInfoNames.artist ?? "タップして情報を入力"
+            cell.textLabel?.text = self.setlist.artist // ?? "タップして情報を入力"
             
             var str = ""
-            str.append(self.artistInfoNames.place ?? "")
+            str.append(self.setlist.place ?? "")
             if str != "" { str.append(" / ") }
-            str.append(self.artistInfoNames.date ?? "")
+            
+            if let date = self.setlist.date {
+                str.append(DateUtils.stringFromDate(date: date, format: "YYYY-MM-dd")) // ?? "")
+            }
             
             cell.detailTextLabel?.text = str != "" ? str : nil
             
@@ -289,38 +328,57 @@ extension SetListViewController: UITableViewDataSource {
         // ライブ本編
         if indexPath.section == 1 {
             let cell = UITableViewCell()
-            if indexPath.row == self.songNames.count {
+            if indexPath.row == self.setlist.mainSongs.first!.songs.count {
                 cell.textLabel?.text = "タップして曲名を入力"
                 return cell
             } else {
-                cell.textLabel?.text = self.songNames[indexPath.row]
+                print("row: \(indexPath.row)")
+                cell.textLabel?.text = self.setlist.mainSongs.first!.songs[indexPath.row].name
                 return cell
             }
         }
     
         // 最後のアンコールセクションなら
-        if indexPath.section == self.numOfEncore + 1 {
+        if indexPath.section == self.setlist.encores.count + 1 {
+            
             // 曲追加ボタン
-            if indexPath.row == self.encoreSongNames[numOfEncore-1].count {
+            if indexPath.row == self.setlist.encores.last!.songs.count {
                 let cell = UITableViewCell()
                 cell.textLabel?.text = "タップして曲名を入力"
                 return cell
             // 確認画面遷移ボタン
-            } else if indexPath.row == self.encoreSongNames[numOfEncore-1].count + 1 {
+            }
+            
+            /*
+            else if indexPath.row == self.encoreSongNames[numOfEncore-1].count + 1 {
                 let cell = tableView.dequeueReusableCell(withIdentifier: "Btn")!
                 return cell
             }
+            */
+            
+            else {
+                let cell = UITableViewCell()
+                print("name: \(self.setlist.encores.last!.songs)")
+                cell.textLabel?.text = self.setlist.encores.last!.songs[indexPath.row].name
+                return cell
+            }
+            
+            
         }
+        
         
         // 最後以外のアンコールセクション
         let cell = UITableViewCell()
         
-        if !self.encoreSongNames[indexPath.section-2].isEmpty {
-            if indexPath.row != self.encoreSongNames[indexPath.section-2].count {
-                cell.textLabel?.text = self.encoreSongNames[indexPath.section-2][indexPath.row]
+        if !self.setlist.encores[indexPath.section-2].isEmpty {
+            
+            if indexPath.row != self.setlist.encores[indexPath.section-2].songs.count {
+                cell.textLabel?.text =
+                    self.setlist.encores[indexPath.section-2].songs[indexPath.row].name
             } else {
                 cell.textLabel?.text = "タップして曲名を入力"
             }
+            
         } else {
             cell.textLabel?.text = "タップして曲名を入力"
         }
@@ -342,6 +400,13 @@ extension SetListViewController: UITableViewDataSource {
         }
         
     }
+    
+    
+
+
+
+
+    /*
     
     // <移動系>
     
@@ -590,5 +655,8 @@ extension SetListViewController: UITableViewDataSource {
                 print("なんもねえ")
         }
     }
+ 
+     */
+    
 }
 

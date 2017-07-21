@@ -34,7 +34,7 @@ final class WelcomeViewController: UIViewController {
         
         self.setlists = realm.objects(Setlist.self)
         
-        print(self.setlists.count)
+        self.setlists.first?.printInfo()
         
     }
     
@@ -71,6 +71,15 @@ final class WelcomeViewController: UIViewController {
 extension WelcomeViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        guard let vc = self.storyboard?.instantiateViewController(withIdentifier: "SetList")
+            as? UINavigationController else { return }
+        
+        if let setlistVC = vc.viewControllers.first as? SetListViewController {
+            setlistVC.setlist = self.setlists[indexPath.row]
+        }
+        
+        present(vc, animated: true, completion: nil)
         
     }
     

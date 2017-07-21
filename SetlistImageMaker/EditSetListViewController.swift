@@ -1,7 +1,10 @@
 
 import UIKit
+import RealmSwift
 
 final class EditSetListViewController: UIViewController {
+
+    var realm = try! Realm()
 
     @IBOutlet weak var tableView:  UITableView!
     @IBOutlet weak var suggestTableView: UITableView!
@@ -10,9 +13,11 @@ final class EditSetListViewController: UIViewController {
     
     // 遷移前画面から渡されてきた「曲名リスト」のコピー。
     // モーダル終了時受け戻される。
-    var songNames: [String]!
+    
+    var songNames: Songs!
     var songNo:    Int!
     var encoreNo:  Int!
+
     
     // 曲名候補が入る
     var suggestSongList: [String] =
@@ -47,6 +52,8 @@ final class EditSetListViewController: UIViewController {
     
     @IBAction func doneButtonTapped(_ sender: UIBarButtonItem) {
         
+        /*
+ 
         guard let navVC = self.presentingViewController as? UINavigationController,
             let parentVC = navVC.topViewController as? SetListViewController else {
                 self.dismiss(animated: true, completion: nil)
@@ -75,6 +82,8 @@ final class EditSetListViewController: UIViewController {
         }
         
         self.dismiss(animated: true, completion: nil)
+ 
+         */
         
     }
     
@@ -83,6 +92,8 @@ final class EditSetListViewController: UIViewController {
     //////////////
     
     @IBAction func prevSongButtonTapped(_ sender: UIBarButtonItem) {
+        
+        /*
         
         // 配列に1個追加
         if self.songNo >= self.songNames.count {
@@ -105,12 +116,15 @@ final class EditSetListViewController: UIViewController {
         } else {
             self.prevButton.isEnabled = true
         }
+ 
+        */
         
     }
     
     
     @IBAction func nextSongButtonTapped(_ sender: UIBarButtonItem) {
         
+        /*
         self.songNo! += 1
         
         // 配列に1個追加
@@ -132,6 +146,7 @@ final class EditSetListViewController: UIViewController {
         } else {
             self.prevButton.isEnabled = true
         }
+        */
         
     }
     
@@ -182,6 +197,8 @@ extension EditSetListViewController: UITableViewDataSource {
         
     }
     
+    
+    /*
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         
@@ -206,7 +223,13 @@ extension EditSetListViewController: UITableViewDataSource {
                 fatalError()
         }
     }
+    */
     
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        return UITableViewCell()
+    }
+ 
+ 
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         
         switch tableView.tag {
@@ -219,65 +242,16 @@ extension EditSetListViewController: UITableViewDataSource {
         }
     }
     
-    /*
-    func inputFromHistory(sender: UITapGestureRecognizer) {
-        
-        self.suggestTableView.removeFromSuperview()
-        self.suggestTableView = nil
-        
-        if let cell = sender.view as? UITableViewCell {
-            let ip = IndexPath(row: 0, section: 0)
-            if let c = self.tableView.cellForRow(at: ip) as? SongNameTableViewCell {
-                c.textField.text = cell.textLabel?.text
-            }
-        }
-        
-        resignFirstResponder()
-    }
-    */
-    
 }
 
 
 extension EditSetListViewController: TableViewCellDelegate {
     
-    /*
-    private func yieldSuggestTableView(_ textField: UITextField) {
-        
-        let statusBarHeight = UIApplication.shared.statusBarFrame.height
-        let textFieldHeight: CGFloat = 40
-        
-        let y = textField.superview?.superview?.frame.origin.y
-        
-        let topMargin = statusBarHeight + textFieldHeight
-        
-        let tableView =
-            UITableView(frame: CGRect(x: 0, y: 105 + y!,
-                                      width: self.view.frame.width,
-                                      height: self.view.frame.height - topMargin))
-        
-        tableView.delegate   = self
-        tableView.dataSource = self
-        tableView.backgroundColor = UIColor(white: 0, alpha: 0.5)
-        tableView.allowsSelection = false
-        tableView.tag = 100
-        
-        self.suggestTableView = tableView
-        
-        self.view.addSubview(tableView)
-    
-    }
-    */
-    
-
     func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
         return true
     }
     
     func textFieldDidEndEditing(cell: UITableViewCell) {
-//        if let _ = self.suggestTableView {
-//            self.suggestTableView.removeFromSuperview()
-//        }
     }
     
     func textFieldNextButtonTapped(cell: UITableViewCell) {

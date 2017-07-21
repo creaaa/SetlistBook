@@ -59,6 +59,11 @@ class Setlist: Object {
         
     }
     
+    func printInfo() {
+        print("本編回数:      \(self.mainSongs.count)")
+        print("アンコール回数: \(self.encores.count)")
+    }
+    
 }
 
 
@@ -87,6 +92,10 @@ class Songs: Object {
     
     var songs = List<Song>()
     
+    var isEmpty: Bool {
+        return songs.isEmpty
+    }
+    
     required convenience init(songs: [Song]) {
         
         self.init()
@@ -101,6 +110,8 @@ class Songs: Object {
         
     }
     
+    
+    
 }
 
 
@@ -114,11 +125,4 @@ class Song: Object {
     }
     
 }
-
-
-
-
-
-
-
 

@@ -5,6 +5,9 @@ final class EditArtistViewController: UIViewController {
 
     @IBOutlet weak var tableView: UITableView!
     
+    
+    /*
+    
     // 前画面から受け渡されるモデル
     var artist: String?
     var place:  String?
@@ -56,6 +59,8 @@ final class EditArtistViewController: UIViewController {
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
+ 
+    */
     
 }
 
@@ -74,6 +79,13 @@ extension EditArtistViewController: UITableViewDataSource {
         return 1
     }
     
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        return UITableViewCell()
+    }
+    
+    
+    /*
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell = self.tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
@@ -103,7 +115,8 @@ extension EditArtistViewController: UITableViewDataSource {
         return cell
         
     }
-
+     */
+    
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         
         switch section {
