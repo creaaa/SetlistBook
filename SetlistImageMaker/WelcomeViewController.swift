@@ -6,8 +6,8 @@ final class WelcomeViewController: UIViewController {
 
     var realm =   try! Realm()
     
-    // var setlists: Results<Setlist>!
-    var setlists: [Setlist]!
+    var setlists: Results<Setlist>!
+    // var setlists: [Setlist]!
     
     
     @IBOutlet weak var tableView: UITableView!
@@ -31,6 +31,8 @@ final class WelcomeViewController: UIViewController {
         tableView.delegate   = self
         tableView.dataSource = self
         
+        self.navigationItem.leftBarButtonItem = editButtonItem
+
         self.tableView.rowHeight  = UITableViewAutomaticDimension
         self.tableView.estimatedRowHeight = 44
         
@@ -43,15 +45,14 @@ final class WelcomeViewController: UIViewController {
         
     }
     
+    
     override func viewWillAppear(_ animated: Bool) {
         
         super.viewWillAppear(animated)
         
-        self.setlists = realm.objects(Setlist.self).sorted { $0.artist < $1.artist }
+        self.setlists = realm.objects(Setlist.self).sorted(byKeyPath: "artist")  //.sorted { $0.artist < $1.artist }
 
-        self.setlists.forEach {
-            print($0.id)
-        }
+        self.setlists.forEach { print($0.id) }
         
         if let selectedRow = self.tableView.indexPathForSelectedRow {
             self.tableView.deselectRow(at: selectedRow, animated: true)
@@ -70,17 +71,13 @@ final class WelcomeViewController: UIViewController {
         
         // newSetlist.id = 1
         // newSetlist.id = UUID().uuidString
-        
+
         /*
-        newSetlist.artist = "Indigo la End"
-        newSetlist.place  = "Zepp Tokyo"
-        newSetlist.date   = Date()
-        */
-        
         try! realm.write {
             realm.add(newSetlist)
             print("addしました")
         }
+        */
         
         return newSetlist
         
@@ -178,6 +175,55 @@ extension WelcomeViewController: UITableViewDataSource {
         
     }
     
+    
+    // 編集ボタンを押したときのコールバック
+    override func setEditing(_ editing: Bool, animated: Bool) {
+        super.setEditing(editing, animated: animated)
+        self.tableView.isEditing = editing
+    }
+    
+    
+    
+    // 削除を許可(移動したい場合もここをONにしないとダメよ)
+    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        return true
+    }
+    
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+        switch editingStyle {
+            case .delete:
+                try! realm.write {
+                    realm.delete(self.setlists[indexPath.row])
+                }
+                self.tableView.reloadData()
+            
+            default:
+                break
+        }
+    }
+    
+    
+    /*
+    func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
+        return true
+    }
+    
+    func tableView(_ tableView: UITableView, moveRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
+        
+        self.tableView.reloadData()
+        
+    }
+    */
+    
+    
 }
+
+
+
+
+
+
+
+
 
 

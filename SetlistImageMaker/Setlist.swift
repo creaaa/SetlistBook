@@ -3,6 +3,7 @@ import Foundation  // dynamicを使うために必須
 import Realm
 import RealmSwift
 
+
 class Setlist: Object {
     
     // 管理用ID。プライマリーキー

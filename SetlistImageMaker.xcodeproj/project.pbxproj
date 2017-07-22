@@ -17,7 +17,14 @@
 		441D0B9A1F19C2EF007D171C /* ArtistTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 441D0B991F19C2EF007D171C /* ArtistTableViewCell.swift */; };
 		4426B1F31F1578F800E37954 /* SongNameTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4426B1F21F1578F800E37954 /* SongNameTableViewCell.swift */; };
 		4444978B1F1D7F23006FBEF8 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4444978A1F1D7F23006FBEF8 /* LoginViewController.swift */; };
+		4456BD071F23122200CD48B5 /* APIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4456BD031F23122200CD48B5 /* APIKit.framework */; };
+		4456BD081F23122200CD48B5 /* Result.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4456BD041F23122200CD48B5 /* Result.framework */; };
+		4456BD091F23122200CD48B5 /* Kingfisher.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4456BD051F23122200CD48B5 /* Kingfisher.framework */; };
+		4456BD0A1F23122200CD48B5 /* Himotoki.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4456BD061F23122200CD48B5 /* Himotoki.framework */; };
 		4458EA7F1F2000B200FCC85A /* ImageGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4458EA7E1F2000B200FCC85A /* ImageGenerator.swift */; };
+		446F62011F2319590052BE67 /* Kanna.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 446F62001F2319590052BE67 /* Kanna.framework */; };
+		446F62031F2319F10052BE67 /* KannaViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 446F62021F2319F10052BE67 /* KannaViewController.swift */; };
+		446F62051F231B330052BE67 /* Request.swift in Sources */ = {isa = PBXBuildFile; fileRef = 446F62041F231B330052BE67 /* Request.swift */; };
 		4474F91A1F16EA18005D360E /* LaunchImageCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4474F9191F16EA18005D360E /* LaunchImageCollectionViewController.swift */; };
 		44A91DCA1F210C250088D9E6 /* WelcomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44A91DC91F210C250088D9E6 /* WelcomeViewController.swift */; };
 		44A91DCD1F211AAA0088D9E6 /* RealmSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 44A91DCB1F211AAA0088D9E6 /* RealmSwift.framework */; };
@@ -43,7 +50,14 @@
 		4444977E1F1D7902006FBEF8 /* TwitterKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = TwitterKit.framework; path = ../../Downloads/TwitterKitManual/TwitterKit.framework; sourceTree = "<group>"; };
 		444497801F1D790F006FBEF8 /* TwitterCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = TwitterCore.framework; path = ../../Downloads/TwitterKitManual/TwitterCore.framework; sourceTree = "<group>"; };
 		4444978A1F1D7F23006FBEF8 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		4456BD031F23122200CD48B5 /* APIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = APIKit.framework; path = Carthage/Build/iOS/APIKit.framework; sourceTree = "<group>"; };
+		4456BD041F23122200CD48B5 /* Result.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Result.framework; path = Carthage/Build/iOS/Result.framework; sourceTree = "<group>"; };
+		4456BD051F23122200CD48B5 /* Kingfisher.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Kingfisher.framework; path = Carthage/Build/iOS/Kingfisher.framework; sourceTree = "<group>"; };
+		4456BD061F23122200CD48B5 /* Himotoki.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Himotoki.framework; path = Carthage/Build/iOS/Himotoki.framework; sourceTree = "<group>"; };
 		4458EA7E1F2000B200FCC85A /* ImageGenerator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageGenerator.swift; sourceTree = "<group>"; };
+		446F62001F2319590052BE67 /* Kanna.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Kanna.framework; path = Carthage/Build/iOS/Kanna.framework; sourceTree = "<group>"; };
+		446F62021F2319F10052BE67 /* KannaViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KannaViewController.swift; sourceTree = "<group>"; };
+		446F62041F231B330052BE67 /* Request.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Request.swift; sourceTree = "<group>"; };
 		4474F9191F16EA18005D360E /* LaunchImageCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LaunchImageCollectionViewController.swift; sourceTree = "<group>"; };
 		44A91DC91F210C250088D9E6 /* WelcomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WelcomeViewController.swift; sourceTree = "<group>"; };
 		44A91DCB1F211AAA0088D9E6 /* RealmSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RealmSwift.framework; path = Carthage/Build/iOS/RealmSwift.framework; sourceTree = "<group>"; };
@@ -59,6 +73,11 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				446F62011F2319590052BE67 /* Kanna.framework in Frameworks */,
+				4456BD071F23122200CD48B5 /* APIKit.framework in Frameworks */,
+				4456BD081F23122200CD48B5 /* Result.framework in Frameworks */,
+				4456BD091F23122200CD48B5 /* Kingfisher.framework in Frameworks */,
+				4456BD0A1F23122200CD48B5 /* Himotoki.framework in Frameworks */,
 				44A91DCD1F211AAA0088D9E6 /* RealmSwift.framework in Frameworks */,
 				44A91DCE1F211AAA0088D9E6 /* Realm.framework in Frameworks */,
 			);
@@ -103,6 +122,8 @@
 				4458EA7E1F2000B200FCC85A /* ImageGenerator.swift */,
 				440F68C71F157013008511DC /* Assets.xcassets */,
 				440F68C91F157013008511DC /* LaunchScreen.storyboard */,
+				446F62021F2319F10052BE67 /* KannaViewController.swift */,
+				446F62041F231B330052BE67 /* Request.swift */,
 			);
 			path = SetlistImageMaker;
 			sourceTree = "<group>";
@@ -110,6 +131,11 @@
 		4444977D1F1D7902006FBEF8 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				446F62001F2319590052BE67 /* Kanna.framework */,
+				4456BD031F23122200CD48B5 /* APIKit.framework */,
+				4456BD041F23122200CD48B5 /* Result.framework */,
+				4456BD051F23122200CD48B5 /* Kingfisher.framework */,
+				4456BD061F23122200CD48B5 /* Himotoki.framework */,
 				44A91DCB1F211AAA0088D9E6 /* RealmSwift.framework */,
 				44A91DCC1F211AAA0088D9E6 /* Realm.framework */,
 				444497801F1D790F006FBEF8 /* TwitterCore.framework */,
@@ -233,6 +259,11 @@
 			inputPaths = (
 				"$(SRCROOT)/Carthage/Build/iOS/RealmSwift.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/Realm.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/APIKit.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/Result.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/Himotoki.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/Kingfisher.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/Kanna.framework",
 			);
 			outputPaths = (
 			);
@@ -258,6 +289,8 @@
 				44A91DD21F215AFC0088D9E6 /* Setlist.swift in Sources */,
 				4426B1F31F1578F800E37954 /* SongNameTableViewCell.swift in Sources */,
 				441D0B981F19BD97007D171C /* EditArtistViewController.swift in Sources */,
+				446F62051F231B330052BE67 /* Request.swift in Sources */,
+				446F62031F2319F10052BE67 /* KannaViewController.swift in Sources */,
 				441D0B9A1F19C2EF007D171C /* ArtistTableViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -389,6 +422,7 @@
 					"$(PROJECT_DIR)",
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
 				);
+				HEADER_SEARCH_PATHS = "$(SDKROOT)/usr/include/libxml2";
 				INFOPLIST_FILE = SetlistImageMaker/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = co.masa.SetlistImageMaker;
@@ -411,6 +445,7 @@
 					"$(PROJECT_DIR)",
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
 				);
+				HEADER_SEARCH_PATHS = "$(SDKROOT)/usr/include/libxml2";
 				INFOPLIST_FILE = SetlistImageMaker/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = co.masa.SetlistImageMaker;

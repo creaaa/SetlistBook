@@ -30,6 +30,22 @@ final class EditArtistViewController: UIViewController {
               return
         }
         
+        
+        if artistCell.textField.text == "" || artistCell.textField.text == nil {
+            
+            let alert = UIAlertController(title: "Save Failed...", message: "Input artist name.", preferredStyle: .alert)
+            
+            alert.addAction(UIAlertAction(title: "OK",     style: .default, handler: nil))
+
+            DispatchQueue.main.async {
+                self.present(alert, animated: true, completion: nil)
+            }
+            
+            return
+            
+        }
+        
+        
         try! Realm().write {
             
             if let artist = artistCell.textField.text, artist != "" {
@@ -43,6 +59,8 @@ final class EditArtistViewController: UIViewController {
             if let date = dateCell.textField.text, date != "" {
                 self.setlist.date = DateUtils.dateFromString(string: date, format: "YYYY-MM-dd")
             }
+            
+            try! Realm().add(self.setlist)
             
         }
         

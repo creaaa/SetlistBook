@@ -20,37 +20,17 @@ final class SetListViewController: UIViewController {
     
     @IBOutlet weak var tableView: UITableView!
     
-    @IBAction func cancelButtonTapped(_ sender: UIBarButtonItem) {
-        
-        /*
-        let alert = UIAlertController(title: "cancel editing?", message: "content will be dicarded.", preferredStyle: .alert)
-        
-        alert.addAction(UIAlertAction(title: "Yes",     style: .default) { _ in
-           self.dismiss(animated: true, completion: nil)
-        })
-        alert.addAction(UIAlertAction(title: "No",      style: .cancel,  handler: nil))
-        
-        DispatchQueue.main.async {
-            self.present(alert, animated: true, completion: nil)
-        }
- 
-        */
-        
-        self.dismiss(animated: true, completion: nil)
-        
-    }
-    
-    @IBAction func confirmButtonTapped(_ sender: UIButton) {
-        doneButtonTapped(UIBarButtonItem())
-    }
-    
     @IBAction func doneButtonTapped(_ sender: UIBarButtonItem) {
+        self.dismiss(animated: true, completion: nil)
+    }
+    
+    @IBAction func cancelButtonTapped(_ sender: UIBarButtonItem) {
         
         let alert = UIAlertController(title: "Action?", message: nil, preferredStyle: .actionSheet)
         
         alert.addAction(UIAlertAction(title: "Share on Twitter", style: .default, handler: tweet))
         
-        alert.addAction(UIAlertAction(title: "No",    style: .destructive,  handler: nil))
+        alert.addAction(UIAlertAction(title: "Cancel", style: .destructive,  handler: nil))
         
         DispatchQueue.main.async {
             self.present(alert, animated: true, completion: nil)
@@ -58,26 +38,10 @@ final class SetListViewController: UIViewController {
         
     }
     
-    /*
-    private func saveSetlist(action: UIAlertAction) {
-    
-    }
-    */
-    
-    /*
-    func moveTo(action: UIAlertAction) {
-        
-        guard let vc = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "LaunchImage")
-            as? LaunchImageCollectionViewController else { return }
-        self.navigationController?.pushViewController(vc, animated: true)
-    }
-    */
-    
     func tweet(action: UIAlertAction) {
         let vc = LoginViewController()
         present(vc, animated: true, completion: nil)
     }
-    
     
     @IBAction func addEncoreButtonTapped(_ sender: UIBarButtonItem) {
         

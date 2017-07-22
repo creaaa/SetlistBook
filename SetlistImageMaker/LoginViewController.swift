@@ -21,28 +21,54 @@ class LoginViewController: UIViewController {
     
     private func selectTwitterAccount() {
         
+        // ここはまだネットワーク関係なし。オフラインでもエラーなく動く
+        // tweetをpostするときにやっとネットチェックがある
+        
         // 認証するアカウントのタイプを選択（他にはFacebookやWeiboなどがある）
         let accountType = accountStore.accountType(withAccountTypeIdentifier: ACAccountTypeIdentifierTwitter)
         
         accountStore.requestAccessToAccounts(with: accountType, options: nil) { isGranted, error in
             
             guard error == nil else {
-                print("error! \(error)")
+                
+                let alert = UIAlertController(title: "Error", message: "\(error): try again.", preferredStyle: .alert)
+                
+                alert.addAction(UIAlertAction(title: "OK",     style: .default, handler: nil))
+                
+                DispatchQueue.main.async {
+                    self.present(alert, animated: true, completion: nil)
+                }
+                
                 return
+                
             }
             
             guard isGranted else {
+                
                 print("error! Twitterアカウントの利用が許可されていません")
-                self.promptGrantTweet()
+                
+                // まずdismissしてから...
+                self.dismiss(animated: true, completion: nil)
+                // アラートを出しましょう
+                // ここのスキーム変えろ、プライバシー画面に行くように
+                self.promptGrantTweet(title: "not admitted tweet",
+                                      message: "please admit tweeting in preference scene.", scheme: "App-prefs:root=TWITTER")
+                
                 return
+                
             }
             
             let accounts = self.accountStore.accounts(with: accountType) as! [ACAccount]
             
             guard accounts.count != 0 else {
-                print("error! 設定画面からアカウントを設定してください")
+                
+                // まずdismissしてから...
                 self.dismiss(animated: true, completion: nil)
+                // アラートを出しましょう
+                self.promptGrantTweet(title: "not enrolled account", message: "please enroll account in preference scene.", scheme: "App-prefs:root=TWITTER")
+                
                 return
+                
             }
             
             // 取得したアカウントで処理を行う...
@@ -87,9 +113,7 @@ class LoginViewController: UIViewController {
         let vc = SLComposeViewController(forServiceType: SLServiceTypeTwitter)
         
         vc?.setInitialText("hello!")
-        
-        // vc?.add(#imageLiteral(resourceName: "fever"))
-    
+            
         vc?.completionHandler = {
             switch $0 {
                 case .done:
@@ -108,10 +132,10 @@ class LoginViewController: UIViewController {
     }
     
     
-    private func promptGrantTweet() {
+    private func promptGrantTweet(title: String, message: String, scheme: String) {
         
-        let alertController = UIAlertController(title: "not admitted tweet",
-                                                message: "please admit tweeting in pref scene",
+        let alertController = UIAlertController(title: title,
+                                                message: message,
                                                 preferredStyle: .alert)
        
         alertController.addAction(UIAlertAction(title: "Later", style: .default, handler: nil))
@@ -119,7 +143,7 @@ class LoginViewController: UIViewController {
         alertController.addAction(UIAlertAction(title: "Setting", style: .cancel) { action in
             
             // ここ、「A」ppって大文字にしないと遷移しない。無反応。気をつけてね
-            if let url = URL(string:"App-prefs:root=TWITTER") {
+            if let url = URL(string: scheme) {
                 if #available(iOS 10.0, *) {
                     UIApplication.shared.open(url, options: [:], completionHandler: nil)
                     print("ks")
@@ -129,7 +153,7 @@ class LoginViewController: UIViewController {
                 }
             }
         })
-
+        
         present(alertController, animated: true, completion: nil)
     
     }
