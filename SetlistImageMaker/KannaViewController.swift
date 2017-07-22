@@ -35,7 +35,6 @@ class KannaViewController: UIViewController {
         // DispatchGroupとQueueを生成
         let group  = DispatchGroup()
         let queue1 = DispatchQueue(label: "hoge.fuga.queue1")
-        let queue2 = DispatchQueue(label: "hoge.fuga.queue2")
         
         // キューとグループを紐付ける
         queue1.async(group: group) {
@@ -52,17 +51,6 @@ class KannaViewController: UIViewController {
             let data           = self.getHtml(url: url)
             self.yesterdayData = self.parseHtml(day: "yesterday", data: data)
         }
-        
-        /*
-        queue2.async(group: group) {
-            // 札幌のアメダス（今日）
-            guard let url = URL(string: "http://www.jma.go.jp/jp/amedas_h/today-14163.html") else {
-                fatalError("Error: URL")
-            }
-            let data       = self.getHtml(url: url)
-            self.todayData = self.parseHtml(day: "today", data: data)
-        }
-        */
         
         // タスクが全て完了したらメインスレッド上で処理を実行する
         group.notify(queue: DispatchQueue.main) {

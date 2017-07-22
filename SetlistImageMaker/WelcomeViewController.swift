@@ -182,8 +182,6 @@ extension WelcomeViewController: UITableViewDataSource {
         self.tableView.isEditing = editing
     }
     
-    
-    
     // 削除を許可(移動したい場合もここをONにしないとダメよ)
     func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
         return true
@@ -202,28 +200,6 @@ extension WelcomeViewController: UITableViewDataSource {
         }
     }
     
-    
-    /*
-    func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
-        return true
-    }
-    
-    func tableView(_ tableView: UITableView, moveRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
-        
-        self.tableView.reloadData()
-        
-    }
-    */
-    
-    
 }
-
-
-
-
-
-
-
-
 
 
