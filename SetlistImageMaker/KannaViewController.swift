@@ -19,9 +19,9 @@ class KannaViewController: UIViewController {
     /// 最終データのArray
     /// var finalData:     [element] = []
     /// 昨日のデータのArray
-    var yesterdayData: [element] = []
+    var yesterdayData: [String] = []
     /// 今日のデータのArray
-    var todayData:     [element] = []
+    var todayData:     [String] = []
     
     
     override func viewDidLoad() {
@@ -40,13 +40,20 @@ class KannaViewController: UIViewController {
         // キューとグループを紐付ける
         queue1.async(group: group) {
             // 札幌のアメダス（昨日）
-            guard let url = URL(string: "http://www.jma.go.jp/jp/amedas_h/yesterday-14163.html") else {
+            
+            let urlStr =
+            // "http://www.uta-net.com/search/?Keyword=indigo+la+end&x=0&y=0&Aselect=1&Bselect=3"
+            "http://www.uta-net.com/search/?Aselect=1&Keyword=aiko&Bselect=3&x=0&y=0"
+            
+            
+            guard let url = URL(string: urlStr) else {
                 fatalError("Error: URL")
             }
             let data           = self.getHtml(url: url)
             self.yesterdayData = self.parseHtml(day: "yesterday", data: data)
         }
         
+        /*
         queue2.async(group: group) {
             // 札幌のアメダス（今日）
             guard let url = URL(string: "http://www.jma.go.jp/jp/amedas_h/today-14163.html") else {
@@ -55,19 +62,15 @@ class KannaViewController: UIViewController {
             let data       = self.getHtml(url: url)
             self.todayData = self.parseHtml(day: "today", data: data)
         }
+        */
         
         // タスクが全て完了したらメインスレッド上で処理を実行する
         group.notify(queue: DispatchQueue.main) {
             // 今日のArrayと昨日のArrayを結合
             let finalData = self.yesterdayData + self.todayData
             // 編集してUITextViewに表示
-            var s = ""
-            for e in finalData {
-                s += e.day + "-" + e.hour + "h: " + String(e.temperature) + "\n"
-            }
-            
+
             // 完成(なにが？？)
-            print(s)
             
             // self.activityIndicator.stopAnimating()
         }
@@ -89,34 +92,29 @@ class KannaViewController: UIViewController {
     /// - parameter data: Data
     /// - returns [element]
     
-    func parseHtml(day: String, data: Data) -> [element] {
+    func parseHtml(day: String, data: Data) -> [String] {
         
         // KannaでHTMLDocumentを生成
         guard let doc = HTML(html: data, encoding: String.Encoding.utf8) else {
             fatalError("Error: HTML")
         }
         
-        var retData: [element] = []
+        var retData: [String] = []
         
         // HTMLの<table>の時刻の列を基準にLoopし、該当行の気温の列をKannaでスクレイピング
-        for i in (1...24) {
-            let node = doc.xpath("//*[@id='tbl_list']//tr[td[1][text()='\(i)']]/td[2]")
-            
-            if let nodeFirst = node.first, let content = nodeFirst.content, let value = Double(content) {
-                // 値が入っている場合のみ取得
-                let e = element()
-                
-                e.day         = day
-                e.hour        = String(i)
-                e.temperature = value
-                retData.append(e)
-            }
-        }
+        
+        // let node = doc.xpath("//*[@summary='曲一覧1']/tbody/tr[td[@class='side td1']]")
+        // let node = doc.xpath("//*[@summary='曲一覧1']/tbody/tr/td[@class='side td1']")
+        let node = doc.xpath("//td[@class='side td1']")
+        
+        node.forEach{ print($0.content!); retData.append($0.content!) }
+        
         
         return retData
         
     }
     
 }
+
 
 
