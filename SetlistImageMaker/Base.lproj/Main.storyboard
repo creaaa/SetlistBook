@@ -10,6 +10,9 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
+        <array key="HigashiOme-Gothic-1.3i.ttf">
+            <string>HigashiOme-Gothic</string>
+        </array>
         <array key="Quicksand-Regular.ttf">
             <string>Quicksand-Regular</string>
         </array>
@@ -39,16 +42,16 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="mhP-C7-qo2">
-                                                    <rect key="frame" x="15" y="3" width="33" height="21.5"/>
+                                                    <rect key="frame" x="15" y="3" width="38" height="20.5"/>
                                                     <autoresizingMask key="autoresizingMask"/>
-                                                    <fontDescription key="fontDescription" name="Quicksand-Regular" family="Quicksand" pointSize="17"/>
+                                                    <fontDescription key="fontDescription" name="HigashiOme-Gothic" family="東青梅ゴシック" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Subtitle" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="umH-nA-Gp5">
-                                                    <rect key="frame" x="15" y="24.5" width="48" height="17.5"/>
+                                                    <rect key="frame" x="15" y="23.5" width="52.5" height="17"/>
                                                     <autoresizingMask key="autoresizingMask"/>
-                                                    <fontDescription key="fontDescription" name="Quicksand-Regular" family="Quicksand" pointSize="14"/>
+                                                    <fontDescription key="fontDescription" name="HigashiOme-Gothic" family="東青梅ゴシック" pointSize="14"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
@@ -79,7 +82,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dod-GU-lPk" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="620" y="760.56971514242889"/>
+            <point key="canvasLocation" x="1004" y="761"/>
         </scene>
         <!--New Setlist-->
         <scene sceneID="tne-QT-ifu">
@@ -105,16 +108,16 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="UDD-0C-g32">
-                                                    <rect key="frame" x="15" y="3" width="33" height="21.5"/>
+                                                    <rect key="frame" x="15" y="3" width="38" height="20.5"/>
                                                     <autoresizingMask key="autoresizingMask"/>
-                                                    <fontDescription key="fontDescription" name="Quicksand-Regular" family="Quicksand" pointSize="17"/>
+                                                    <fontDescription key="fontDescription" name="HigashiOme-Gothic" family="東青梅ゴシック" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Subtitle" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="4gN-ph-Oil">
-                                                    <rect key="frame" x="15" y="24.5" width="48" height="17.5"/>
+                                                    <rect key="frame" x="15" y="23.5" width="52.5" height="17"/>
                                                     <autoresizingMask key="autoresizingMask"/>
-                                                    <fontDescription key="fontDescription" name="Quicksand-Regular" family="Quicksand" pointSize="14"/>
+                                                    <fontDescription key="fontDescription" name="HigashiOme-Gothic" family="東青梅ゴシック" pointSize="14"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
@@ -430,7 +433,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkR-f2-YfB" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-281" y="761"/>
+            <point key="canvasLocation" x="102" y="761"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="XOs-NJ-4zY">

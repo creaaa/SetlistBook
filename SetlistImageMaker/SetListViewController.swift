@@ -117,7 +117,7 @@ final class SetListViewController: UIViewController {
         
         let att = [
             NSForegroundColorAttributeName: UIColor.black,
-            NSFontAttributeName: UIFont(name: "Quicksand", size: 16) as Any
+            NSFontAttributeName: UIFont(name: "HigashiOme-Gothic", size: 16) as Any
         ]
         
         self.addEncoreButton.setTitleTextAttributes(att, for: .normal)
