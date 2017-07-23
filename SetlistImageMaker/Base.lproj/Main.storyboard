@@ -337,6 +337,8 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="doneButton" destination="grh-Zb-fvd" id="agb-nq-FbR"/>
+                        <outlet property="nextButton" destination="hYI-mn-ZXi" id="D3C-Au-7sD"/>
                         <outlet property="prevButton" destination="a8s-fK-cZ9" id="Uvo-jc-0mG"/>
                         <outlet property="suggestTableView" destination="pS7-AO-dUK" id="6uO-Fz-yCC"/>
                         <outlet property="tableView" destination="afJ-6p-cD3" id="xi1-Yx-dqj"/>

@@ -9,7 +9,10 @@ final class EditSetListViewController: UIViewController {
     @IBOutlet weak var tableView:        UITableView!
     @IBOutlet weak var suggestTableView: UITableView!
     
-    @IBOutlet weak var prevButton:       UIBarButtonItem!
+    @IBOutlet weak var prevButton: UIBarButtonItem!
+    @IBOutlet weak var doneButton: UIBarButtonItem!
+    @IBOutlet weak var nextButton: UIBarButtonItem!
+    
     
     // 本編orアンコールの曲リスト
     // 前画面から受け渡される
@@ -58,6 +61,15 @@ final class EditSetListViewController: UIViewController {
         if self.songNo.no == 0 {
             self.prevButton.isEnabled = false
         }
+        
+        let att = [
+            NSForegroundColorAttributeName: UIColor.black,
+            NSFontAttributeName: UIFont(name: "HigashiOme-Gothic", size: 16) as Any
+        ]
+        
+        self.prevButton.setTitleTextAttributes(att, for: .normal)
+        self.doneButton.setTitleTextAttributes(att, for: .normal)
+        self.nextButton.setTitleTextAttributes(att, for: .normal)
         
     }
     
