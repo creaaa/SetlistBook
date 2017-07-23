@@ -29,6 +29,8 @@ final class SetListViewController: UIViewController {
     
     @IBOutlet weak var tableView: UITableView!
     
+    @IBOutlet weak var addEncoreButton: UIBarButtonItem!
+    
     @IBAction func doneButtonTapped(_ sender: UIBarButtonItem) {
         self.dismiss(animated: true, completion: nil)
     }
@@ -112,7 +114,14 @@ final class SetListViewController: UIViewController {
         self.tableView.estimatedRowHeight = 44
         
         print("受け渡されてきたセトリ: \(self.setlist)")
-
+        
+        let att = [
+            NSForegroundColorAttributeName: UIColor.black,
+            NSFontAttributeName: UIFont(name: "Quicksand", size: 16) as Any
+        ]
+        
+        self.addEncoreButton.setTitleTextAttributes(att, for: .normal)
+        
     }
     
     // URL文字列をエンコードして返す。
@@ -152,8 +161,8 @@ final class SetListViewController: UIViewController {
         
         // ここで現在のアーティスト名をセット(↑の条件判定の"後"にやらないとダメ)
         self.currentArtist = self.setlist.artist
-        
     }
+    
     
 }
 

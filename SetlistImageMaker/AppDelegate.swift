@@ -20,11 +20,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         UINavigationBar.appearance().barTintColor = UIColor(red:0.22, green:0.62, blue:0.67, alpha:1.0)
         
         // ナビゲーションバー・ボタンの設定
+        
+        
         UIBarButtonItem.appearance().setTitleTextAttributes(
         [ NSFontAttributeName: UIFont(name: fontName, size: 16) as Any,
         NSForegroundColorAttributeName: UIColor(red:0.96, green:0.96, blue:0.96, alpha:1.0)
         ],
         for: .normal)
+        
         
         return true
         

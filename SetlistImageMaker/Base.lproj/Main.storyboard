@@ -67,7 +67,7 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Setlist Maker" id="nQ6-4Y-kZj">
-                        <barButtonItem key="rightBarButtonItem" title="Item" systemItem="add" id="XbL-SW-WEe">
+                        <barButtonItem key="rightBarButtonItem" title="＋" id="XbL-SW-WEe">
                             <connections>
                                 <action selector="addButtonTapped:" destination="mxS-2w-Dxy" id="e2x-D4-0kh"/>
                             </connections>
@@ -148,13 +148,14 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="New Setlist" id="8HA-QJ-xcn">
-                        <barButtonItem key="rightBarButtonItem" style="done" systemItem="done" id="st9-F6-PwY">
+                        <barButtonItem key="rightBarButtonItem" title="Done" style="done" id="st9-F6-PwY">
                             <connections>
                                 <action selector="doneButtonTapped:" destination="BYZ-38-t0r" id="B77-4P-dO3"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="addEncoreButton" destination="4Ay-zV-htO" id="nBE-ge-SPk"/>
                         <outlet property="tableView" destination="DnV-nf-YON" id="Dgg-pE-lGF"/>
                     </connections>
                 </viewController>
