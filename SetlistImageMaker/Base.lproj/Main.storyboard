@@ -126,7 +126,6 @@
                             </tableView>
                             <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="S68-g4-WYx">
                                 <rect key="frame" x="0.0" y="623" width="375" height="44"/>
-                                <color key="backgroundColor" red="0.42859542579999999" green="0.52361057320000004" blue="0.99942404029999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <items>
                                     <barButtonItem style="plain" systemItem="flexibleSpace" id="8IN-VF-InB"/>
                                     <barButtonItem title="Add Encore" style="done" id="4Ay-zV-htO">
@@ -419,7 +418,7 @@
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="pzd-Ye-gtO" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Item" id="xxl-oV-l8E"/>
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="2mI-CH-ALP">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="2mI-CH-ALP">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -437,7 +436,7 @@
             <objects>
                 <navigationController storyboardIdentifier="EditSetList" automaticallyAdjustsScrollViewInsets="NO" id="xkw-tt-HKV" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="2om-gd-Jpq">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="2om-gd-Jpq">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -455,7 +454,7 @@
             <objects>
                 <navigationController storyboardIdentifier="EditArtist" automaticallyAdjustsScrollViewInsets="NO" id="b2t-N4-LsU" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="Ryy-x2-cdh">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="Ryy-x2-cdh">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -473,7 +472,7 @@
             <objects>
                 <navigationController storyboardIdentifier="SetList" automaticallyAdjustsScrollViewInsets="NO" id="3eC-uV-VhH" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="Nvk-9H-u1p">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="Nvk-9H-u1p">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
