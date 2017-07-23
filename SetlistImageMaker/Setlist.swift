@@ -11,7 +11,7 @@ class Setlist: Object {
     
     dynamic var artist = ""
     
-    dynamic var place  = ""
+    dynamic var place: String?
     dynamic var date:  Date?
     
     

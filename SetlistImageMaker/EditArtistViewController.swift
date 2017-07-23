@@ -52,15 +52,11 @@ final class EditArtistViewController: UIViewController {
                 self.setlist.artist = artist
             }
             
+            self.setlist.place = nil
+
             if let place = placeCell.textField.text, place != "" {
                 self.setlist.place = place
             }
-            
-            /*
-            if let date = dateCell.textField.text, date != "" {
-                self.setlist.date = DateUtils.dateFromString(string: date, format: "YYYY-MM-dd")
-            }
-            */
             
             self.setlist.date = nil
             
