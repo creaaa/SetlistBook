@@ -56,9 +56,18 @@ final class EditArtistViewController: UIViewController {
                 self.setlist.place = place
             }
             
+            /*
             if let date = dateCell.textField.text, date != "" {
                 self.setlist.date = DateUtils.dateFromString(string: date, format: "YYYY-MM-dd")
             }
+            */
+            
+            self.setlist.date = nil
+            
+            if let date = dateCell.textField.text, date != "" {
+                self.setlist.date = DateUtils.dateFromString(string: date, format: "YYYY-MM-dd")
+            }
+            
             
             try! Realm().add(self.setlist)
             

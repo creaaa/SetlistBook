@@ -36,8 +36,7 @@ extension ArtistTableViewCell: UITextFieldDelegate {
         textField.inputView = datePickerView
         
         // ピッカー
-        let frame = CGRect(x: 0.0, y: 0.0,
-                           width: 375, height: 40.0)
+        let frame = CGRect(x: 0.0, y: 0.0, width: 375, height: 40.0)
         let pickerToolBar = UIToolbar(frame: frame)
         
         //ボタンの設定
@@ -46,16 +45,24 @@ extension ArtistTableViewCell: UITextFieldDelegate {
                                           target: self, action: nil)
         
         //完了ボタンを設定
+        /*
         let toolBarBtn  = UIBarButtonItem(title: "Done", style: .done,
                                           target: self, action: #selector(doneButtonTapped(sender:)))
+        */
+        
+        let doneButton = UIBarButtonItem(title: "Done", style: .done, target: self, action: #selector(doneButtonTapped))
+        
+        let att = [
+            NSForegroundColorAttributeName: UIColor.black,
+            NSFontAttributeName: UIFont(name: "HigashiOme-Gothic", size: 16) as Any
+        ]
+        
+        doneButton.setTitleTextAttributes(att, for: .normal)
         
         //ツールバーにボタンを表示
-        pickerToolBar.items = [spaceBarBtn, toolBarBtn]
+        pickerToolBar.items = [spaceBarBtn, doneButton]
         
         textField.inputAccessoryView = pickerToolBar
-        
-        /// くそだせぇ
-        // self.date = Date()
         
         datePickerView.addTarget(self, action: #selector(valueChanged(sender:)), for: .valueChanged)
         
@@ -66,10 +73,9 @@ extension ArtistTableViewCell: UITextFieldDelegate {
         self.textField.text = DateUtils.stringFromDate(date: sender.date, format: "yyyy/MM/dd")
     }
     
-    // 日付ピッカーに付随する完了ボタンの方ね。
+    // 「日付ピッカーに付随する」ほうのDoneボタンの方ね。
     func doneButtonTapped(sender: UIBarButtonItem) {
-        self.textField.text = DateUtils.stringFromDate(date: self.date ?? Date(), format: "yyyy/MM/dd")
-        
+        // self.textField.text = DateUtils.stringFromDate(date: self.date ?? Date(), format: "yyyy/MM/dd")
         self.textField.resignFirstResponder() // これだけでDidEndEditing呼ばれます
     }
     

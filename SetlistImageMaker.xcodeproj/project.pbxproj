@@ -22,7 +22,6 @@
 		4474F91A1F16EA18005D360E /* LaunchImageCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4474F9191F16EA18005D360E /* LaunchImageCollectionViewController.swift */; };
 		447BFD431F2538820001A55C /* HigashiOme-Gothic-1.3i.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 447BFD421F25387D0001A55C /* HigashiOme-Gothic-1.3i.ttf */; };
 		447BFD451F25436D0001A55C /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 447BFD441F25436D0001A55C /* Settings.bundle */; };
-		447CC59E1F247CD2002CA718 /* Quicksand-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 44D5AF271F20289100EB0CA5 /* Quicksand-Regular.ttf */; };
 		44A91DCA1F210C250088D9E6 /* WelcomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44A91DC91F210C250088D9E6 /* WelcomeViewController.swift */; };
 		44A91DCD1F211AAA0088D9E6 /* RealmSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 44A91DCB1F211AAA0088D9E6 /* RealmSwift.framework */; };
 		44A91DCE1F211AAA0088D9E6 /* Realm.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 44A91DCC1F211AAA0088D9E6 /* Realm.framework */; };
@@ -63,7 +62,6 @@
 		44A91DCF1F211EAC0088D9E6 /* DateUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DateUtils.swift; sourceTree = "<group>"; };
 		44A91DD11F215AFC0088D9E6 /* Setlist.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Setlist.swift; sourceTree = "<group>"; };
 		44C74C881F23E1AC006A4168 /* Scraper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Scraper.swift; sourceTree = "<group>"; };
-		44D5AF271F20289100EB0CA5 /* Quicksand-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Quicksand-Regular.ttf"; sourceTree = "<group>"; };
 		C3E30C4C615CA05141FE12E3 /* Pods-SetlistImageMaker.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SetlistImageMaker.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SetlistImageMaker/Pods-SetlistImageMaker.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -103,7 +101,6 @@
 			isa = PBXGroup;
 			children = (
 				447BFD441F25436D0001A55C /* Settings.bundle */,
-				44D5AF271F20289100EB0CA5 /* Quicksand-Regular.ttf */,
 				447BFD421F25387D0001A55C /* HigashiOme-Gothic-1.3i.ttf */,
 				440F68C41F157013008511DC /* Main.storyboard */,
 				440F68C01F157013008511DC /* AppDelegate.swift */,
@@ -241,7 +238,6 @@
 				440F68CB1F157013008511DC /* LaunchScreen.storyboard in Resources */,
 				440F68C81F157013008511DC /* Assets.xcassets in Resources */,
 				440F68C61F157013008511DC /* Main.storyboard in Resources */,
-				447CC59E1F247CD2002CA718 /* Quicksand-Regular.ttf in Resources */,
 				447BFD451F25436D0001A55C /* Settings.bundle in Resources */,
 				447BFD431F2538820001A55C /* HigashiOme-Gothic-1.3i.ttf in Resources */,
 			);

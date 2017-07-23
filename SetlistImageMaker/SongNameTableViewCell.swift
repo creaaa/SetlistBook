@@ -37,9 +37,13 @@ final class SongNameTableViewCell: UITableViewCell {
         let spacer = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: self, action: nil)
         
         // 閉じるボタン
+        
         let doneButton = UIBarButtonItem(barButtonSystemItem: .done,
                                          target: self,
                                          action: #selector(doneButtonTapped))
+        
+        
+        
         
         /*
         let nextButton = UIBarButtonItem(title:  "next",
