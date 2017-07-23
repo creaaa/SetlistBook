@@ -247,22 +247,22 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" tag="1" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="afJ-6p-cD3" userLabel="Song Table View">
-                                <rect key="frame" x="0.0" y="64" width="375" height="70"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <tableView clipsSubviews="YES" tag="1" contentMode="scaleToFill" alwaysBounceVertical="YES" scrollEnabled="NO" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" translatesAutoresizingMaskIntoConstraints="NO" id="afJ-6p-cD3" userLabel="Song Table View">
+                                <rect key="frame" x="0.0" y="64" width="375" height="105"/>
+                                <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="70" id="JQv-QD-Z3f"/>
+                                    <constraint firstAttribute="height" constant="105" id="j3x-Sn-rRE"/>
                                 </constraints>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="TextFieldCell" id="Ulo-EZ-Hge" customClass="SongNameTableViewCell" customModule="SetlistImageMaker" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="28" width="375" height="44"/>
+                                        <rect key="frame" x="0.0" y="55.5" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Ulo-EZ-Hge" id="5VX-dg-Itb">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="曲名を入力" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="XHa-Ft-njz">
-                                                    <rect key="frame" x="13" y="8" width="354" height="27.5"/>
+                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="XHa-Ft-njz">
+                                                    <rect key="frame" x="16" y="8" width="351" height="27.5"/>
                                                     <nil key="textColor"/>
                                                     <fontDescription key="fontDescription" name="Quicksand-Regular" family="Quicksand" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits"/>
@@ -270,7 +270,7 @@
                                             </subviews>
                                             <constraints>
                                                 <constraint firstAttribute="trailingMargin" secondItem="XHa-Ft-njz" secondAttribute="trailing" id="Bih-Hv-DHf"/>
-                                                <constraint firstItem="XHa-Ft-njz" firstAttribute="leading" secondItem="5VX-dg-Itb" secondAttribute="leadingMargin" constant="5" id="GhI-Mk-cqh"/>
+                                                <constraint firstItem="XHa-Ft-njz" firstAttribute="leading" secondItem="5VX-dg-Itb" secondAttribute="leadingMargin" constant="8" id="GhI-Mk-cqh"/>
                                                 <constraint firstAttribute="bottomMargin" secondItem="XHa-Ft-njz" secondAttribute="bottom" id="IYt-Ce-77B"/>
                                                 <constraint firstItem="XHa-Ft-njz" firstAttribute="top" secondItem="5VX-dg-Itb" secondAttribute="topMargin" id="v8O-zr-2Mc"/>
                                             </constraints>
@@ -281,9 +281,9 @@
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
-                            <tableView clipsSubviews="YES" tag="2" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="pS7-AO-dUK" userLabel="Suggest Table View">
-                                <rect key="frame" x="0.0" y="134" width="375" height="489"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <tableView clipsSubviews="YES" tag="2" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" translatesAutoresizingMaskIntoConstraints="NO" id="pS7-AO-dUK" userLabel="Suggest Table View">
+                                <rect key="frame" x="0.0" y="169" width="375" height="454"/>
+                                <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                             </tableView>
                             <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="NZ3-19-gpm">
                                 <rect key="frame" x="0.0" y="623" width="375" height="44"/>
@@ -419,7 +419,7 @@
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="pzd-Ye-gtO" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Item" id="xxl-oV-l8E"/>
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="2mI-CH-ALP">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="2mI-CH-ALP">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -437,7 +437,7 @@
             <objects>
                 <navigationController storyboardIdentifier="EditSetList" automaticallyAdjustsScrollViewInsets="NO" id="xkw-tt-HKV" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="2om-gd-Jpq">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="2om-gd-Jpq">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -455,7 +455,7 @@
             <objects>
                 <navigationController storyboardIdentifier="EditArtist" automaticallyAdjustsScrollViewInsets="NO" id="b2t-N4-LsU" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="Ryy-x2-cdh">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="Ryy-x2-cdh">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -473,7 +473,7 @@
             <objects>
                 <navigationController storyboardIdentifier="SetList" automaticallyAdjustsScrollViewInsets="NO" id="3eC-uV-VhH" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="Nvk-9H-u1p">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="Nvk-9H-u1p">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>

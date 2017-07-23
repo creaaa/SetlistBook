@@ -49,6 +49,9 @@ final class EditSetListViewController: UIViewController {
         tableView.delegate   = self
         tableView.dataSource = self
         
+        self.tableView.rowHeight  = UITableViewAutomaticDimension
+        self.tableView.estimatedRowHeight = 92
+        
         suggestTableView.delegate   = self
         suggestTableView.dataSource = self
         
