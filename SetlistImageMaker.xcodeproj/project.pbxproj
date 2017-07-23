@@ -17,7 +17,6 @@
 		441D0B9A1F19C2EF007D171C /* ArtistTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 441D0B991F19C2EF007D171C /* ArtistTableViewCell.swift */; };
 		4426B1F31F1578F800E37954 /* SongNameTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4426B1F21F1578F800E37954 /* SongNameTableViewCell.swift */; };
 		4444978B1F1D7F23006FBEF8 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4444978A1F1D7F23006FBEF8 /* LoginViewController.swift */; };
-		4456BD0A1F23122200CD48B5 /* Himotoki.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4456BD061F23122200CD48B5 /* Himotoki.framework */; };
 		4458EA7F1F2000B200FCC85A /* ImageGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4458EA7E1F2000B200FCC85A /* ImageGenerator.swift */; };
 		446F62011F2319590052BE67 /* Kanna.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 446F62001F2319590052BE67 /* Kanna.framework */; };
 		4474F91A1F16EA18005D360E /* LaunchImageCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4474F9191F16EA18005D360E /* LaunchImageCollectionViewController.swift */; };
@@ -70,7 +69,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				446F62011F2319590052BE67 /* Kanna.framework in Frameworks */,
-				4456BD0A1F23122200CD48B5 /* Himotoki.framework in Frameworks */,
 				44A91DCD1F211AAA0088D9E6 /* RealmSwift.framework in Frameworks */,
 				44A91DCE1F211AAA0088D9E6 /* Realm.framework in Frameworks */,
 			);

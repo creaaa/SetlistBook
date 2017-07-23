@@ -85,7 +85,7 @@ final class EditSetListViewController: UIViewController {
     @IBAction func doneButtonTapped(_ sender: UIBarButtonItem) {
         
         guard canFinish else {
-            print("曲名を入れてください。")
+            createSimpleAlert(title: "Error", message: "input song name.")
             return
         }
         
@@ -116,7 +116,7 @@ final class EditSetListViewController: UIViewController {
         
         // ナンセンスに思えるが、便宜を取った
         guard canFinish else {
-            print("曲名を入れてください。")
+            createSimpleAlert(title: "Error", message: "input song name.")
             return
         }
         
@@ -150,7 +150,7 @@ final class EditSetListViewController: UIViewController {
     @IBAction func nextSongButtonTapped(_ sender: UIBarButtonItem) {
         
         guard canFinish else {
-            print("曲名を入れてください。")
+            createSimpleAlert(title: "Error", message: "input song name.")
             return
         }
         

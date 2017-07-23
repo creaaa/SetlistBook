@@ -13,7 +13,6 @@ final class SetListViewController: UIViewController {
     var setlist = Setlist()
     
     // オンライン取得した曲名リスト
-    // リクエストを抑えるため可能な限り使いまわす
     var suggestSongList: [String]?
     
     // 再フェッチが必要かどうかを管理するための変数
@@ -21,9 +20,7 @@ final class SetListViewController: UIViewController {
     // しゃあなしもう1個変数を増やした
     var currentArtist = ""
     
-    
-    
-    
+
     //////////////
     
     /* View */
@@ -153,7 +150,7 @@ final class SetListViewController: UIViewController {
             print("フェッチしない")
         }
         
-        // ここで現在のアーティスト名をセット
+        // ここで現在のアーティスト名をセット(↑の条件判定の"後"にやらないとダメ)
         self.currentArtist = self.setlist.artist
         
     }
