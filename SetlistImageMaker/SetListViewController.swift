@@ -71,19 +71,25 @@ final class SetListViewController: UIViewController {
     }
     
     
-    private func fetchSongNames(url: URL) {
+    private func fetchSongNames(url: [URL]) {
         
         // これ、なぜか返り値が代入されないので....
         // self.proactiveSongNames = Scraper().execute(url: url)
         
-        Scraper().execute(url: url) { result in
+        let scraper = Scraper(parameter: [
+                (url[0], "//td[@class='side td1']"),
+                (url[1], "//td[@class='side td1']")
+            ]
+        )
+        
+        scraper.execute() { result in
             self.suggestSongList = result
         }
         
     }
     
     // ユーザー入力されたアーティストに応じたURLを発行
-    private func createURL(artist: String) -> URL? {
+    private func createFirstURL(artist: String) -> URL? {
         
         var result  = ""
         
@@ -91,11 +97,27 @@ final class SetListViewController: UIViewController {
         
         result += "\(baseURL)&Keyword=\(artist)"
         
-        //let urlStr = "http://www.uta-net.com/search/?Aselect=1&Keyword=aiko&Bselect=3&x=0&y=0"
+        return URL(string: result) ?? nil
+        
+    }
+    
+    // ↑ と同じなんだ。許してくれ。
+    private func createSecondURL(artist: String) -> URL? {
+        
+        var result  = ""
+        
+        let baseURL = "http://songmeanings.com/query/"
+        
+        result += "\(baseURL)?query=\(artist)&type=artists"
+        
+        print("生成文字列: ", result)
         
         return URL(string: result) ?? nil
         
     }
+    
+    
+    
     
     ////////////////
     // Life Cycle //
@@ -153,8 +175,9 @@ final class SetListViewController: UIViewController {
         // この3条件をすべて見たしたとき、再フェッチをする
         if self.currentArtist != self.setlist.artist,
             let encodedArtistName = encodeString(),
-            let url = createURL(artist: encodedArtistName) {
-            fetchSongNames(url:url)
+            let url1 = createFirstURL(artist: encodedArtistName),
+            let url2 = createSecondURL(artist: encodedArtistName) {
+                fetchSongNames(url: [url1, url2])
         } else {
             print("フェッチしない")
         }
