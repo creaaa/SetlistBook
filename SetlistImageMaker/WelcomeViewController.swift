@@ -6,9 +6,7 @@ final class WelcomeViewController: UIViewController {
 
     var realm =   try! Realm()
     
-    var setlists: Results<Setlist>!
-    // var setlists: [Setlist]!
-    
+    var setlists: Results<Setlist>!    
     
     @IBOutlet weak var tableView: UITableView!
     

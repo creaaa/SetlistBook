@@ -11,6 +11,8 @@ final class EditSetListViewController: UIViewController {
     
     @IBOutlet weak var prevButton:       UIBarButtonItem!
     
+    // 前画面から来るかもしれない、曲名リスト
+    var proactiveSongNames: [String]?
     
     /*
     // 遷移前画面から渡されてきた「曲名リスト」のコピー。
@@ -35,6 +37,9 @@ final class EditSetListViewController: UIViewController {
         super.viewDidLoad()
         
         print("受け渡されてきた曲名リスト: ", self.setlist)
+        print("きてるべ \(self.proactiveSongNames ?? ["やっぱきてない"])")
+        
+        suggestSongList = proactiveSongNames!
         
         tableView.delegate   = self
         tableView.dataSource = self
@@ -59,18 +64,24 @@ final class EditSetListViewController: UIViewController {
     
     @IBAction func doneButtonTapped(_ sender: UIBarButtonItem) {
         
-        guard let navVC = self.presentingViewController as? UINavigationController,
-            let parentVC = navVC.topViewController as? SetListViewController else {
+        /*
+        guard let navVC = self.presentingViewController as? UINavigationController
+            /*,let parentVC = navVC.topViewController as? SetListViewController */ else {
                 self.dismiss(animated: true, completion: nil)
                 return
         }
+        */
         
         let indexPath = IndexPath(row: 0, section: 0)
         
+        /*
         guard let cell = self.tableView.cellForRow(at: indexPath) as? SongNameTableViewCell else {
             self.dismiss(animated: true, completion: nil)
             return
         }
+        */
+        
+        let cell = self.tableView.cellForRow(at: indexPath) as! SongNameTableViewCell
         
         if self.songNo >= self.setlist.songs.count {
             try! realm.write {
@@ -82,16 +93,6 @@ final class EditSetListViewController: UIViewController {
         try! realm.write {
             self.setlist.songs[self.songNo].name = cell.textField.text!
         }
-        
-        /*
-        if self.title == "SetList" {
-            parentVC.songNames = self.songNames
-        } else if let _ = self.encoreNo {
-            parentVC.encoreSongNames[encoreNo - 1] = self.songNames
-        } else {
-            fatalError()
-        }
-        */
         
         self.dismiss(animated: true, completion: nil)
  
@@ -239,13 +240,13 @@ extension EditSetListViewController: UITableViewDataSource {
                     cell.textField.text = nil
                 }
                 
-                
-                
                 cell.delegate = self
+                
                 return cell
+            
             case 2:
                 let cell = UITableViewCell()
-                cell.textLabel?.text = self.suggestSongList[indexPath.row % 5]
+                cell.textLabel?.text = self.suggestSongList[indexPath.row]
                 return cell
             default:
                 fatalError()

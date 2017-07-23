@@ -61,6 +61,7 @@ final class EditArtistViewController: UIViewController {
             }
             
             try! Realm().add(self.setlist)
+            // try! Realm().add(self.setlist, update: true)
             
         }
         
@@ -148,8 +149,9 @@ extension EditArtistViewController: UITableViewDataSource {
 extension EditArtistViewController: TableViewCellDelegate {
     
     func textFieldDidEndEditing(cell: UITableViewCell) {
-        print("unk")
     }
     
 }
+
+
 

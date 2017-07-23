@@ -8,9 +8,13 @@ final class SetListViewController: UIViewController {
     
     /* Model */
 
-    // セルをタップして遷移してきた場合、ここには既存の値が入る
-    // +(add)ボタンを押して遷移してきた場合は、nilになる
+    // セルをタップして遷移してきた場合は、既存の値が↓の初期値を上書きする
+    // +(add)ボタンを押して遷移してきた場合は、↓の空虚な値を使う
     var setlist = Setlist()
+    
+    // オンライン取得した曲名リスト
+    // リクエストを抑えるため可能な限り使いまわす
+    var proactiveSongNames: [String]?
     
     //////////////
     
@@ -55,6 +59,32 @@ final class SetListViewController: UIViewController {
     }
     
     
+    private func fetchSongNames(url: URL) {
+        
+        // これ、なぜか返り値が代入されないので....
+        // self.proactiveSongNames = Scraper().execute(url: url)
+        
+        Scraper().execute(url: url) { result in
+            self.proactiveSongNames = result
+        }
+        
+    }
+    
+    // ユーザー入力されたアーティストに応じたURLを発行
+    private func createURL(artist: String) -> URL? {
+        
+        var result: String = ""
+        
+        let baseURL = "http://www.uta-net.com/search/?Aselect=1"
+        
+        result += "\(baseURL)&Keyword=\(artist)"
+        
+        //let urlStr = "http://www.uta-net.com/search/?Aselect=1&Keyword=aiko&Bselect=3&x=0&y=0"
+        
+        return URL(string: result) ?? nil
+        
+    }
+    
     ////////////////
     // Life Cycle //
     ////////////////
@@ -75,18 +105,37 @@ final class SetListViewController: UIViewController {
         
     }
     
+    
+    
+    
     override func viewWillAppear(_ animated: Bool) {
         
         super.viewWillAppear(animated)
+    
+        let str = self.setlist.artist as NSString
+        
+        let characterSet = CharacterSet.alphanumerics
+        let encodedStr   = str.addingPercentEncoding(withAllowedCharacters: characterSet)
+        
+        if let encodedStr = encodedStr,
+            let url = createURL(artist: encodedStr),
+            self.setlist.artist != "",
+            self.proactiveSongNames == nil {
+            fetchSongNames(url:url)
+        } else {
+            print("あかん")
+        }
+        
         
         if let selectedRow = self.tableView.indexPathForSelectedRow {
             self.tableView.deselectRow(at: selectedRow, animated: true)
         }
-        
+
         print("main songs: ",   self.setlist.mainSongs)
-        print("encore songs: ", self.setlist.encores)
+        // print("encore songs: ", self.setlist.encores)
         
         self.tableView.reloadData()
+        
     }
     
 }
@@ -114,7 +163,7 @@ extension SetListViewController: UITableViewDelegate {
                     
                 editVC.title  = "アーティスト / 公演情報"
                 editVC.setlist = self.setlist
-                
+
                 self.present(vc, animated: true, completion: nil)
                 
             // 本編 / アンコール
@@ -126,6 +175,10 @@ extension SetListViewController: UITableViewDelegate {
                 guard let editVC = vc.viewControllers.first as? EditSetListViewController  else { return }
                 
                 editVC.songNo    = indexPath.row
+                
+                if let proactiveSongNames = self.proactiveSongNames {
+                    editVC.proactiveSongNames = proactiveSongNames
+                }
                 
                 // 本編の編集ならば
                 if indexPath.section == 1 {
@@ -188,9 +241,6 @@ extension SetListViewController: UITableViewDataSource {
                 if self.setlist.encores[section-2].songs.isEmpty {
                     return 1
                 } else {
-                    
-                    print("ここ常に2", self.setlist.encores[section-2].songs.count)
-                    
                     return self.setlist.encores[section-2].songs.count + 1 // + 曲追加ボタン
                 }
             
@@ -390,11 +440,6 @@ extension SetListViewController: UITableViewDataSource {
         // 最後のアンコール
         else if case (1 + self.setlist.encores.count) = sourceIndexPath.section {
             
-            /*
-            let tmp = self.setlist.encores[sourceIndexPath.section-2].songs.remove(at: sourceIndexPath.row)
-            self.setlist.encores[sourceIndexPath.section-2].songs.insert(tmp, at: destinationIndexPath.row)
-            */
-            
             try! realm.write {
                 self.setlist.encores[sourceIndexPath.section-2].songs.move(from: sourceIndexPath.row, to: destinationIndexPath.row)
             }
@@ -580,10 +625,5 @@ extension SetListViewController: UITableViewDataSource {
     }
     
 }
-
-
-
-
-
 
 

@@ -10,6 +10,7 @@ class Setlist: Object {
     dynamic var id     = UUID().uuidString
     
     dynamic var artist = ""
+    
     dynamic var place  = ""
     dynamic var date:  Date?
     
