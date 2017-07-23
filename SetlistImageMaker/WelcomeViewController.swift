@@ -83,6 +83,7 @@ final class WelcomeViewController: UIViewController {
     
     private func testInjection() {
         
+        /*
         do {
             try self.realm.write {
                 
@@ -122,6 +123,7 @@ final class WelcomeViewController: UIViewController {
             }
         } catch {
         }
+        */
         
     }
     

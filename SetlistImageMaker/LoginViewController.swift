@@ -72,12 +72,14 @@ class LoginViewController: UIViewController {
             }
             
             // 取得したアカウントで処理を行う...
-            self.showAccountSelectSheet(accounts: accounts)
+            self.postSetList()
+            
 
         }
     }
     
     
+    /*
     // アカウント選択のActionSheetを表示する
     private func showAccountSelectSheet(accounts: [ACAccount]) {
         
@@ -105,7 +107,7 @@ class LoginViewController: UIViewController {
         present(alert, animated: true, completion: nil)
         
     }
-    
+    */
 
     
     private func postSetList() {
@@ -113,9 +115,11 @@ class LoginViewController: UIViewController {
         let vc = SLComposeViewController(forServiceType: SLServiceTypeTwitter)
         
         vc?.setInitialText("hello!")
-            
+        
         vc?.completionHandler = {
             switch $0 {
+                // TODO: - なんと、ネットなくても、doneになる！雑すぎるだろ
+                // やるならネットの有無を判定するコードここに書いて、自分で分岐実装するしかない...
                 case .done:
                     print("done")
                 case .cancelled:
@@ -125,7 +129,6 @@ class LoginViewController: UIViewController {
             self.dismiss(animated: true, completion: nil)
             self.dismiss(animated: true, completion: nil)
         }
-        
         
         present(vc!, animated: true, completion: nil)
         
