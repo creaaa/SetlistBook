@@ -231,7 +231,10 @@ extension EditSetListViewController: UITableViewDataSource {
         switch tableView.tag {
             case 1:  // 曲名入力用テーブル
                 let cell = tableView.dequeueReusableCell(withIdentifier: "TextFieldCell") as! SongNameTableViewCell
-                cell.textField.placeholder = "#\(self.songNo.no + 1): 曲名を入力"
+                cell.textLabel?.font = UIFont(name: "Quicksand", size: 14)
+
+                
+                cell.textField.placeholder = "#\(self.songNo.no + 1): input song name"
                 
                 if self.songNo.no < self.editingSongs.songs.count {
                     cell.textField.text = self.editingSongs.songs[self.songNo.no].name
@@ -245,6 +248,8 @@ extension EditSetListViewController: UITableViewDataSource {
             
             case 2:  // 曲名出力テーブル
                 let cell = UITableViewCell()
+                cell.textLabel?.font = UIFont(name: "Quicksand", size: 14)
+
                 cell.textLabel?.text = self.suggestSongList?[indexPath.row] ?? ""
                 return cell
             default:
@@ -262,9 +267,9 @@ extension EditSetListViewController: UITableViewDataSource {
         
         switch tableView.tag {
         case 1:
-            return "曲名(必須)"
+            return "song name(required)"
         case 2:
-            return "Probably..."
+            return "suggestion"
         default:
             fatalError("never executed")
         }

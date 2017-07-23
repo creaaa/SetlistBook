@@ -51,7 +51,7 @@ final class SetListViewController: UIViewController {
     }
     */
     
-    
+
     @IBAction func addEncoreButtonTapped(_ sender: UIBarButtonItem) {
         
         try! realm.write {
@@ -120,6 +120,10 @@ final class SetListViewController: UIViewController {
         let characterSet = CharacterSet.alphanumerics
         let encodedStr   = str.addingPercentEncoding(withAllowedCharacters: characterSet)
         
+        
+        
+        
+        
         if let encodedStr = encodedStr,
             let url = createURL(artist: encodedStr),
             self.setlist.artist != "",
@@ -128,6 +132,11 @@ final class SetListViewController: UIViewController {
         } else {
             print("あかん")
         }
+        
+        
+        
+        
+        
         
         if let selectedRow = self.tableView.indexPathForSelectedRow {
             self.tableView.deselectRow(at: selectedRow, animated: true)
@@ -163,7 +172,7 @@ extension SetListViewController: UITableViewDelegate {
                 
                 guard let editVC = vc.viewControllers.first as? EditArtistViewController else { return }
                     
-                editVC.title  = "アーティスト / 公演情報"
+                // editVC.title  = "アーティスト / 公演情報"
                 editVC.setlist = self.setlist
 
                 self.present(vc, animated: true, completion: nil)
@@ -186,7 +195,7 @@ extension SetListViewController: UITableViewDelegate {
                 
                 // 本編の編集ならば
                 if indexPath.section == 1 {
-                    editVC.title   = "SetList"
+                    editVC.title   = "Edit SetList"
                 } else {  // アンコールの編集ならば
                     // ex. アンコール #1 なら、[0]の配列が渡される
                     editVC.title    = "Encore #\(indexPath.section - 1)"
@@ -251,10 +260,10 @@ extension SetListViewController: UITableViewDataSource {
         // アーティスト・公演情報
         if indexPath.section == 0 {
             
-            let cell = UITableViewCell(style: .subtitle, reuseIdentifier: "ArtistCell")
-            
+            let cell = tableView.dequeueReusableCell(withIdentifier: "ArtistCell", for: indexPath)
+                 
             cell.textLabel?.text = self.setlist.artist != "" ?
-                self.setlist.artist : "タップして情報を入力"
+                self.setlist.artist : "input live info"
             
             var str = ""
             str.append(self.setlist.place ?? "")
@@ -272,9 +281,13 @@ extension SetListViewController: UITableViewDataSource {
         
         // ライブ本編
         if indexPath.section == 1 {
+            
             let cell = UITableViewCell()
+            cell.textLabel?.font = UIFont(name: "Quicksand", size: 14)
+            
+            
             if indexPath.row == self.setlist.mainSongs.first!.songs.count {
-                cell.textLabel?.text = "タップして曲名を入力"
+                cell.textLabel?.text = "input song name"
                 return cell
             } else {
                 print("row: \(indexPath.row)")
@@ -289,7 +302,9 @@ extension SetListViewController: UITableViewDataSource {
             // 曲追加ボタン
             if indexPath.row == self.setlist.encores.last!.songs.count {
                 let cell = UITableViewCell()
-                cell.textLabel?.text = "タップして曲名を入力"
+                cell.textLabel?.font = UIFont(name: "Quicksand", size: 14)
+
+                cell.textLabel?.text = "input song name"
                 return cell
             // 確認画面遷移ボタン
             }
@@ -314,18 +329,19 @@ extension SetListViewController: UITableViewDataSource {
         
         // 最後以外のアンコールセクション
         let cell = UITableViewCell()
-        
+        cell.textLabel?.font = UIFont(name: "Quicksand", size: 14)
+
         if !self.setlist.encores[indexPath.section-2].isEmpty {
             
             if indexPath.row != self.setlist.encores[indexPath.section-2].songs.count {
                 cell.textLabel?.text =
                     self.setlist.encores[indexPath.section-2].songs[indexPath.row].name
             } else {
-                cell.textLabel?.text = "タップして曲名を入力"
+                cell.textLabel?.text = "input song name"
             }
             
         } else {
-            cell.textLabel?.text = "タップして曲名を入力"
+            cell.textLabel?.text = "input song name"
         }
 
         return cell
@@ -337,11 +353,11 @@ extension SetListViewController: UITableViewDataSource {
         
         switch section {
             case 0:
-                return "アーティスト名 / 公演情報"
+                return "live info"
             case 1:
-                return "本編"
+                return "setlist"
             case let encore:
-                return "アンコール #\(encore - 1)"
+                return "encore #\(encore - 1)"
         }
         
     }

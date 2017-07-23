@@ -107,13 +107,13 @@ extension EditArtistViewController: UITableViewDataSource {
         
         switch indexPath.section {
             case 0:
-                cell.textField.placeholder = "アーティスト名を入力"
+                cell.textField.placeholder = "input artist name"
                 cell.textField.text = self.setlist.artist
             case 1:
-                cell.textField.placeholder = "公演情報を入力"
+                cell.textField.placeholder = "Input live info"
                 cell.textField.text = self.setlist.place
             case 2:
-                cell.textField.placeholder = "公演日時を入力"
+                cell.textField.placeholder = "input date"
                 if let date = self.setlist.date {
                     cell.textField.text = DateUtils.stringFromDate(date: date, format: "YYYY-MM-dd")
                 }
@@ -133,11 +133,11 @@ extension EditArtistViewController: UITableViewDataSource {
         
         switch section {
             case 0:
-                return "アーティスト名"
+                return "artist name"
             case 1:
-                return "公演会場"
+                return "place"
             case 2:
-                return "日付"
+                return "date"
             default:
                 fatalError()
         }

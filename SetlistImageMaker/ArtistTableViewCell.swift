@@ -46,7 +46,7 @@ extension ArtistTableViewCell: UITextFieldDelegate {
                                           target: self, action: nil)
         
         //完了ボタンを設定
-        let toolBarBtn  = UIBarButtonItem(title: "完了", style: .done,
+        let toolBarBtn  = UIBarButtonItem(title: "Done", style: .done,
                                           target: self, action: #selector(doneButtonTapped(sender:)))
         
         //ツールバーにボタンを表示

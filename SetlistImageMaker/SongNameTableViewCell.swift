@@ -41,12 +41,14 @@ final class SongNameTableViewCell: UITableViewCell {
                                          target: self,
                                          action: #selector(doneButtonTapped))
         
+        /*
         let nextButton = UIBarButtonItem(title:  "next",
                                          style:  .done,
                                          target: self,
                                          action: #selector(nextButtonTapped))
+        */
         
-        kbToolBar.items = [doneButton, spacer, nextButton]
+        kbToolBar.items = [spacer, doneButton]
         
         self.textField.inputAccessoryView = kbToolBar
         
@@ -56,6 +58,7 @@ final class SongNameTableViewCell: UITableViewCell {
         textField.resignFirstResponder()
     }
 
+    
     func nextButtonTapped() {
         print("next")
         self.delegate.textFieldNextButtonTapped?(cell: self)

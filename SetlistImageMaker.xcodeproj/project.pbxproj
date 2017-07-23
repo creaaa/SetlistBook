@@ -24,6 +24,7 @@
 		4458EA7F1F2000B200FCC85A /* ImageGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4458EA7E1F2000B200FCC85A /* ImageGenerator.swift */; };
 		446F62011F2319590052BE67 /* Kanna.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 446F62001F2319590052BE67 /* Kanna.framework */; };
 		4474F91A1F16EA18005D360E /* LaunchImageCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4474F9191F16EA18005D360E /* LaunchImageCollectionViewController.swift */; };
+		447CC59E1F247CD2002CA718 /* Quicksand-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 44D5AF271F20289100EB0CA5 /* Quicksand-Regular.ttf */; };
 		44A91DCA1F210C250088D9E6 /* WelcomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44A91DC91F210C250088D9E6 /* WelcomeViewController.swift */; };
 		44A91DCD1F211AAA0088D9E6 /* RealmSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 44A91DCB1F211AAA0088D9E6 /* RealmSwift.framework */; };
 		44A91DCE1F211AAA0088D9E6 /* Realm.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 44A91DCC1F211AAA0088D9E6 /* Realm.framework */; };
@@ -242,6 +243,7 @@
 				440F68CB1F157013008511DC /* LaunchScreen.storyboard in Resources */,
 				440F68C81F157013008511DC /* Assets.xcassets in Resources */,
 				440F68C61F157013008511DC /* Main.storyboard in Resources */,
+				447CC59E1F247CD2002CA718 /* Quicksand-Regular.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
