@@ -16,6 +16,14 @@ final class SetListViewController: UIViewController {
     // リクエストを抑えるため可能な限り使いまわす
     var suggestSongList: [String]?
     
+    // 再フェッチが必要かどうかを管理するための変数
+    // Setlistオブジェクト(Realm由来)のプロパティはプロパティオブザーバーが使えないため、
+    // しゃあなしもう1個変数を増やした
+    var currentArtist = ""
+    
+    
+    
+    
     //////////////
     
     /* View */
@@ -110,42 +118,43 @@ final class SetListViewController: UIViewController {
 
     }
     
+    // URL文字列をエンコードして返す。
+    // エンコードに失敗した場合nilが返るので、この値を再フェッチするかどうかの条件判定にも用いる。
+    private func encodeString() -> String? {
+        
+        let str = self.setlist.artist as NSString
+        
+        let characterSet = CharacterSet.alphanumerics
+        
+        return str.addingPercentEncoding(withAllowedCharacters: characterSet)
+        
+    }
     
     override func viewWillAppear(_ animated: Bool) {
         
         super.viewWillAppear(animated)
-    
-        let str = self.setlist.artist as NSString
-        
-        let characterSet = CharacterSet.alphanumerics
-        let encodedStr   = str.addingPercentEncoding(withAllowedCharacters: characterSet)
-        
-        
-        
-        
-        
-        if let encodedStr = encodedStr,
-            let url = createURL(artist: encodedStr),
-            self.setlist.artist != "",
-            self.suggestSongList == nil {
-            fetchSongNames(url:url)
-        } else {
-            print("あかん")
-        }
-        
-        
-        
-        
-        
         
         if let selectedRow = self.tableView.indexPathForSelectedRow {
             self.tableView.deselectRow(at: selectedRow, animated: true)
         }
-
-        print("main songs: ",   self.setlist.mainSongs)
-        // print("encore songs: ", self.setlist.encores)
         
         self.tableView.reloadData()
+        
+        // これ、relodaDataの後でもいいよな...?
+        // 条件1: アーティスト名に変更があったこと
+        // 条件2: artist名のエンコードに成功したこと
+        // 条件3: エンコードしたartist名を元に、適正なURLの生成に成功したこと
+        // この3条件をすべて見たしたとき、再フェッチをする
+        if self.currentArtist != self.setlist.artist,
+            let encodedArtistName = encodeString(),
+            let url = createURL(artist: encodedArtistName) {
+            fetchSongNames(url:url)
+        } else {
+            print("フェッチしない")
+        }
+        
+        // ここで現在のアーティスト名をセット
+        self.currentArtist = self.setlist.artist
         
     }
     
