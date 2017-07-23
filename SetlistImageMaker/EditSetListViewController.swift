@@ -11,8 +11,6 @@ final class EditSetListViewController: UIViewController {
     
     @IBOutlet weak var prevButton:       UIBarButtonItem!
     
-    // 前画面から来るかもしれない、曲名リスト
-    var proactiveSongNames: [String]?
     
     /*
     // 遷移前画面から渡されてきた「曲名リスト」のコピー。
@@ -28,18 +26,15 @@ final class EditSetListViewController: UIViewController {
     var songNo:  Int!
     
 
-    // 曲名候補が入る
-    var suggestSongList: [String] =
-        ["1. 想いきり", "2. 見せかけのラブソング", "3. 猫にも愛を", "4. プレイバック", "5. エーテル"]
+    // 前画面から来るかもしれない、曲名リスト
+    var suggestSongList: [String]?
 
     override func viewDidLoad() {
         
         super.viewDidLoad()
         
         print("受け渡されてきた曲名リスト: ", self.setlist)
-        print("きてるべ \(self.proactiveSongNames ?? ["やっぱきてない"])")
-        
-        suggestSongList = proactiveSongNames!
+        print("きてるべ \(self.suggestSongList ?? ["やっぱきてない"])")
         
         tableView.delegate   = self
         tableView.dataSource = self
@@ -64,23 +59,8 @@ final class EditSetListViewController: UIViewController {
     
     @IBAction func doneButtonTapped(_ sender: UIBarButtonItem) {
         
-        /*
-        guard let navVC = self.presentingViewController as? UINavigationController
-            /*,let parentVC = navVC.topViewController as? SetListViewController */ else {
-                self.dismiss(animated: true, completion: nil)
-                return
-        }
-        */
-        
         let indexPath = IndexPath(row: 0, section: 0)
-        
-        /*
-        guard let cell = self.tableView.cellForRow(at: indexPath) as? SongNameTableViewCell else {
-            self.dismiss(animated: true, completion: nil)
-            return
-        }
-        */
-        
+
         let cell = self.tableView.cellForRow(at: indexPath) as! SongNameTableViewCell
         
         if self.songNo >= self.setlist.songs.count {
@@ -92,6 +72,7 @@ final class EditSetListViewController: UIViewController {
         
         try! realm.write {
             self.setlist.songs[self.songNo].name = cell.textField.text!
+            realm.add(self.setlist)
         }
         
         self.dismiss(animated: true, completion: nil)
@@ -209,7 +190,7 @@ extension EditSetListViewController: UITableViewDataSource {
             case 1:
                 return 1
             case 2:
-                return self.suggestSongList.count
+                return self.suggestSongList?.count ?? 0
             default:
                 fatalError()
         }
@@ -246,7 +227,7 @@ extension EditSetListViewController: UITableViewDataSource {
             
             case 2:
                 let cell = UITableViewCell()
-                cell.textLabel?.text = self.suggestSongList[indexPath.row]
+                cell.textLabel?.text = self.suggestSongList?[indexPath.row] ?? ""
                 return cell
             default:
                 fatalError()

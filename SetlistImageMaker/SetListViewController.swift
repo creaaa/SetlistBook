@@ -14,7 +14,7 @@ final class SetListViewController: UIViewController {
     
     // オンライン取得した曲名リスト
     // リクエストを抑えるため可能な限り使いまわす
-    var proactiveSongNames: [String]?
+    var suggestSongList: [String]?
     
     //////////////
     
@@ -65,7 +65,7 @@ final class SetListViewController: UIViewController {
         // self.proactiveSongNames = Scraper().execute(url: url)
         
         Scraper().execute(url: url) { result in
-            self.proactiveSongNames = result
+            self.suggestSongList = result
         }
         
     }
@@ -120,12 +120,11 @@ final class SetListViewController: UIViewController {
         if let encodedStr = encodedStr,
             let url = createURL(artist: encodedStr),
             self.setlist.artist != "",
-            self.proactiveSongNames == nil {
+            self.suggestSongList == nil {
             fetchSongNames(url:url)
         } else {
             print("あかん")
         }
-        
         
         if let selectedRow = self.tableView.indexPathForSelectedRow {
             self.tableView.deselectRow(at: selectedRow, animated: true)
@@ -176,8 +175,8 @@ extension SetListViewController: UITableViewDelegate {
                 
                 editVC.songNo    = indexPath.row
                 
-                if let proactiveSongNames = self.proactiveSongNames {
-                    editVC.proactiveSongNames = proactiveSongNames
+                if let suggestSongList = self.suggestSongList {
+                    editVC.suggestSongList = suggestSongList
                 }
                 
                 // 本編の編集ならば

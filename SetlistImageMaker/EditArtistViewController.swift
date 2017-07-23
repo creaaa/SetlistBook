@@ -61,7 +61,6 @@ final class EditArtistViewController: UIViewController {
             }
             
             try! Realm().add(self.setlist)
-            // try! Realm().add(self.setlist, update: true)
             
         }
         
