@@ -21,6 +21,7 @@
 		446F62011F2319590052BE67 /* Kanna.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 446F62001F2319590052BE67 /* Kanna.framework */; };
 		4474F91A1F16EA18005D360E /* LaunchImageCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4474F9191F16EA18005D360E /* LaunchImageCollectionViewController.swift */; };
 		447BFD431F2538820001A55C /* HigashiOme-Gothic-1.3i.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 447BFD421F25387D0001A55C /* HigashiOme-Gothic-1.3i.ttf */; };
+		447BFD451F25436D0001A55C /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 447BFD441F25436D0001A55C /* Settings.bundle */; };
 		447CC59E1F247CD2002CA718 /* Quicksand-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 44D5AF271F20289100EB0CA5 /* Quicksand-Regular.ttf */; };
 		44A91DCA1F210C250088D9E6 /* WelcomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44A91DC91F210C250088D9E6 /* WelcomeViewController.swift */; };
 		44A91DCD1F211AAA0088D9E6 /* RealmSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 44A91DCB1F211AAA0088D9E6 /* RealmSwift.framework */; };
@@ -55,6 +56,7 @@
 		446F62001F2319590052BE67 /* Kanna.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Kanna.framework; path = Carthage/Build/iOS/Kanna.framework; sourceTree = "<group>"; };
 		4474F9191F16EA18005D360E /* LaunchImageCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LaunchImageCollectionViewController.swift; sourceTree = "<group>"; };
 		447BFD421F25387D0001A55C /* HigashiOme-Gothic-1.3i.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "HigashiOme-Gothic-1.3i.ttf"; sourceTree = "<group>"; };
+		447BFD441F25436D0001A55C /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
 		44A91DC91F210C250088D9E6 /* WelcomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WelcomeViewController.swift; sourceTree = "<group>"; };
 		44A91DCB1F211AAA0088D9E6 /* RealmSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RealmSwift.framework; path = Carthage/Build/iOS/RealmSwift.framework; sourceTree = "<group>"; };
 		44A91DCC1F211AAA0088D9E6 /* Realm.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Realm.framework; path = Carthage/Build/iOS/Realm.framework; sourceTree = "<group>"; };
@@ -100,6 +102,7 @@
 		440F68BF1F157013008511DC /* SetlistImageMaker */ = {
 			isa = PBXGroup;
 			children = (
+				447BFD441F25436D0001A55C /* Settings.bundle */,
 				44D5AF271F20289100EB0CA5 /* Quicksand-Regular.ttf */,
 				447BFD421F25387D0001A55C /* HigashiOme-Gothic-1.3i.ttf */,
 				440F68C41F157013008511DC /* Main.storyboard */,
@@ -239,6 +242,7 @@
 				440F68C81F157013008511DC /* Assets.xcassets in Resources */,
 				440F68C61F157013008511DC /* Main.storyboard in Resources */,
 				447CC59E1F247CD2002CA718 /* Quicksand-Regular.ttf in Resources */,
+				447BFD451F25436D0001A55C /* Settings.bundle in Resources */,
 				447BFD431F2538820001A55C /* HigashiOme-Gothic-1.3i.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

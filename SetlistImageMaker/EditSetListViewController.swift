@@ -272,11 +272,6 @@ extension EditSetListViewController: UITableViewDataSource {
         }
     }
     
-    /*
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        return UITableViewCell()
-    }
-     */
  
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         
@@ -289,6 +284,31 @@ extension EditSetListViewController: UITableViewDataSource {
             fatalError("never executed")
         }
     }
+    
+    /*
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        
+        let label = UILabel(frame: CGRect(x:100, y:0, width: tableView.bounds.width, height: 50))
+        
+        label.text = {
+            
+            switch tableView.tag {
+                case 1:
+                    return "song name(required)"
+                case 2:
+                    return "suggestion"
+                default:
+                    fatalError("never executed")
+            }
+            
+        }()
+        
+        label.font = UIFont(name: "HigashiOme-Gothic", size: 14)
+        
+        return label
+        
+    }
+    */
     
 }
 
