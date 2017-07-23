@@ -13,9 +13,6 @@
         <array key="HigashiOme-Gothic-1.3i.ttf">
             <string>HigashiOme-Gothic</string>
         </array>
-        <array key="Quicksand-Regular.ttf">
-            <string>Quicksand-Regular</string>
-        </array>
     </customFonts>
     <scenes>
         <!--Setlist Maker-->
@@ -192,7 +189,7 @@
                                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="vZL-Sd-Kta">
                                                     <rect key="frame" x="10" y="12.5" width="355" height="19"/>
                                                     <nil key="textColor"/>
-                                                    <fontDescription key="fontDescription" name="Quicksand-Regular" family="Quicksand" pointSize="14"/>
+                                                    <fontDescription key="fontDescription" name="HigashiOme-Gothic" family="東青梅ゴシック" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits"/>
                                                 </textField>
                                             </subviews>
@@ -267,7 +264,7 @@
                                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="XHa-Ft-njz">
                                                     <rect key="frame" x="16" y="8" width="351" height="27.5"/>
                                                     <nil key="textColor"/>
-                                                    <fontDescription key="fontDescription" name="Quicksand-Regular" family="Quicksand" pointSize="14"/>
+                                                    <fontDescription key="fontDescription" name="HigashiOme-Gothic" family="東青梅ゴシック" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits"/>
                                                 </textField>
                                             </subviews>
