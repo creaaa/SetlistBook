@@ -28,7 +28,10 @@ final class SetListViewController: UIViewController {
         self.dismiss(animated: true, completion: nil)
     }
     
-    @IBAction func cancelButtonTapped(_ sender: UIBarButtonItem) {
+    
+    // TODO: -ツイート機能つける段になったらコメントインしてね
+    /*
+    func cancelButtonTapped(_ sender: UIBarButtonItem) {
         
         let alert = UIAlertController(title: "Action?", message: nil, preferredStyle: .actionSheet)
         
@@ -46,6 +49,8 @@ final class SetListViewController: UIViewController {
         let vc = LoginViewController()
         present(vc, animated: true, completion: nil)
     }
+    */
+    
     
     @IBAction func addEncoreButtonTapped(_ sender: UIBarButtonItem) {
         
@@ -102,10 +107,8 @@ final class SetListViewController: UIViewController {
         self.tableView.estimatedRowHeight = 44
         
         print("受け渡されてきたセトリ: \(self.setlist)")
-        
+
     }
-    
-    
     
     
     override func viewWillAppear(_ animated: Bool) {

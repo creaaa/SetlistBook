@@ -67,7 +67,24 @@ final class EditSetListViewController: UIViewController {
         self.dismiss(animated: true, completion: nil)
     }
     
+    var canFinish: Bool {
+        
+        let indexPath = IndexPath(row: 0, section: 0)
+        let cell = self.tableView.cellForRow(at: indexPath) as! SongNameTableViewCell
+        
+        let result = cell.textField.text != nil && cell.textField.text != ""
+
+        return result
+        
+    }
+    
+    
     @IBAction func doneButtonTapped(_ sender: UIBarButtonItem) {
+        
+        guard canFinish else {
+            print("曲名を入れてください。")
+            return
+        }
         
         let indexPath = IndexPath(row: 0, section: 0)
         let cell = self.tableView.cellForRow(at: indexPath) as! SongNameTableViewCell
@@ -93,6 +110,12 @@ final class EditSetListViewController: UIViewController {
     //////////////
     
     @IBAction func prevSongButtonTapped(_ sender: UIBarButtonItem) {
+        
+        // ナンセンスに思えるが、便宜を取った
+        guard canFinish else {
+            print("曲名を入れてください。")
+            return
+        }
         
         // 配列に1個追加
         if self.songNo.no >= self.editingSongs.songs.count {
@@ -122,6 +145,11 @@ final class EditSetListViewController: UIViewController {
     
     
     @IBAction func nextSongButtonTapped(_ sender: UIBarButtonItem) {
+        
+        guard canFinish else {
+            print("曲名を入れてください。")
+            return
+        }
         
         self.songNo.no += 1
         
