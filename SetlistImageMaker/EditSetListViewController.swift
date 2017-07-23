@@ -201,7 +201,7 @@ extension EditSetListViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         switch tableView.tag {
-            case 1:
+            case 1:  // 曲名入力用テーブル
                 let cell = tableView.dequeueReusableCell(withIdentifier: "TextFieldCell") as! SongNameTableViewCell
                 cell.textField.placeholder = "#\(self.songNo.no + 1): 曲名を入力"
                 
@@ -215,7 +215,7 @@ extension EditSetListViewController: UITableViewDataSource {
                 
                 return cell
             
-            case 2:
+            case 2:  // 曲名出力テーブル
                 let cell = UITableViewCell()
                 cell.textLabel?.text = self.suggestSongList?[indexPath.row] ?? ""
                 return cell
