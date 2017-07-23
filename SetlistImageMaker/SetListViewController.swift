@@ -73,7 +73,7 @@ final class SetListViewController: UIViewController {
     // ユーザー入力されたアーティストに応じたURLを発行
     private func createURL(artist: String) -> URL? {
         
-        var result: String = ""
+        var result  = ""
         
         let baseURL = "http://www.uta-net.com/search/?Aselect=1"
         
@@ -171,9 +171,11 @@ extension SetListViewController: UITableViewDelegate {
                 guard let vc = self.storyboard?.instantiateViewController(withIdentifier: "EditSetList")
                     as? UINavigationController else { return }
 
-                guard let editVC = vc.viewControllers.first as? EditSetListViewController  else { return }
+                guard let editVC = vc.viewControllers.first as? EditSetListViewController else { return }
                 
-                editVC.songNo    = indexPath.row
+                // (本編・#5), (アンコール1：#2),,,みたいな感じ
+                editVC.songNo  = (indexPath.section - 1, indexPath.row)
+                editVC.setlist = self.setlist
                 
                 if let suggestSongList = self.suggestSongList {
                     editVC.suggestSongList = suggestSongList
@@ -181,22 +183,10 @@ extension SetListViewController: UITableViewDelegate {
                 
                 // 本編の編集ならば
                 if indexPath.section == 1 {
-                    
-                    guard let mainSongs = self.setlist.mainSongs.first else { return }
-                    
-                    editVC.setlist = mainSongs //self.setlist.mainSongs.first!
-                    
                     editVC.title   = "SetList"
-                    
                 } else {  // アンコールの編集ならば
                     // ex. アンコール #1 なら、[0]の配列が渡される
-                    
-                    let encoreSongs = self.setlist.encores[indexPath.section-2]
-                    
-                    editVC.setlist  = encoreSongs //self.setlist.encores[indexPath.section - 2]
-                    
                     editVC.title    = "Encore #\(indexPath.section - 1)"
-                    
                 }
                 
                 self.present(vc, animated: true, completion: nil)

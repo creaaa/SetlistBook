@@ -11,24 +11,34 @@ final class EditSetListViewController: UIViewController {
     
     @IBOutlet weak var prevButton:       UIBarButtonItem!
     
-    
-    /*
-    // 遷移前画面から渡されてきた「曲名リスト」のコピー。
-    // モーダル終了時受け戻される。
-    var songNames: Songs!
-    var songNo:    Int!
-    var encoreNo:  Int!
-    */
-    
     // 本編orアンコールの曲リスト
     // 前画面から受け渡される
-    var setlist: Songs!
-    var songNo:  Int!
+    var setlist: Setlist! // 注: まえはここ Songs! 型だった
+    
+    // 本編の編集なのか、アンコールの編集なのか...
+    // section: 0 → 本編, 1 → アンコール1, 2 → アンコール2...
+    var songNo: (section: Int, no: Int)!
     
 
     // 前画面から来るかもしれない、曲名リスト
     var suggestSongList: [String]?
 
+    
+    // 許してくれ...編集中のセトリ群を返す
+    // 「本編」か、「アンコール1」か、「アンコール2」か, と、こんな具合
+    var editingSongs: Songs {
+        
+        switch self.songNo.section {
+        case 0:
+            return self.setlist.mainSongs.first!
+        case let encore:
+            return self.setlist.encores[encore - 1]
+        }
+        
+    }
+    
+    
+    
     override func viewDidLoad() {
         
         super.viewDidLoad()
@@ -42,7 +52,7 @@ final class EditSetListViewController: UIViewController {
         suggestTableView.delegate   = self
         suggestTableView.dataSource = self
         
-        if self.songNo == 0 {
+        if self.songNo.no == 0 {
             self.prevButton.isEnabled = false
         }
         
@@ -60,18 +70,17 @@ final class EditSetListViewController: UIViewController {
     @IBAction func doneButtonTapped(_ sender: UIBarButtonItem) {
         
         let indexPath = IndexPath(row: 0, section: 0)
-
         let cell = self.tableView.cellForRow(at: indexPath) as! SongNameTableViewCell
         
-        if self.songNo >= self.setlist.songs.count {
+        if self.songNo.no >= self.editingSongs.songs.count {
             try! realm.write {
-                self.setlist.songs.append(Song(songName: ""))
+                self.editingSongs.songs.append(Song(songName: ""))
                 print("足した")
             }
         }
         
         try! realm.write {
-            self.setlist.songs[self.songNo].name = cell.textField.text!
+            self.editingSongs.songs[self.songNo.no].name = cell.textField.text!
             realm.add(self.setlist)
         }
         
@@ -86,33 +95,24 @@ final class EditSetListViewController: UIViewController {
     @IBAction func prevSongButtonTapped(_ sender: UIBarButtonItem) {
         
         // 配列に1個追加
-        if self.songNo >= self.setlist.songs.count {
+        if self.songNo.no >= self.editingSongs.songs.count {
             try! realm.write {
-                self.setlist.songs.append(Song(songName: ""))
+                self.editingSongs.songs.append(Song(songName: ""))
                 print("足した")
             }
         }
-        
-        
-        // モデル更新
-        /*
-        let cell = self.tableView.cellForRow(at: IndexPath(row: 0, section: 0)) as! SongNameTableViewCell
-        self.songNames[songNo] = cell.textField.text!
-        print("現在の配列: \(self.songNames)")
-        */
  
-        
         try! realm.write {
             let cell = self.tableView.cellForRow(at: IndexPath(row: 0, section: 0)) as! SongNameTableViewCell
-            self.setlist.songs[songNo].name = cell.textField.text!
+            self.editingSongs.songs[songNo.no].name = cell.textField.text!
         }
         
-        self.songNo! -= 1
+        self.songNo.no -= 1
         
         // ビュー
         self.tableView.reloadRows(at: [IndexPath(row: 0, section: 0)], with: .none)
         
-        if self.songNo == 0 {
+        if self.songNo.no == 0 {
             self.prevButton.isEnabled = false
         } else {
             self.prevButton.isEnabled = true
@@ -123,12 +123,12 @@ final class EditSetListViewController: UIViewController {
     
     @IBAction func nextSongButtonTapped(_ sender: UIBarButtonItem) {
         
-        self.songNo! += 1
+        self.songNo.no += 1
         
         // 配列に1個追加
-        if self.songNo >= self.setlist.songs.count {
+        if self.songNo.no >= self.editingSongs.songs.count {
             try! realm.write {
-                self.setlist.songs.append(Song(songName: ""))
+                self.editingSongs.songs.append(Song(songName: ""))
                 print("足した")
             }
         }
@@ -136,13 +136,13 @@ final class EditSetListViewController: UIViewController {
         // モデル更新
         try! realm.write {
             let cell = self.tableView.cellForRow(at: IndexPath(row: 0, section: 0)) as! SongNameTableViewCell
-            self.setlist.songs[songNo-1].name = cell.textField.text!
+            self.editingSongs.songs[songNo.no-1].name = cell.textField.text!
         }
         
         // ビュー
         self.tableView.reloadRows(at: [IndexPath(row: 0, section: 0)], with: .none)
         
-        if self.songNo == 0 {
+        if self.songNo.no == 0 {
             self.prevButton.isEnabled = false
         } else {
             self.prevButton.isEnabled = true
@@ -203,20 +203,10 @@ extension EditSetListViewController: UITableViewDataSource {
         switch tableView.tag {
             case 1:
                 let cell = tableView.dequeueReusableCell(withIdentifier: "TextFieldCell") as! SongNameTableViewCell
-                cell.textField.placeholder = "#\(self.songNo! + 1): 曲名を入力"
+                cell.textField.placeholder = "#\(self.songNo.no + 1): 曲名を入力"
                 
-                /*
-                if !self.songNames.isEmpty {
-                    if self.songNo < self.songNames.count {
-                        cell.textField.text = self.songNames[self.songNo]
-                    } else {
-                        cell.textField.text = nil
-                    }
-                }
-                */
-                
-                if self.songNo < self.setlist.songs.count {
-                    cell.textField.text = self.setlist.songs[self.songNo].name
+                if self.songNo.no < self.editingSongs.songs.count {
+                    cell.textField.text = self.editingSongs.songs[self.songNo.no].name
                 } else {
                     cell.textField.text = nil
                 }
