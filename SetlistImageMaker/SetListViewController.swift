@@ -298,7 +298,7 @@ extension SetListViewController: UITableViewDataSource {
         if indexPath.section == 1 {
             
             let cell = UITableViewCell()
-            cell.textLabel?.font = UIFont(name: "Quicksand", size: 14)
+            cell.textLabel?.font = UIFont(name: "HigashiOme-Gothic", size: 14)
             
             
             if indexPath.row == self.setlist.mainSongs.first!.songs.count {
@@ -317,34 +317,34 @@ extension SetListViewController: UITableViewDataSource {
             // 曲追加ボタン
             if indexPath.row == self.setlist.encores.last!.songs.count {
                 let cell = UITableViewCell()
-                cell.textLabel?.font = UIFont(name: "Quicksand", size: 14)
 
+                cell.textLabel?.font = UIFont(name: "HigashiOme-Gothic", size: 14)
+
+                
                 cell.textLabel?.text = "input song name"
-                return cell
-            // 確認画面遷移ボタン
-            }
-            
-            /*
-            else if indexPath.row == self.encoreSongNames[numOfEncore-1].count + 1 {
-                let cell = tableView.dequeueReusableCell(withIdentifier: "Btn")!
+//                cell.textLabel?.font = UIFont(name: "HigashiOme-Gothic", size: 14)
+
                 return cell
             }
-            */
             
             else {
                 let cell = UITableViewCell()
                 print("name: \(self.setlist.encores.last!.songs)")
+                
+                cell.textLabel?.font = UIFont(name: "HigashiOme-Gothic", size: 14)
+
                 cell.textLabel?.text = self.setlist.encores.last!.songs[indexPath.row].name
+                //cell.textLabel?.font = UIFont(name: "HigashiOme-Gothic", size: 14)
+                
                 return cell
             }
-            
             
         }
         
         
         // 最後以外のアンコールセクション
         let cell = UITableViewCell()
-        cell.textLabel?.font = UIFont(name: "Quicksand", size: 14)
+        cell.textLabel?.font = UIFont(name: "HigashiOme-Gothic", size: 14)
 
         if !self.setlist.encores[indexPath.section-2].isEmpty {
             
