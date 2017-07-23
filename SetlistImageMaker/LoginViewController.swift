@@ -52,8 +52,9 @@ class LoginViewController: UIViewController {
                 // アラートを出しましょう
                 // ここのスキーム変えろ、プライバシー画面に行くように
                 self.promptGrantTweet(title: "not admitted tweet",
-                                      message: "please admit tweeting in preference scene.", scheme: "App-prefs:root=TWITTER")
-                
+                                      message: "please admit tweeting in preference scene.",
+                                      scheme:  "App-Prefs:root=Privacy&path=TWITTER")
+                                
                 return
                 
             }

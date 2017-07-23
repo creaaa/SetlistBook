@@ -249,7 +249,9 @@ extension SetListViewController: UITableViewDataSource {
         if indexPath.section == 0 {
             
             let cell = UITableViewCell(style: .subtitle, reuseIdentifier: "ArtistCell")
-            cell.textLabel?.text = self.setlist.artist // ?? "タップして情報を入力"
+            
+            cell.textLabel?.text = self.setlist.artist != "" ?
+                self.setlist.artist : "タップして情報を入力"
             
             var str = ""
             str.append(self.setlist.place ?? "")

@@ -23,7 +23,6 @@
 		4456BD0A1F23122200CD48B5 /* Himotoki.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4456BD061F23122200CD48B5 /* Himotoki.framework */; };
 		4458EA7F1F2000B200FCC85A /* ImageGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4458EA7E1F2000B200FCC85A /* ImageGenerator.swift */; };
 		446F62011F2319590052BE67 /* Kanna.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 446F62001F2319590052BE67 /* Kanna.framework */; };
-		446F62051F231B330052BE67 /* Request.swift in Sources */ = {isa = PBXBuildFile; fileRef = 446F62041F231B330052BE67 /* Request.swift */; };
 		4474F91A1F16EA18005D360E /* LaunchImageCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4474F9191F16EA18005D360E /* LaunchImageCollectionViewController.swift */; };
 		44A91DCA1F210C250088D9E6 /* WelcomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44A91DC91F210C250088D9E6 /* WelcomeViewController.swift */; };
 		44A91DCD1F211AAA0088D9E6 /* RealmSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 44A91DCB1F211AAA0088D9E6 /* RealmSwift.framework */; };
@@ -56,7 +55,6 @@
 		4456BD061F23122200CD48B5 /* Himotoki.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Himotoki.framework; path = Carthage/Build/iOS/Himotoki.framework; sourceTree = "<group>"; };
 		4458EA7E1F2000B200FCC85A /* ImageGenerator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageGenerator.swift; sourceTree = "<group>"; };
 		446F62001F2319590052BE67 /* Kanna.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Kanna.framework; path = Carthage/Build/iOS/Kanna.framework; sourceTree = "<group>"; };
-		446F62041F231B330052BE67 /* Request.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Request.swift; sourceTree = "<group>"; };
 		4474F9191F16EA18005D360E /* LaunchImageCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LaunchImageCollectionViewController.swift; sourceTree = "<group>"; };
 		44A91DC91F210C250088D9E6 /* WelcomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WelcomeViewController.swift; sourceTree = "<group>"; };
 		44A91DCB1F211AAA0088D9E6 /* RealmSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RealmSwift.framework; path = Carthage/Build/iOS/RealmSwift.framework; sourceTree = "<group>"; };
@@ -123,7 +121,6 @@
 				440F68C71F157013008511DC /* Assets.xcassets */,
 				440F68C91F157013008511DC /* LaunchScreen.storyboard */,
 				44C74C881F23E1AC006A4168 /* Scraper.swift */,
-				446F62041F231B330052BE67 /* Request.swift */,
 			);
 			path = SetlistImageMaker;
 			sourceTree = "<group>";
@@ -290,7 +287,6 @@
 				4426B1F31F1578F800E37954 /* SongNameTableViewCell.swift in Sources */,
 				44C74C891F23E1AC006A4168 /* Scraper.swift in Sources */,
 				441D0B981F19BD97007D171C /* EditArtistViewController.swift in Sources */,
-				446F62051F231B330052BE67 /* Request.swift in Sources */,
 				441D0B9A1F19C2EF007D171C /* ArtistTableViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
