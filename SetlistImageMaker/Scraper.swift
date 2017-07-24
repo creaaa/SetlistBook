@@ -43,7 +43,6 @@ struct Scraper {
             
         }
         
-        
         queue2.async(group: group) {
             
             /* phase 1 */
