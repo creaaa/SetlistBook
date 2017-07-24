@@ -71,16 +71,15 @@ final class SetListViewController: UIViewController {
     }
     
     
-    private func fetchSongNames(url: [URL]) {
+    private func fetchSongNames() {
         
-        // これ、なぜか返り値が代入されないので....
-        // self.proactiveSongNames = Scraper().execute(url: url)
+        let url1 = "http://www.uta-net.com/search/?Aselect=1"
+        let url2 = ""
         
-        let scraper = Scraper(parameter: [
-                (url[0], "//td[@class='side td1']"),
-                (url[1], "//td[@class='side td1']")
-            ]
-        )
+        let param1  = (url1, "//td[@class='side td1']")
+        let param2  = (url2, "")
+        
+        let scraper = Scraper(artistQuery: self.setlist.artist, parameter: [param1, param2])
         
         scraper.execute() { result in
             self.suggestSongList = result
@@ -88,36 +87,7 @@ final class SetListViewController: UIViewController {
         
     }
     
-    // ユーザー入力されたアーティストに応じたURLを発行
-    private func createFirstURL(artist: String) -> URL? {
-        
-        var result  = ""
-        
-        let baseURL = "http://www.uta-net.com/search/?Aselect=1"
-        
-        result += "\(baseURL)&Keyword=\(artist)"
-        
-        return URL(string: result) ?? nil
-        
-    }
-    
-    // ↑ と同じなんだ。許してくれ。
-    private func createSecondURL(artist: String) -> URL? {
-        
-        var result  = ""
-        
-        let baseURL = "http://songmeanings.com/query/"
-        
-        result += "\(baseURL)?query=\(artist)&type=artists"
-        
-        print("生成文字列: ", result)
-        
-        return URL(string: result) ?? nil
-        
-    }
-    
-    
-    
+
     
     ////////////////
     // Life Cycle //
@@ -145,18 +115,7 @@ final class SetListViewController: UIViewController {
         self.addEncoreButton.setTitleTextAttributes(att, for: .normal)
         
     }
-    
-    // URL文字列をエンコードして返す。
-    // エンコードに失敗した場合nilが返るので、この値を再フェッチするかどうかの条件判定にも用いる。
-    private func encodeString() -> String? {
-        
-        let str = self.setlist.artist as NSString
-        
-        let characterSet = CharacterSet.alphanumerics
-        
-        return str.addingPercentEncoding(withAllowedCharacters: characterSet)
-        
-    }
+
     
     override func viewWillAppear(_ animated: Bool) {
         
@@ -169,21 +128,14 @@ final class SetListViewController: UIViewController {
         self.tableView.reloadData()
         
         // これ、relodaDataの後でもいいよな...?
-        // 条件1: アーティスト名に変更があったこと
-        // 条件2: artist名のエンコードに成功したこと
-        // 条件3: エンコードしたartist名を元に、適正なURLの生成に成功したこと
-        // この3条件をすべて見たしたとき、再フェッチをする
-        if self.currentArtist != self.setlist.artist,
-            let encodedArtistName = encodeString(),
-            let url1 = createFirstURL(artist: encodedArtistName),
-            let url2 = createSecondURL(artist: encodedArtistName) {
-                fetchSongNames(url: [url1, url2])
-        } else {
-            print("フェッチしない")
-        }
+        
+        // 判定なくなってる！たせ
+        fetchSongNames()
+        
         
         // ここで現在のアーティスト名をセット(↑の条件判定の"後"にやらないとダメ)
         self.currentArtist = self.setlist.artist
+        
     }
     
     
