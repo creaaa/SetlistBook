@@ -15,9 +15,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "440F68BC1F157013008511DC"
-               BuildableName = "SetlistImageMaker.app"
-               BlueprintName = "SetlistImageMaker"
-               ReferencedContainer = "container:SetlistImageMaker.xcodeproj">
+               BuildableName = "SetlistMaker.app"
+               BlueprintName = "SetlistMaker"
+               ReferencedContainer = "container:SetlistMaker.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -33,9 +33,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "440F68BC1F157013008511DC"
-            BuildableName = "SetlistImageMaker.app"
-            BlueprintName = "SetlistImageMaker"
-            ReferencedContainer = "container:SetlistImageMaker.xcodeproj">
+            BuildableName = "SetlistMaker.app"
+            BlueprintName = "SetlistMaker"
+            ReferencedContainer = "container:SetlistMaker.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
       <AdditionalOptions>
@@ -56,9 +56,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "440F68BC1F157013008511DC"
-            BuildableName = "SetlistImageMaker.app"
-            BlueprintName = "SetlistImageMaker"
-            ReferencedContainer = "container:SetlistImageMaker.xcodeproj">
+            BuildableName = "SetlistMaker.app"
+            BlueprintName = "SetlistMaker"
+            ReferencedContainer = "container:SetlistMaker.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
       <EnvironmentVariables>
@@ -92,9 +92,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "440F68BC1F157013008511DC"
-            BuildableName = "SetlistImageMaker.app"
-            BlueprintName = "SetlistImageMaker"
-            ReferencedContainer = "container:SetlistImageMaker.xcodeproj">
+            BuildableName = "SetlistMaker.app"
+            BlueprintName = "SetlistMaker"
+            ReferencedContainer = "container:SetlistMaker.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>
