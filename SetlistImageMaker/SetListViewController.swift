@@ -75,18 +75,19 @@ final class SetListViewController: UIViewController {
         
         let url1 = "http://www.uta-net.com/search/?Aselect=1"
         let url2 = ""
+        let url3 = "http://songmeanings.com/artist/view/songs/"
         
         let param1  = (url1, "//td[@class='side td1']")
         let param2  = (url2, "")
+        let param3  = (url3, "")
         
-        let scraper = Scraper(artistQuery: self.setlist.artist, parameter: [param1, param2])
+        let scraper = Scraper(artistQuery: self.setlist.artist, parameter: [param1, param2, param3])
         
         scraper.execute() { result in
             self.suggestSongList = result
         }
         
     }
-    
 
     
     ////////////////
@@ -130,8 +131,9 @@ final class SetListViewController: UIViewController {
         // これ、relodaDataの後でもいいよな...?
         
         // 判定なくなってる！たせ
-        fetchSongNames()
-        
+        if currentArtist != self.setlist.artist {
+            fetchSongNames()
+        }
         
         // ここで現在のアーティスト名をセット(↑の条件判定の"後"にやらないとダメ)
         self.currentArtist = self.setlist.artist

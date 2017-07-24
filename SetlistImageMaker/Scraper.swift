@@ -51,10 +51,8 @@ struct Scraper {
                 
                 if let data = self.getHtml(url: url2) {
                     if let result = self.parseHtml(data: data, xpath: self.parameter[1].xpath) {
-                        DispatchQueue.main.async {
-                            completion(result)
-                            print("2番めのサイトで検索終了")
-                        }
+                        // 文字IDをもとにさらにコール
+                        print("途中！", result)
                     }
                 }
             }
@@ -115,6 +113,21 @@ struct Scraper {
         let baseURL = parameter[1].url  //"http://songmeanings.com/query/"
         
         result += "\(baseURL)?query=\(artist)&type=artists"
+        
+        print("生成文字列: ", result)
+        
+        return URL(string: result) ?? nil
+        
+    }
+    
+    // ほんますまん
+    private func createThirdURL(artistNo: String) -> URL? {
+        
+        var result  = ""
+        
+        let baseURL = parameter[2].url
+        
+        result += "\(baseURL)\(artistNo)"
         
         print("生成文字列: ", result)
         
