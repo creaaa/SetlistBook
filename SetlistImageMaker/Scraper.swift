@@ -35,14 +35,31 @@ struct Scraper {
         // タスク1
         queue1.async(group: group) {
             
-            guard let url = self.createFirstURL(artist: encodedArtist) else { return }
-            guard let data = self.getHtml(url: url) else { return }
-            guard let result = self.parseHtml(data: data, xpath: self.parameter[0].xpath) else { return }
+            (1...3).forEach {
             
-            site1data = result
+                guard let url = self.createFirstURL(encodedArtist: encodedArtist, page: $0) else { return }
+                
+                // たとえば曲数が200曲程度なら、2週目のここでbreakするはず。
+                guard let data = self.getHtml(url: url) else {
+                    print("\($0)周め直前でbreak")
+                    return
+                }
+                
+                guard let result = self.parseHtml(data: data, xpath: self.parameter[0].xpath) else { return }
+            
+                print("とれた！！", result.count)
+                
+                site1data += result
+                
+                
+            }
             
         }
         
+     
+        
+        
+        // タスク2
         queue2.async(group: group) {
             
             /* phase 1 */
@@ -70,6 +87,8 @@ struct Scraper {
         group.notify(queue: DispatchQueue.main) {
             
             print("サイト1: \(site1data.count)件, サイト2: \(site2data.count)件")
+            
+            print("サイト1全出力:", site1data)
             
             let result = site1data.count > site2data.count ? site1data : site2data
             completion(result)
@@ -113,13 +132,13 @@ struct Scraper {
     }
     
     // ユーザー入力されたアーティストに応じたURLを発行
-    private func createFirstURL(artist: String) -> URL? {
+    private func createFirstURL(encodedArtist: String, page: Int) -> URL? {
         
         var result  = ""
         
         let baseURL = parameter[0].url  //
         
-        result += "\(baseURL)&Keyword=\(artist)"
+        result += "\(baseURL)&Keyword=\(encodedArtist)&pnum=\(page)"
         
         return URL(string: result) ?? nil
         
