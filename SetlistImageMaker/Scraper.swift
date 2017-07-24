@@ -37,7 +37,7 @@ struct Scraper {
                         completion(result)
                         print("最初のサイトで検索終了")
                         return // あれ？ここ通ってるのに↓いっちゃう。。
-                        print("returnしても これが出ないだけｗｗｗ")
+                        print("returrrrnしても これが出ないだけｗｗｗ")
                     }
                 }
                 
@@ -72,8 +72,6 @@ struct Scraper {
                             print("くそなげぇ！ \(result2)")
                             completion(result2)
                         }
-                        
-                        
                     }
                 }
             }
