@@ -74,12 +74,20 @@ final class SetListViewController: UIViewController {
     private func fetchSongNames() {
         
         let url1 = "http://www.uta-net.com/search/?Aselect=1"
-        let url2 = ""
+        let url2 = "http://songmeanings.com/query/"
         let url3 = "http://songmeanings.com/artist/view/songs/"
         
         let param1  = (url1, "//td[@class='side td1']")
-        let param2  = (url2, "")
-        let param3  = (url3, "")
+        
+        // let param2  = (url2, "//td[@width='90%']/a")
+        
+        // 1件だけ取れる. muse だと取れない
+        // let param2  = (url2, "//td[@width='90%']/a[@title='Muse']")
+        
+        // できた
+        let param2  = (url2, "//tbody/tr[1]/td[1]/a/@href")
+        
+        let param3  = (url3, "//tbody//td[1]")
         
         let scraper = Scraper(artistQuery: self.setlist.artist, parameter: [param1, param2, param3])
         

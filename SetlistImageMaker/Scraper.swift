@@ -21,12 +21,14 @@ struct Scraper {
         // 条件3: エンコードしたartist名を元に、適正なURLの生成に成功したこと
         // この3条件をすべて見たしたとき、再フェッチをする
         
-        guard let encodedArtist = encodeString(str: self.artistQuery),
-              let url1 = createFirstURL(artist: encodedArtist) else {
+        guard let encodedArtist = encodeString(str: self.artistQuery) else {
+            print("unk")
             return
         }
         
         DispatchQueue.global().async {
+            
+            guard let url1 = self.createFirstURL(artist: encodedArtist) else { return }
             
             if let data = self.getHtml(url: url1) {
                 
@@ -34,7 +36,8 @@ struct Scraper {
                     DispatchQueue.main.async {
                         completion(result)
                         print("最初のサイトで検索終了")
-                        return
+                        return // あれ？ここ通ってるのに↓いっちゃう。。
+                        print("returnしても これが出ないだけｗｗｗ")
                     }
                 }
                 
@@ -50,13 +53,31 @@ struct Scraper {
                 }
                 
                 if let data = self.getHtml(url: url2) {
+                    
                     if let result = self.parseHtml(data: data, xpath: self.parameter[1].xpath) {
                         // 文字IDをもとにさらにコール
                         print("途中！", result)
+                        
+                        guard let id = self.fetchArtistID(target: result) else { return }
+                        
+                        guard let url3 = self.createThirdURL(artistNo: id) else { return }
+                        
+                        guard let data2 = self.getHtml(url: url3) else { return }
+
+                        guard let result2 = self.parseHtml(data: data2, xpath: self.parameter[2].xpath) else {
+                            return
+                        }
+                        
+                        DispatchQueue.main.async {
+                            print("くそなげぇ！ \(result2)")
+                            completion(result2)
+                        }
+                        
+                        
                     }
                 }
             }
-        }  // async {} 終了
+        }  // global.async {} 終了
     }      // func execute 終了
     
     
@@ -72,12 +93,9 @@ struct Scraper {
         
         var retData: [String] = []
         
-        // xpath
-        // "//td[@class='side td1']"
-        
         let node = doc.xpath(xpath)
         
-        node.forEach{ print($0.content!); retData.append($0.content!) }
+        node.forEach{ retData.append($0.content!) }
         
         return retData
         
@@ -114,14 +132,14 @@ struct Scraper {
         
         result += "\(baseURL)?query=\(artist)&type=artists"
         
-        print("生成文字列: ", result)
+        // print("生成文字列: ", result)
         
         return URL(string: result) ?? nil
         
     }
     
     // ほんますまん
-    private func createThirdURL(artistNo: String) -> URL? {
+    private func createThirdURL(artistNo: Int) -> URL? {
         
         var result  = ""
         
@@ -129,9 +147,20 @@ struct Scraper {
         
         result += "\(baseURL)\(artistNo)"
         
-        print("生成文字列: ", result)
+        // print("生成文字列: ", result)
         
         return URL(string: result) ?? nil
+        
+    }
+    
+    // 取得したa href文字列からアーティストIDを抽出
+    private func fetchArtistID(target: [String]) -> Int? {
+        
+        let res = target.first?.components(separatedBy: NSCharacterSet.decimalDigits.inverted).flatMap{Int($0)}.first
+        
+        // print(res)
+        
+        return res
         
     }
     

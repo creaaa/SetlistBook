@@ -36,11 +36,7 @@ final class WelcomeViewController: UIViewController {
         
         // Realmのパス
         print(Realm.Configuration.defaultConfiguration.fileURL!)
-        
-        // testInjection()
-        
-        // self.setlists = realm.objects(Setlist.self).sorted { $0.id < $1.id }
-        
+                
     }
     
     
