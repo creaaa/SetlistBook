@@ -32,7 +32,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		13B44D909F06705291970E8E /* Pods-SetlistImageMaker.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SetlistImageMaker.release.xcconfig"; path = "Pods/Target Support Files/Pods-SetlistImageMaker/Pods-SetlistImageMaker.release.xcconfig"; sourceTree = "<group>"; };
 		440F68BD1F157013008511DC /* SetlistMaker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SetlistMaker.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		440F68C01F157013008511DC /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		440F68C21F157013008511DC /* SetListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetListViewController.swift; sourceTree = "<group>"; };
@@ -57,7 +56,6 @@
 		44A91DCF1F211EAC0088D9E6 /* DateUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DateUtils.swift; sourceTree = "<group>"; };
 		44A91DD11F215AFC0088D9E6 /* Setlist.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Setlist.swift; sourceTree = "<group>"; };
 		44C74C881F23E1AC006A4168 /* Scraper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Scraper.swift; sourceTree = "<group>"; };
-		C3E30C4C615CA05141FE12E3 /* Pods-SetlistImageMaker.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SetlistImageMaker.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SetlistImageMaker/Pods-SetlistImageMaker.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -80,7 +78,6 @@
 				440F68BF1F157013008511DC /* SetlistMaker */,
 				440F68BE1F157013008511DC /* Products */,
 				4444977D1F1D7902006FBEF8 /* Frameworks */,
-				E910A6264D31381DB33099C6 /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -152,15 +149,6 @@
 				4444978A1F1D7F23006FBEF8 /* LoginViewController.swift */,
 			);
 			name = Tweet;
-			sourceTree = "<group>";
-		};
-		E910A6264D31381DB33099C6 /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-				C3E30C4C615CA05141FE12E3 /* Pods-SetlistImageMaker.debug.xcconfig */,
-				13B44D909F06705291970E8E /* Pods-SetlistImageMaker.release.xcconfig */,
-			);
-			name = Pods;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -393,7 +381,6 @@
 		};
 		440F68D01F157013008511DC /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = C3E30C4C615CA05141FE12E3 /* Pods-SetlistImageMaker.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
@@ -406,7 +393,7 @@
 				HEADER_SEARCH_PATHS = "$(SDKROOT)/usr/include/libxml2";
 				INFOPLIST_FILE = SetlistImageMaker/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = co.masa.SetlistImageMaker;
+				PRODUCT_BUNDLE_IDENTIFIER = co.masa.SetlistMaker;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -416,7 +403,6 @@
 		};
 		440F68D11F157013008511DC /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 13B44D909F06705291970E8E /* Pods-SetlistImageMaker.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
@@ -429,7 +415,7 @@
 				HEADER_SEARCH_PATHS = "$(SDKROOT)/usr/include/libxml2";
 				INFOPLIST_FILE = SetlistImageMaker/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = co.masa.SetlistImageMaker;
+				PRODUCT_BUNDLE_IDENTIFIER = co.masa.SetlistMaker;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "";
 				SWIFT_VERSION = 3.0;

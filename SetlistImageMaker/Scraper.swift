@@ -42,6 +42,16 @@ struct Scraper {
                 // たとえば曲数が200曲程度なら、2週目のここでbreakするはず。
                 guard let data = self.getHtml(url: url) else {
                     print("\($0)周め直前でbreak")
+                    
+                    // ここreturnって書いてるが、3週ループする
+                    // クロージャ内のreturnは、自分のスコープ(= guard let)をブレイクするだけ
+                    // (てかこれクロージャって書いてるけど、たぶん、てか絶対クロージャちゃう、"ブロック"や。)
+                    // そして、dataがnilなので、guard let resultの行にはいかず、2週目のループへ...
+                    // つーかそもそもforEachはbreakできないそうだ。以下参照:
+                    // https://stackoverflow.com/questions/33793880/any-way-to-stop-a-block-literal-in-swift
+                    // http://qiita.com/JunSuzukiJapan/items/49ddc544c80d9d76c429
+                    // gistも書いた:
+                    // https://gist.github.com/creaaa/091bf9e365a1ef3023326a7440eac592
                     return
                 }
                 
@@ -50,7 +60,6 @@ struct Scraper {
                 print("とれた！！", result.count)
                 
                 site1data += result
-                
                 
             }
             
