@@ -21,63 +21,68 @@ struct Scraper {
         // 条件3: エンコードしたartist名を元に、適正なURLの生成に成功したこと
         // この3条件をすべて見たしたとき、再フェッチをする
         
-        guard let encodedArtist = encodeString(str: self.artistQuery) else {
-            print("unk")
-            return
+        guard let encodedArtist = encodeString(str: self.artistQuery) else { return }
+        
+        // DispatchGroupとQueueを生成
+        let group = DispatchGroup()
+        let queue1 = DispatchQueue(label: "hoge.fuga.queue1")
+        let queue2 = DispatchQueue(label: "hoge.fuga.queue2")
+
+        // 取得の多い方を使う
+        var site1data: [String] = []
+        var site2data: [String] = []
+        
+        // タスク1
+        queue1.async(group: group) {
+            
+            guard let url = self.createFirstURL(artist: encodedArtist) else { return }
+            guard let data = self.getHtml(url: url) else { return }
+            guard let result = self.parseHtml(data: data, xpath: self.parameter[0].xpath) else { return }
+            
+            site1data = result
+            
         }
         
-        DispatchQueue.global().async {
+        
+        queue2.async(group: group) {
             
-            guard let url1 = self.createFirstURL(artist: encodedArtist) else { return }
+            /* phase 1 */
+            guard let url1    = self.createSecondURL(artist: encodedArtist) else { return }
+            guard let data1   = self.getHtml(url: url1) else { return }
+            guard let result1 = self.parseHtml(data: data1, xpath: self.parameter[1].xpath) else { return }
             
-            if let data = self.getHtml(url: url1) {
-                
-                if let result = self.parseHtml(data: data, xpath: self.parameter[0].xpath) {
-                    DispatchQueue.main.async {
-                        completion(result)
-                        print("最初のサイトで検索終了")
-                        return // あれ？ここ通ってるのに↓いっちゃう。。
-                        print("returrrrnしても これが出ないだけｗｗｗ")
-                    }
-                }
-                
-                // 解説
-                // ↑の getHTML内で呼ばれる Data(contentsOf: URL)は、
-                // ヘッダー情報が404を含むとき、nilを返す。
-                // 当該サイトは検索結果が0件のとき、404を返すので、
-                // その場合に限り、次のサイトでの検索に移行する。
-                // 反対に、結果が1件でもあれば、当該サイト内で検索終了。以上が ここまで ↑ の処理。
-                // これ以降 ↓ は、次サイトに移行するときの処理。
-                guard let url2 = self.createSecondURL(artist: encodedArtist) else {
-                    return
-                }
-                
-                if let data = self.getHtml(url: url2) {
-                    
-                    if let result = self.parseHtml(data: data, xpath: self.parameter[1].xpath) {
-                        // 文字IDをもとにさらにコール
-                        print("途中！", result)
-                        
-                        guard let id = self.fetchArtistID(target: result) else { return }
-                        
-                        guard let url3 = self.createThirdURL(artistNo: id) else { return }
-                        
-                        guard let data2 = self.getHtml(url: url3) else { return }
+            // 文字IDをもとにさらにコール
+            print("Phase 1 done: ", result1)
+            
+            /* phase 2 */
+            guard let id      = self.fetchArtistID(target: result1) else { return }
+            guard let url2    = self.createThirdURL(artistNo: id) else { return }
+            guard let data2   = self.getHtml(url: url2) else { return }
+            guard let result2 = self.parseHtml(data: data2, xpath: self.parameter[2].xpath) else { return }
+            
+            print("Phase 2 done: \(result2)")
 
-                        guard let result2 = self.parseHtml(data: data2, xpath: self.parameter[2].xpath) else {
-                            return
-                        }
-                        
-                        DispatchQueue.main.async {
-                            print("くそなげぇ！ \(result2)")
-                            completion(result2)
-                        }
-                    }
-                }
-            }
-        }  // global.async {} 終了
-    }      // func execute 終了
+            site2data = result2
+            
+        }
+        
+        
+        // タスクが全て完了したらメインスレッド上で処理を実行する
+        group.notify(queue: DispatchQueue.main) {
+            
+            print("サイト1: \(site1data.count)件, サイト2: \(site2data.count)件")
+            
+            let result = site1data.count > site2data.count ? site1data : site2data
+            completion(result)
+        }
+        
+        
+    } // func execute 終了
     
+    
+    // 解説
+    // このメソッド内にある Data(contentsOf: URL)は、ヘッダー情報が404を含むとき、nilを返す。
+    // 当該サイト1は検索結果が0件のとき、404を返すので、マジ注意。
     
     func getHtml(url: URL) -> Data? {
         return try? Data(contentsOf: url)
