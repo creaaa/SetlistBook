@@ -94,9 +94,9 @@ final class SetListViewController: UIViewController {
         scraper.execute() { result in
             self.suggestSongList = result
         }
-        
+    
     }
-
+    
     
     ////////////////
     // Life Cycle //
@@ -148,6 +148,9 @@ final class SetListViewController: UIViewController {
         
     }
     
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+    }
     
 }
 

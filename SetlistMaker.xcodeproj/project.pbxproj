@@ -22,7 +22,6 @@
 		4474F91A1F16EA18005D360E /* LaunchImageCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4474F9191F16EA18005D360E /* LaunchImageCollectionViewController.swift */; };
 		447BFD431F2538820001A55C /* HigashiOme-Gothic-1.3i.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 447BFD421F25387D0001A55C /* HigashiOme-Gothic-1.3i.ttf */; };
 		447BFD451F25436D0001A55C /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 447BFD441F25436D0001A55C /* Settings.bundle */; };
-		447BFD471F2554DA0001A55C /* ScrTestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 447BFD461F2554DA0001A55C /* ScrTestViewController.swift */; };
 		44A91DCA1F210C250088D9E6 /* WelcomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44A91DC91F210C250088D9E6 /* WelcomeViewController.swift */; };
 		44A91DCD1F211AAA0088D9E6 /* RealmSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 44A91DCB1F211AAA0088D9E6 /* RealmSwift.framework */; };
 		44A91DCE1F211AAA0088D9E6 /* Realm.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 44A91DCC1F211AAA0088D9E6 /* Realm.framework */; };
@@ -49,7 +48,6 @@
 		4474F9191F16EA18005D360E /* LaunchImageCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LaunchImageCollectionViewController.swift; sourceTree = "<group>"; };
 		447BFD421F25387D0001A55C /* HigashiOme-Gothic-1.3i.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "HigashiOme-Gothic-1.3i.ttf"; sourceTree = "<group>"; };
 		447BFD441F25436D0001A55C /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
-		447BFD461F2554DA0001A55C /* ScrTestViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScrTestViewController.swift; sourceTree = "<group>"; };
 		44A91DC91F210C250088D9E6 /* WelcomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WelcomeViewController.swift; sourceTree = "<group>"; };
 		44A91DCB1F211AAA0088D9E6 /* RealmSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RealmSwift.framework; path = Carthage/Build/iOS/RealmSwift.framework; sourceTree = "<group>"; };
 		44A91DCC1F211AAA0088D9E6 /* Realm.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Realm.framework; path = Carthage/Build/iOS/Realm.framework; sourceTree = "<group>"; };
@@ -109,7 +107,6 @@
 				440F68C71F157013008511DC /* Assets.xcassets */,
 				440F68C91F157013008511DC /* LaunchScreen.storyboard */,
 				44C74C881F23E1AC006A4168 /* Scraper.swift */,
-				447BFD461F2554DA0001A55C /* ScrTestViewController.swift */,
 			);
 			name = SetlistMaker;
 			path = SetlistImageMaker;
@@ -184,9 +181,9 @@
 				TargetAttributes = {
 					440F68BC1F157013008511DC = {
 						CreatedOnToolsVersion = 8.3.3;
-						DevelopmentTeam = 3YZ86WK7D7;
+						DevelopmentTeam = SH42LNFRZ9;
 						LastSwiftMigration = 0830;
-						ProvisioningStyle = Automatic;
+						ProvisioningStyle = Manual;
 					};
 				};
 			};
@@ -254,7 +251,6 @@
 				440F68C31F157013008511DC /* SetListViewController.swift in Sources */,
 				4474F91A1F16EA18005D360E /* LaunchImageCollectionViewController.swift in Sources */,
 				440F68C11F157013008511DC /* AppDelegate.swift in Sources */,
-				447BFD471F2554DA0001A55C /* ScrTestViewController.swift in Sources */,
 				4444978B1F1D7F23006FBEF8 /* LoginViewController.swift in Sources */,
 				44A91DD21F215AFC0088D9E6 /* Setlist.swift in Sources */,
 				4426B1F31F1578F800E37954 /* SongNameTableViewCell.swift in Sources */,
@@ -384,7 +380,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
-				DEVELOPMENT_TEAM = 3YZ86WK7D7;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				DEVELOPMENT_TEAM = SH42LNFRZ9;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -393,8 +390,10 @@
 				HEADER_SEARCH_PATHS = "$(SDKROOT)/usr/include/libxml2";
 				INFOPLIST_FILE = SetlistImageMaker/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = co.masa.SetlistMaker;
+				PRODUCT_BUNDLE_IDENTIFIER = co.masa.MySetlistMaker;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "e632653b-b8ba-46f3-9fb0-3757ab5c4138";
+				PROVISIONING_PROFILE_SPECIFIER = setlistMaker.dist;
 				SWIFT_OBJC_BRIDGING_HEADER = "";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 3.0;
@@ -406,7 +405,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
-				DEVELOPMENT_TEAM = 3YZ86WK7D7;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				DEVELOPMENT_TEAM = SH42LNFRZ9;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -415,8 +415,10 @@
 				HEADER_SEARCH_PATHS = "$(SDKROOT)/usr/include/libxml2";
 				INFOPLIST_FILE = SetlistImageMaker/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = co.masa.SetlistMaker;
+				PRODUCT_BUNDLE_IDENTIFIER = co.masa.MySetlistMaker;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "e632653b-b8ba-46f3-9fb0-3757ab5c4138";
+				PROVISIONING_PROFILE_SPECIFIER = setlistMaker.dist;
 				SWIFT_OBJC_BRIDGING_HEADER = "";
 				SWIFT_VERSION = 3.0;
 			};

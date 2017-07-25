@@ -6,7 +6,6 @@
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
-        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
@@ -18,7 +17,7 @@
         <!--Setlist Maker-->
         <scene sceneID="Nex-SA-gRk">
             <objects>
-                <viewController automaticallyAdjustsScrollViewInsets="NO" id="mxS-2w-Dxy" customClass="WelcomeViewController" customModule="SetlistImageMaker" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController automaticallyAdjustsScrollViewInsets="NO" id="mxS-2w-Dxy" customClass="WelcomeViewController" customModule="SetlistMaker" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="kCg-6Z-hlk"/>
                         <viewControllerLayoutGuide type="bottom" id="H2e-dt-PjD"/>
@@ -35,18 +34,18 @@
                                         <rect key="frame" x="0.0" y="28" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="wiK-U7-b8s" id="mhE-wd-8LQ">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="mhP-C7-qo2">
-                                                    <rect key="frame" x="15" y="4" width="32" height="20"/>
+                                                    <rect key="frame" x="15" y="3" width="38" height="21"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <fontDescription key="fontDescription" name="HigashiOme-Gothic" family="東青梅ゴシック" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Subtitle" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="umH-nA-Gp5">
-                                                    <rect key="frame" x="15" y="24" width="48" height="16.5"/>
+                                                    <rect key="frame" x="15" y="24" width="53" height="17"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <fontDescription key="fontDescription" name="HigashiOme-Gothic" family="東青梅ゴシック" pointSize="14"/>
                                                     <nil key="textColor"/>
@@ -84,7 +83,7 @@
         <!--New Setlist-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController automaticallyAdjustsScrollViewInsets="NO" id="BYZ-38-t0r" customClass="SetListViewController" customModule="SetlistImageMaker" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController automaticallyAdjustsScrollViewInsets="NO" id="BYZ-38-t0r" customClass="SetListViewController" customModule="SetlistMaker" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
                         <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
@@ -101,18 +100,18 @@
                                         <rect key="frame" x="0.0" y="56" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Sz9-u3-wuU" id="ntX-oj-Nrn">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="UDD-0C-g32">
-                                                    <rect key="frame" x="15" y="4" width="32" height="20"/>
+                                                    <rect key="frame" x="15" y="3" width="38" height="21"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <fontDescription key="fontDescription" name="HigashiOme-Gothic" family="東青梅ゴシック" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Subtitle" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="4gN-ph-Oil">
-                                                    <rect key="frame" x="15" y="24" width="48" height="16.5"/>
+                                                    <rect key="frame" x="15" y="24" width="53" height="17"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <fontDescription key="fontDescription" name="HigashiOme-Gothic" family="東青梅ゴシック" pointSize="14"/>
                                                     <nil key="textColor"/>
@@ -166,7 +165,7 @@
         <!--Live Info-->
         <scene sceneID="WUZ-Lk-Jfk">
             <objects>
-                <viewController automaticallyAdjustsScrollViewInsets="NO" id="w11-Z1-vdN" customClass="EditArtistViewController" customModule="SetlistImageMaker" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController automaticallyAdjustsScrollViewInsets="NO" id="w11-Z1-vdN" customClass="EditArtistViewController" customModule="SetlistMaker" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="Lq8-DC-0lC"/>
                         <viewControllerLayoutGuide type="bottom" id="eRa-jJ-qf6"/>
@@ -179,7 +178,7 @@
                                 <rect key="frame" x="0.0" y="64" width="375" height="603"/>
                                 <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="Cell" rowHeight="44" id="o17-s3-XTw" customClass="ArtistTableViewCell" customModule="SetlistImageMaker" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="Cell" rowHeight="44" id="o17-s3-XTw" customClass="ArtistTableViewCell" customModule="SetlistMaker" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="56" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="o17-s3-XTw" id="su7-tx-76V">
@@ -187,7 +186,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="vZL-Sd-Kta">
-                                                    <rect key="frame" x="10" y="12.5" width="355" height="19"/>
+                                                    <rect key="frame" x="10" y="12" width="355" height="19"/>
                                                     <nil key="textColor"/>
                                                     <fontDescription key="fontDescription" name="HigashiOme-Gothic" family="東青梅ゴシック" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits"/>
@@ -238,7 +237,7 @@
         <!--Edit Set List View Controller-->
         <scene sceneID="doY-MM-USv">
             <objects>
-                <viewController automaticallyAdjustsScrollViewInsets="NO" id="d9G-Q7-fWX" customClass="EditSetListViewController" customModule="SetlistImageMaker" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController automaticallyAdjustsScrollViewInsets="NO" id="d9G-Q7-fWX" customClass="EditSetListViewController" customModule="SetlistMaker" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="HrN-D8-AMA"/>
                         <viewControllerLayoutGuide type="bottom" id="hsi-Je-HZ7"/>
@@ -254,7 +253,7 @@
                                     <constraint firstAttribute="height" constant="105" id="j3x-Sn-rRE"/>
                                 </constraints>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="TextFieldCell" id="Ulo-EZ-Hge" customClass="SongNameTableViewCell" customModule="SetlistImageMaker" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="TextFieldCell" id="Ulo-EZ-Hge" customClass="SongNameTableViewCell" customModule="SetlistMaker" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="56" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Ulo-EZ-Hge" id="5VX-dg-Itb">
@@ -262,7 +261,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="XHa-Ft-njz">
-                                                    <rect key="frame" x="16" y="8" width="351" height="27.5"/>
+                                                    <rect key="frame" x="16" y="8" width="351" height="27"/>
                                                     <nil key="textColor"/>
                                                     <fontDescription key="fontDescription" name="HigashiOme-Gothic" family="東青梅ゴシック" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits"/>
@@ -348,80 +347,13 @@
             </objects>
             <point key="canvasLocation" x="4591.1999999999998" y="1045.7271364317842"/>
         </scene>
-        <!--Launch Image Collection View Controller-->
-        <scene sceneID="W3b-vd-WR9">
-            <objects>
-                <viewController storyboardIdentifier="LaunchImage" automaticallyAdjustsScrollViewInsets="NO" id="Nv3-py-OEK" customClass="LaunchImageCollectionViewController" customModule="SetlistImageMaker" customModuleProvider="target" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="W8p-H9-e0p"/>
-                        <viewControllerLayoutGuide type="bottom" id="5yl-Ct-Zka"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="pdI-4f-4uj">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5qh-Zf-ngF">
-                                <rect key="frame" x="0.0" y="623" width="375" height="44"/>
-                                <items>
-                                    <barButtonItem title="setlist" style="done" id="aNd-1U-1Uh">
-                                        <connections>
-                                            <action selector="addSetlist:" destination="Nv3-py-OEK" id="AY6-BV-qbS"/>
-                                        </connections>
-                                    </barButtonItem>
-                                </items>
-                            </toolbar>
-                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1se-fK-SeR">
-                                <rect key="frame" x="0.0" y="533" width="375" height="80"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="80" id="yY6-cM-Vch"/>
-                                </constraints>
-                            </scrollView>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="otohasu" translatesAutoresizingMaskIntoConstraints="NO" id="dwZ-vM-k6u">
-                                <rect key="frame" x="0.0" y="20" width="375" height="467"/>
-                            </imageView>
-                        </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <constraints>
-                            <constraint firstItem="1se-fK-SeR" firstAttribute="leading" secondItem="pdI-4f-4uj" secondAttribute="leading" id="1YW-0w-kc0"/>
-                            <constraint firstAttribute="trailing" secondItem="5qh-Zf-ngF" secondAttribute="trailing" id="7zA-jE-8qc"/>
-                            <constraint firstItem="5qh-Zf-ngF" firstAttribute="top" secondItem="1se-fK-SeR" secondAttribute="bottom" constant="10" id="D3V-ZE-EGR"/>
-                            <constraint firstAttribute="trailing" secondItem="dwZ-vM-k6u" secondAttribute="trailing" id="HK7-RP-1le"/>
-                            <constraint firstItem="dwZ-vM-k6u" firstAttribute="height" secondItem="pdI-4f-4uj" secondAttribute="height" multiplier="0.7" id="lEk-i5-Zmx"/>
-                            <constraint firstItem="dwZ-vM-k6u" firstAttribute="leading" secondItem="pdI-4f-4uj" secondAttribute="leading" id="psm-zN-R6F"/>
-                            <constraint firstItem="5qh-Zf-ngF" firstAttribute="leading" secondItem="pdI-4f-4uj" secondAttribute="leading" id="rYu-22-b8h"/>
-                            <constraint firstItem="dwZ-vM-k6u" firstAttribute="top" secondItem="W8p-H9-e0p" secondAttribute="bottom" id="rtR-1D-2Mq"/>
-                            <constraint firstAttribute="trailing" secondItem="1se-fK-SeR" secondAttribute="trailing" id="xI2-lP-NKo"/>
-                            <constraint firstItem="5yl-Ct-Zka" firstAttribute="top" secondItem="5qh-Zf-ngF" secondAttribute="bottom" id="zwu-0L-9TE"/>
-                        </constraints>
-                    </view>
-                    <navigationItem key="navigationItem" id="36o-9S-n4p">
-                        <barButtonItem key="rightBarButtonItem" style="plain" id="BBZ-s6-Zjy">
-                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="7eB-hy-p9j">
-                                <rect key="frame" x="329" y="7" width="30" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="+"/>
-                                <connections>
-                                    <action selector="launch:" destination="Nv3-py-OEK" eventType="touchUpInside" id="ZAq-BN-WUm"/>
-                                </connections>
-                            </button>
-                        </barButtonItem>
-                    </navigationItem>
-                    <connections>
-                        <outlet property="imageView" destination="dwZ-vM-k6u" id="1LU-Ph-RHz"/>
-                        <outlet property="scrollView" destination="1se-fK-SeR" id="WP7-J5-HMO"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="OaE-Za-hLj" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="620" y="1918"/>
-        </scene>
         <!--Item-->
         <scene sceneID="Te2-hf-BcC">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="pzd-Ye-gtO" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Item" id="xxl-oV-l8E"/>
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="2mI-CH-ALP">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="2mI-CH-ALP">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -439,7 +371,7 @@
             <objects>
                 <navigationController storyboardIdentifier="EditSetList" automaticallyAdjustsScrollViewInsets="NO" id="xkw-tt-HKV" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="2om-gd-Jpq">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="2om-gd-Jpq">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -457,7 +389,7 @@
             <objects>
                 <navigationController storyboardIdentifier="EditArtist" automaticallyAdjustsScrollViewInsets="NO" id="b2t-N4-LsU" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="Ryy-x2-cdh">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="Ryy-x2-cdh">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -475,7 +407,7 @@
             <objects>
                 <navigationController storyboardIdentifier="SetList" automaticallyAdjustsScrollViewInsets="NO" id="3eC-uV-VhH" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="Nvk-9H-u1p">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="Nvk-9H-u1p">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -489,7 +421,4 @@
             <point key="canvasLocation" x="1828" y="761.46926536731644"/>
         </scene>
     </scenes>
-    <resources>
-        <image name="otohasu" width="400" height="600"/>
-    </resources>
 </document>

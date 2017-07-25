@@ -74,6 +74,11 @@ final class EditSetListViewController: UIViewController {
     }
     
     
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+    }
+    
+    
     //////////////
     // nav bar  //
     //////////////

@@ -115,8 +115,27 @@ struct Scraper {
         return try? Data(contentsOf: url)
     }
     
+    
+    func hoge(a: Int, b: Int, callback: (Int) -> Void) {
+        let result = a + b
+        callback(result)
+    }
+    
+  
+    
+    
+    
+    
+    
+    
+    
     /// スクレイピング
     func parseHtml(data: Data, xpath: String) -> [String]? {
+        
+        
+    
+        
+        
         
         // KannaでHTMLDocumentを生成
         guard let doc = HTML(html: data, encoding: String.Encoding.utf8) else { return nil }
