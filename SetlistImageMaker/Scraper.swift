@@ -132,11 +132,6 @@ struct Scraper {
     /// スクレイピング
     func parseHtml(data: Data, xpath: String) -> [String]? {
         
-        
-    
-        
-        
-        
         // KannaでHTMLDocumentを生成
         guard let doc = HTML(html: data, encoding: String.Encoding.utf8) else { return nil }
         
