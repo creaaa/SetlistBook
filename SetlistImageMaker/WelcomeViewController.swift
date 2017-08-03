@@ -113,7 +113,7 @@ extension WelcomeViewController: UITableViewDataSource {
         
         
         if let date = self.setlists[indexPath.row].date {
-            str.append(DateUtils.stringFromDate(date: date, format: "yyyy/MM/dd") ?? "")
+            str.append(DateUtils.stringFromDate(date: date, format: "yyyy/MM/dd"))
         }
         
         cell.detailTextLabel?.text = str != "" ? str : nil

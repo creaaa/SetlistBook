@@ -33,9 +33,9 @@ class LoginViewController: UIViewController {
             
             guard error == nil else {
                 
-                let alert = UIAlertController(title: "Error", message: "\(error): try again.", preferredStyle: .alert)
+                let alert = UIAlertController(title: "Error", message: "\(String(describing: error)): try again.", preferredStyle: .alert)
                 
-                alert.addAction(UIAlertAction(title: "OK",     style: .default, handler: nil))
+                alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
                 
                 DispatchQueue.main.async {
                     self.present(alert, animated: true, completion: nil)
