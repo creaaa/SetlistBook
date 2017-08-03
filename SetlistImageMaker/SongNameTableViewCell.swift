@@ -42,16 +42,6 @@ final class SongNameTableViewCell: UITableViewCell {
                                          target: self,
                                          action: #selector(doneButtonTapped))
         
-        
-        
-        
-        /*
-        let nextButton = UIBarButtonItem(title:  "next",
-                                         style:  .done,
-                                         target: self,
-                                         action: #selector(nextButtonTapped))
-        */
-        
         kbToolBar.items = [spacer, doneButton]
         
         self.textField.inputAccessoryView = kbToolBar
@@ -94,8 +84,6 @@ extension SongNameTableViewCell: UITextFieldDelegate {
         
         return true // ここfalseにすると、キー押しても文字入力されなくなるな..?
     }
-    
-    
     
 }
 

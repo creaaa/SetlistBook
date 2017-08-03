@@ -385,7 +385,6 @@ extension SetListViewController: UITableViewDataSource {
 
         
         // 最後以外のアンコール
-        // まさか、editabaleじゃないと、移動もできない疑惑。。。？？
         // まじだった。editable = false なセルは、このメソッドが呼ばれない。
         // すなわち、実装は canEditAtからやらなくてはいけない。
         if case (2..<1 + self.setlist.encores.count) = indexPath.section {
@@ -415,17 +414,8 @@ extension SetListViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, moveRowAt sourceIndexPath: IndexPath,
                    to destinationIndexPath: IndexPath) {
         
-        // ここに書く
-        
         // 本編
         if sourceIndexPath.section == 1 {
-            
-            // swapは、lazyな配列だとなぜかコンパイルエラーになる。
-            // 加え、同じ要素同士をswapすると実行時エラー。エラーチェック必須。頼むよ
-            
-            // let tmp = self.setlist.mainSongs.remove(at: sourceIndexPath.row)
-            // self.setlist.mainSongs.insert(tmp, at: destinationIndexPath.row)
-
             try! realm.write {
                 // writeの中で書かないと実行時エラー
                 setlist.mainSongs.first!.songs.move(from: sourceIndexPath.row, to: destinationIndexPath.row)
@@ -435,34 +425,21 @@ extension SetListViewController: UITableViewDataSource {
         
         // 最後以外のアンコール
         else if case (2..<1 + self.setlist.encores.count) = sourceIndexPath.section {
-            
-            /*
-            let tmp = self.setlist.encores[sourceIndexPath.section-2].songs.remove(at: sourceIndexPath.row)
-            self.setlist.encores[sourceIndexPath.section-2].songs.insert(tmp, at: destinationIndexPath.row)
-            */
-            
             try! realm.write {
                 setlist.encores[destinationIndexPath.section-2].songs.move(from: sourceIndexPath.row, to: destinationIndexPath.row)
             }
-            
             print(self.setlist.encores[sourceIndexPath.section-2])
-            
         }
         
         
         // 最後のアンコール
         else if case (1 + self.setlist.encores.count) = sourceIndexPath.section {
-            
             try! realm.write {
                 self.setlist.encores[sourceIndexPath.section-2].songs.move(from: sourceIndexPath.row, to: destinationIndexPath.row)
             }
-            
             print(self.setlist.encores[sourceIndexPath.section-2])
-
         }
-
         self.tableView.reloadData()
-        
     }
     
     // セルの移動範囲に制限を課す
@@ -555,18 +532,14 @@ extension SetListViewController: UITableViewDataSource {
             
             case 0:
                 return true
-                
             case 1:
                 return true
-            
             // 最後以外のアンコール・セクション
             case (2..<1 + self.setlist.encores.count):
                 return true
-            
             case (1 + self.setlist.encores.count):  // 最後のアンコール
                 guard self.setlist.encores.count > 0 else { return false }
                 return true
-                
             default:
                 fatalError()
         }
@@ -606,9 +579,7 @@ extension SetListViewController: UITableViewDataSource {
             }
             return .delete
         }
-        
         fatalError()
-        
     }
     
     

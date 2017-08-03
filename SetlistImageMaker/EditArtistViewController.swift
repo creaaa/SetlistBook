@@ -15,14 +15,6 @@ final class EditArtistViewController: UIViewController {
     
     @IBAction func doneButtonTapped(_ sender: UIBarButtonItem) {
         
-        /*
-        guard let navVC = self.presentingViewController as? UINavigationController,
-            let parentVC = navVC.topViewController as? SetListViewController else {
-                self.dismiss(animated: true, completion: nil)
-                return
-        }
-        */
-        
         guard let artistCell = self.tableView.cellForRow(at: IndexPath(row: 0, section: 0)) as? ArtistTableViewCell,
               let placeCell  = self.tableView.cellForRow(at: IndexPath(row: 0, section: 1)) as? ArtistTableViewCell,
               let dateCell   = self.tableView.cellForRow(at: IndexPath(row: 0, section: 2)) as? ArtistTableViewCell else {

@@ -27,7 +27,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         ],
         for: .normal)
         
-        
         return true
         
     }

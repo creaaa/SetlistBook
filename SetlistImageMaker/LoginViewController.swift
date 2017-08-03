@@ -9,7 +9,6 @@ class LoginViewController: UIViewController {
     var accountStore = ACAccountStore()
     var twAccount:     ACAccount?
     
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -77,41 +76,9 @@ class LoginViewController: UIViewController {
             
             // 取得したアカウントで処理を行う...
             self.postSetList()
-            
 
         }
     }
-    
-    
-    /*
-    // アカウント選択のActionSheetを表示する
-    private func showAccountSelectSheet(accounts: [ACAccount]) {
-        
-        let alert = UIAlertController(title: "Twitter",
-                                      message: "アカウントを選択してください",
-                                      preferredStyle: .actionSheet)
-        
-        // アカウント選択のActionSheetを表示するボタン
-        accounts.forEach { account in
-            alert.addAction(
-                UIAlertAction(title: account.username, style: .default) { action in
-                    print("your select account is \(account)")
-                    self.twAccount = account
-                    self.postSetList()
-                }
-            )
-        }
-        
-        // キャンセルボタン
-        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel) { _ in
-            self.dismiss(animated: true, completion: nil)
-        })
-        
-        // 表示する
-        present(alert, animated: true, completion: nil)
-        
-    }
-    */
 
     
     private func postSetList() {

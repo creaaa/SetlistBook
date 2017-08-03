@@ -58,7 +58,6 @@ final class WelcomeViewController: UIViewController {
     
         
     override func viewDidDisappear(_ animated: Bool) {
-        //self.tableView.isEditing = false
         // 長年の謎が解けた....テーブルだけでなくVCもisEditingを持っていた、だと.....
         self.isEditing = false
     }
@@ -66,23 +65,9 @@ final class WelcomeViewController: UIViewController {
     
     // + ボタンを使って遷移するときのため、次の画面に渡されるセットリストを生成
     private func makeNewSetlist() -> Setlist {
-        
         let main = Songs(songs: [])
-
         let newSetlist = Setlist(mainSongs: main)
-        
-        // newSetlist.id = 1
-        // newSetlist.id = UUID().uuidString
-
-        /*
-        try! realm.write {
-            realm.add(newSetlist)
-            print("addしました")
-        }
-        */
-        
         return newSetlist
-        
     }
     
     override func didReceiveMemoryWarning() {

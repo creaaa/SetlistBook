@@ -8,9 +8,7 @@ class Setlist: Object {
     
     // 管理用ID。プライマリーキー
     dynamic var id     = UUID().uuidString
-    
     dynamic var artist = ""
-    
     dynamic var place: String?
     dynamic var date:  Date?
     
@@ -70,47 +68,21 @@ class Setlist: Object {
 }
 
 
-/*
-// アンコール群
-class Encores: Object {
-    
-    var encores = List<Songs>()
-    
-    required convenience init(encores: [Songs]) {
-        
-        self.init()
-        
-        let result = List<Songs>()
-        encores.forEach { result.append($0) }
-        
-        self.encores = result
-        
-    }
-}
-*/
-
-
 // 「本編」「アンコール1」「アンコール2」など、それぞれがのセクションが持つ曲リスト
 class Songs: Object {
     
     var songs = List<Song>()
-    
     var isEmpty: Bool {
         return songs.isEmpty
     }
     
     required convenience init(songs: [Song]) {
-        
         self.init()
-        
         let result = List<Song>()
-        
         songs.forEach {
             result.append($0)
         }
-        
         self.songs = result
-        
     }
     
 }
@@ -119,7 +91,6 @@ class Songs: Object {
 class Song: Object {
     
     dynamic var name = ""
-    
     required convenience init(songName: String) {
         self.init()
         self.name = songName

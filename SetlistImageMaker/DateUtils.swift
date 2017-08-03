@@ -6,8 +6,6 @@ struct DateUtils {
     static func dateFromString(string: String, format: String) -> Date {
         let formatter = DateFormatter()
         formatter.dateFormat = format
-        
-        
         return formatter.date(from: string)!
     }
     
