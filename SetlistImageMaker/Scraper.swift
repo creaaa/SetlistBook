@@ -2,10 +2,6 @@ import Kanna
 
 struct Scraper {
     
-    // let urlStr =
-    // "http://www.uta-net.com/search/?Keyword=indigo+la+end&x=0&y=0&Aselect=1&Bselect=3"
-    // "http://www.uta-net.com/search/?Aselect=1&Keyword=aiko&Bselect=3&x=0&y=0"
-    
     let artistQuery: String
     let parameter: [(url: String, xpath: String)]
     
@@ -121,13 +117,6 @@ struct Scraper {
         callback(result)
     }
     
-  
-    
-    
-    
-    
-    
-    
     
     /// スクレイピング
     func parseHtml(data: Data, xpath: String) -> [String]? {
@@ -151,7 +140,7 @@ struct Scraper {
     // エンコードに失敗した場合nilが返るので、この値を再フェッチするかどうかの条件判定にも用いる。
     private func encodeString(str: String) -> String? {
         let characterSet = CharacterSet.alphanumerics
-        return (str as NSString).addingPercentEncoding(withAllowedCharacters: characterSet)
+        return str.addingPercentEncoding(withAllowedCharacters: characterSet)
     }
     
     // ユーザー入力されたアーティストに応じたURLを発行
